@@ -1,1 +1,1 @@
-# beady-buddy
+# lil-beady
