@@ -1,4 +1,36 @@
 
+$appW: 768px;
+$appH: 1024px;
+
+$toolsViewH: 100px;
+
+$fontStd:
+  -apple-system,
+  BlinkMacSystemFont,
+  "Segoe UI",
+  Helvetica,
+  Arial,
+  sans-serif,
+  "Apple Color Emoji",
+  "Segoe UI Emoji",
+  "Segoe UI Symbol";
+
 body {
-  margin: 50px;
+  background-color: black;
+}
+
+main {
+  background-color: white;
+  width: $appW;
+  height: $appH;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font: 12px $fontStd;
+
+  * {
+    cursor: pointer;
+  }
+
 }

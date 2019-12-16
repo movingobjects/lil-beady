@@ -9,7 +9,7 @@ import * as React from 'react';
 
 // Class
 
-export default class BeadsView extends React.Component {
+export default class DesignView extends React.Component {
 
   // Constructor
 
@@ -39,7 +39,9 @@ export default class BeadsView extends React.Component {
   render() {
 
     return (
-      <section id="beads-view">
+      <section id="design-view">
+
+        Design view
 
       </section>
     )

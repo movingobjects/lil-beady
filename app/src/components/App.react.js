@@ -2,7 +2,8 @@
 // Imports
 
 import * as React from 'react';
-import BeadsView from './BeadsView.react'
+import DesignView from './DesignView.react'
+import ToolsView from './ToolsView.react'
 
 
 // Constants
@@ -24,7 +25,42 @@ export default class App extends React.Component {
 
   initState() {
 
-    this.state = { }
+    this.state = {
+      tool: 'draw',
+      palette: [
+        {
+          id: 'red',
+          label: 'Red',
+          color: '#ff6666'
+        },
+        {
+          id: 'orange',
+          label: 'Orange',
+          color: '#ff9966'
+        },
+        {
+          id: 'yellow',
+          label: 'Yellow',
+          color: '#ffdd66'
+        },
+        {
+          id: 'green',
+          label: 'Green',
+          color: '#99cc66'
+        },
+        {
+          id: 'blue',
+          label: 'Blue',
+          color: '#66ccdd'
+        },
+        {
+          id: 'purple',
+          label: 'Purple',
+          color: '#cc66ff'
+        }
+      ],
+      paletteIndex: 0
+    }
 
   }
 
@@ -34,14 +70,44 @@ export default class App extends React.Component {
 
   // Methods
 
+  onToolClick = (tool) => {
+
+    this.setState({ tool });
+
+  }
+  onPaletteClick = (paletteIndex) => {
+
+    this.setState({ paletteIndex });
+
+  }
+
 
   // React
 
   render() {
 
+    const {
+      tool,
+      palette,
+      paletteIndex
+    } = this.state;
+
     return (
       <main>
-        <BeadsView />
+
+        <DesignView
+          color={palette[paletteIndex]}
+          tool={tool}
+        />
+
+        <ToolsView
+          tool={tool}
+          palette={palette}
+          paletteIndex={paletteIndex}
+          onToolClick={this.onToolClick}
+          onPaletteClick={this.onPaletteClick}
+        />
+
       </main>
     )
 
