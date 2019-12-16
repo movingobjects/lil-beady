@@ -3,4 +3,18 @@
   width: $appW;
   height: $appH - $toolsViewH;
   border-bottom: 1px solid #ddd;
+  padding-top: 25px;
+
+  div.wrap-design {
+    width: 700px;
+    height: 875px;
+    margin: 0 auto;
+
+    svg {
+      width: 700px;
+      height: 875px;
+    }
+
+  }
+
 }

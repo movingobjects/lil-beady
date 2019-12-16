@@ -1,0 +1,75 @@
+[
+  {
+    "id": "triangle",
+    "opts": [
+      {
+        "id": "loopRows",
+        "type": "range",
+        "min": 3,
+        "max": 5,
+        "default": 3
+      },
+      {
+        "id": "rowHeight",
+        "type": "range",
+        "min": 1,
+        "max": 4,
+        "default": 2
+      },
+      {
+        "id": "topHeight",
+        "type": "range",
+        "min": 3,
+        "max": 20,
+        "default": 15
+      },
+      {
+        "id": "topCols",
+        "type": "range",
+        "min": 3,
+        "max": 20,
+        "default": 3
+      },
+      {
+        "id": "fringeHeight",
+        "type": "range",
+        "min": 0,
+        "max": 75,
+        "default": 40
+      }
+    ]
+  },
+  {
+    "id": "square",
+    "opts": [
+      {
+        "id": "loopRows",
+        "type": "range",
+        "min": 3,
+        "max": 5,
+        "default": 3
+      },
+      {
+        "id": "topCols",
+        "type": "range",
+        "min": 3,
+        "max": 50,
+        "default": 15
+      },
+      {
+        "id": "topHeight",
+        "type": "range",
+        "min": 3,
+        "max": 40,
+        "default": 20
+      },
+      {
+        "id": "fringeHeight",
+        "type": "range",
+        "min": 0,
+        "max": 75,
+        "default": 35
+      }
+    ]
+  }
+]

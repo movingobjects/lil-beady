@@ -23,11 +23,12 @@ main {
   background-color: white;
   width: $appW;
   height: $appH;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   font: 12px $fontStd;
+
+  //position: absolute;
+  //top: 50%;
+  //left: 50%;
+  //transform: translate(-50%, -50%);
 
   * {
     cursor: pointer;
