@@ -5,6 +5,9 @@ import * as React from 'react';
 import DesignView from './DesignView.react'
 import ToolsView from './ToolsView.react'
 
+import templates from '../data/templates.json';
+import beadsLibrary from '../data/beads-library.json';
+
 
 // Constants
 
@@ -27,39 +30,8 @@ export default class App extends React.Component {
 
     this.state = {
       tool: 'draw',
-      palette: [
-        {
-          id: 'red',
-          label: 'Red',
-          color: '#ff6666'
-        },
-        {
-          id: 'orange',
-          label: 'Orange',
-          color: '#ff9966'
-        },
-        {
-          id: 'yellow',
-          label: 'Yellow',
-          color: '#ffdd66'
-        },
-        {
-          id: 'green',
-          label: 'Green',
-          color: '#99cc66'
-        },
-        {
-          id: 'blue',
-          label: 'Blue',
-          color: '#66ccdd'
-        },
-        {
-          id: 'purple',
-          label: 'Purple',
-          color: '#cc66ff'
-        }
-      ],
-      paletteIndex: 0
+      beadLibrary: beadsLibrary,
+      beadLibraryIndex: 0
     }
 
   }
@@ -75,9 +47,9 @@ export default class App extends React.Component {
     this.setState({ tool });
 
   }
-  onPaletteClick = (paletteIndex) => {
+  onBeadLibraryClick = (beadLibraryIndex) => {
 
-    this.setState({ paletteIndex });
+    this.setState({ beadLibraryIndex });
 
   }
 
@@ -88,24 +60,24 @@ export default class App extends React.Component {
 
     const {
       tool,
-      palette,
-      paletteIndex
+      beadLibrary,
+      beadLibraryIndex
     } = this.state;
 
     return (
       <main>
 
         <DesignView
-          color={palette[paletteIndex]}
+          color={beadLibrary[beadLibraryIndex]}
           tool={tool}
         />
 
         <ToolsView
           tool={tool}
-          palette={palette}
-          paletteIndex={paletteIndex}
+          beadLibrary={beadLibrary}
+          beadLibraryIndex={beadLibraryIndex}
           onToolClick={this.onToolClick}
-          onPaletteClick={this.onPaletteClick}
+          onBeadLibraryClick={this.onBeadLibraryClick}
         />
 
       </main>

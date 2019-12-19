@@ -10,28 +10,28 @@
         "default": 3
       },
       {
-        "id": "rowHeight",
+        "id": "bodyRowRepeat",
         "type": "range",
         "min": 1,
         "max": 4,
         "default": 2
       },
       {
-        "id": "topHeight",
+        "id": "bodyRows",
         "type": "range",
         "min": 3,
         "max": 20,
         "default": 15
       },
       {
-        "id": "topCols",
+        "id": "bodyTopCols",
         "type": "range",
         "min": 3,
         "max": 20,
         "default": 3
       },
       {
-        "id": "fringeHeight",
+        "id": "fringeRows",
         "type": "range",
         "min": 0,
         "max": 75,
@@ -50,25 +50,65 @@
         "default": 3
       },
       {
-        "id": "topCols",
+        "id": "bodyTopCols",
         "type": "range",
         "min": 3,
         "max": 50,
         "default": 15
       },
       {
-        "id": "topHeight",
+        "id": "bodyRows",
         "type": "range",
         "min": 3,
         "max": 40,
         "default": 20
       },
       {
-        "id": "fringeHeight",
+        "id": "fringeRows",
         "type": "range",
         "min": 0,
         "max": 75,
         "default": 35
+      }
+    ]
+  },
+  {
+    "id": "diamond",
+    "opts": [
+      {
+        "id": "loopRows",
+        "type": "range",
+        "min": 3,
+        "max": 5,
+        "default": 3
+      },
+      {
+        "id": "bodyRowRepeat",
+        "type": "range",
+        "min": 1,
+        "max": 4,
+        "default": 1
+      },
+      {
+        "id": "bodyRows",
+        "type": "range",
+        "min": 3,
+        "max": 20,
+        "default": 10
+      },
+      {
+        "id": "bodyTopCols",
+        "type": "range",
+        "min": 3,
+        "max": 20,
+        "default": 3
+      },
+      {
+        "id": "fringeRows",
+        "type": "range",
+        "min": 0,
+        "max": 75,
+        "default": 40
       }
     ]
   }

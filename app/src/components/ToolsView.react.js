@@ -41,8 +41,8 @@ export default class ToolsView extends React.Component {
 
     const {
       tool,
-      palette,
-      paletteIndex
+      beadLibrary,
+      beadLibraryIndex
     } = this.props;
 
     return (
@@ -69,18 +69,18 @@ export default class ToolsView extends React.Component {
           </ul>
         </div>
 
-        <div className="palette">
+        <div className="bead-library">
           <ul>
-            {palette.map((bead, i) => (
+            {beadLibrary.map((bead, i) => (
               <li
                 key={`${bead.id}`}
                 className={classNames({
-                  'selected': (i === paletteIndex)
+                  'selected': (i === beadLibraryIndex)
                 })}
                 style={{
                   '--color-bead': bead.color
                 }}
-                onClick={() => this.props.onPaletteClick(i)}
+                onClick={() => this.props.onBeadLibraryClick(i)}
               >
                 {bead.label}
               </li>
