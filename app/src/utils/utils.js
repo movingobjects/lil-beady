@@ -26,13 +26,13 @@ export function generateBlankDesign(template, userOpts) {
     _.times(opts.loopRows, (row) => {
       if (row === 0) {
         beads.push(
-          { beadId: 'green', x: -1, y: row },
-          { beadId: 'green', x:  0, y: row }
+          { beadId: 'green', col: -1, row: row },
+          { beadId: 'green', col:  0, row: row }
         );
       } else {
         beads.push(
-          { beadId: 'green', x: -1.5, y: row },
-          { beadId: 'green', x:  0.5, y: row }
+          { beadId: 'green', col: -1.5, row: row },
+          { beadId: 'green', col:  0.5, row: row }
         );
       }
     });
@@ -46,9 +46,9 @@ export function generateBlankDesign(template, userOpts) {
           const rowY = opts.loopRows + (row * opts.bodyRowRepeat) + rowOffset;
           _.times(cols, (col) => {
             beads.push({
-              beadId: 'red',
-              x: rowX + col,
-              y: rowY
+              beadId: null,
+              col: rowX + col,
+              row: rowY
             })
           })
         });
@@ -62,9 +62,10 @@ export function generateBlankDesign(template, userOpts) {
           const rowY = opts.loopRows + (opts.bodyRows * opts.bodyRowRepeat) + row;
           beads.push({
             beadId: 'blue',
-            fringeRow: row,
-            x: rowX + col,
-            y: rowY
+            fCol: col,
+            fRow: row,
+            col: rowX + col,
+            row: rowY
           })
         });
       });
@@ -77,9 +78,9 @@ export function generateBlankDesign(template, userOpts) {
               rowY = opts.loopRows + row;
         _.times(cols, (col) => {
           beads.push({
-            beadId: 'red',
-            x: rowX + col,
-            y: rowY
+            beadId: null,
+            col: rowX + col,
+            row: rowY
           });
         });
       });
@@ -89,15 +90,50 @@ export function generateBlankDesign(template, userOpts) {
           const rowY = opts.loopRows + opts.bodyRows + row;
           beads.push({
             beadId: 'blue',
-            fringeRow: row,
-            x: rowX + col,
-            y: rowY
+            fCol: col,
+            fRow: row,
+            col: rowX + col,
+            row: rowY
           })
         });
       });
 
-
     } else if (template.id === 'diamond') {
+      const topRows = Math.ceil(opts.bodyRows / 2),
+            btmRows = (opts.bodyTopCols + topRows) - 1;
+      _.times(topRows, (row) => {
+        const cols = opts.bodyTopCols + row,
+              rowX = -(cols / 2);
+        _.times(opts.bodyRowRepeat, (rowOffset) => {
+          const rowY = opts.loopRows + (row * opts.bodyRowRepeat) + rowOffset;
+          _.times(cols, (col) => {
+            beads.push({
+              beadId: null,
+              col: rowX + col,
+              row: rowY
+            })
+          })
+        });
+      });
+      _.times(btmRows, (row) => {
+        const cols = (opts.bodyTopCols + topRows) - row,
+              rowX = -(cols / 2);
+        _.times(opts.bodyRowRepeat, (rowOffset) => {
+          const rowY = opts.loopRows + (topRows * opts.bodyRowRepeat) + (row * opts.bodyRowRepeat) + rowOffset;
+          _.times(cols, (col) => {
+            beads.push({
+              beadId: null,
+              col: rowX + col,
+              row: rowY
+            })
+          })
+        });
+      });
+      beads.push({
+        beadId: null,
+        col: -0.5,
+        row: opts.loopRows + ((topRows + btmRows) * opts.bodyRowRepeat)
+      })
 
     }
 
@@ -105,9 +141,36 @@ export function generateBlankDesign(template, userOpts) {
 
   }
 
+  const getFringeCols = (beads) => {
+
+    const fringeCols = [];
+
+    beads.forEach((bead, index) => {
+
+      const col = bead.fCol,
+            row = bead.fRow;
+
+      if (Number.isInteger(col) && Number.isInteger(row)) {
+        if (!Array.isArray(fringeCols[col])) {
+          fringeCols[col] = [];
+        }
+        fringeCols[col][row] = index;
+      }
+
+    })
+
+    return fringeCols;
+
+  }
+
+  const opts       = getOpts(template.opts, userOpts),
+        beads      = getBeads(opts),
+        fringeCols = getFringeCols(beads);
+
   return {
     name: 'Untitled',
-    beads: getBeads(getOpts(template.opts, userOpts))
+    beads,
+    fringeCols
   };
 
 }

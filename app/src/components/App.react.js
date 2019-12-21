@@ -69,16 +69,14 @@ export default class App extends React.Component {
 
         <DesignView
           color={beadLibrary[beadLibraryIndex]}
-          tool={tool}
-        />
+          tool={tool} />
 
         <ToolsView
           tool={tool}
           beadLibrary={beadLibrary}
           beadLibraryIndex={beadLibraryIndex}
           onToolClick={this.onToolClick}
-          onBeadLibraryClick={this.onBeadLibraryClick}
-        />
+          onBeadLibraryClick={this.onBeadLibraryClick} />
 
       </main>
     )

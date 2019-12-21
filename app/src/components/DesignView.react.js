@@ -104,13 +104,16 @@ export default class DesignView extends React.Component {
               return (
                 <rect
                   key={`bead-${i}`}
-                  x={centerX + (bead.x * colW)}
-                  y={topY + (bead.y * rowH)}
+                  x={centerX + (bead.col * colW)}
+                  y={topY + (bead.row * rowH)}
                   width={beadW}
                   height={beadH}
                   rx='2'
                   style={{
                     fill: getBeadColor(bead.beadId)
+                  }}
+                  onMouseOver={() => {
+                    //console.log(`${i}: ${bead.beadId} (${bead.col}, ${bead.row})`);
                   }}
                 />
               );
