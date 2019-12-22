@@ -67,16 +67,16 @@ export default class App extends React.Component {
     return (
       <main>
 
-        <DesignView
-          color={beadLibrary[beadLibraryIndex]}
-          tool={tool} />
-
         <ToolsView
           tool={tool}
           beadLibrary={beadLibrary}
           beadLibraryIndex={beadLibraryIndex}
           onToolClick={this.onToolClick}
           onBeadLibraryClick={this.onBeadLibraryClick} />
+
+          <DesignView
+            bead={beadLibrary[beadLibraryIndex]}
+            tool={tool} />
 
       </main>
     )

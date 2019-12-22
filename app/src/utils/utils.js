@@ -26,13 +26,13 @@ export function generateBlankDesign(template, userOpts) {
     _.times(opts.loopRows, (row) => {
       if (row === 0) {
         beads.push(
-          { beadId: 'green', col: -1, row: row },
-          { beadId: 'green', col:  0, row: row }
+          { beadId: null, col: -0.5, row: row },
+          { beadId: null, col:  0.5, row: row }
         );
       } else {
         beads.push(
-          { beadId: 'green', col: -1.5, row: row },
-          { beadId: 'green', col:  0.5, row: row }
+          { beadId: null, col: -1, row: row },
+          { beadId: null, col:  1, row: row }
         );
       }
     });
@@ -41,7 +41,7 @@ export function generateBlankDesign(template, userOpts) {
 
       _.times(opts.bodyRows, (row) => {
         const cols = opts.bodyTopCols + row,
-              rowX = -(cols / 2);
+              rowX = -(cols / 2) + 0.5;
         _.times(opts.bodyRowRepeat, (rowOffset) => {
           const rowY = opts.loopRows + (row * opts.bodyRowRepeat) + rowOffset;
           _.times(cols, (col) => {
@@ -55,13 +55,13 @@ export function generateBlankDesign(template, userOpts) {
       });
 
       const totalCols = opts.bodyTopCols + opts.bodyRows,
-            rowX      = -(totalCols / 2);
+            rowX      = -(totalCols / 2) + 0.5;
 
       _.times(totalCols, (col) => {
         _.times(opts.fringeRows, (row) => {
           const rowY = opts.loopRows + (opts.bodyRows * opts.bodyRowRepeat) + row;
           beads.push({
-            beadId: 'blue',
+            beadId: null,
             fCol: col,
             fRow: row,
             col: rowX + col,
@@ -74,7 +74,7 @@ export function generateBlankDesign(template, userOpts) {
 
       _.times(opts.bodyRows, (row) => {
         const cols = opts.bodyTopCols,
-              rowX = -(cols / 2),
+              rowX = -(cols / 2) + 0.5,
               rowY = opts.loopRows + row;
         _.times(cols, (col) => {
           beads.push({
@@ -84,12 +84,12 @@ export function generateBlankDesign(template, userOpts) {
           });
         });
       });
-      const rowX = -(opts.bodyTopCols / 2);
+      const rowX = -(opts.bodyTopCols / 2) + 0.5;
       _.times(opts.bodyTopCols, (col) => {
         _.times(opts.fringeRows, (row) => {
           const rowY = opts.loopRows + opts.bodyRows + row;
           beads.push({
-            beadId: 'blue',
+            beadId: null,
             fCol: col,
             fRow: row,
             col: rowX + col,
@@ -103,7 +103,7 @@ export function generateBlankDesign(template, userOpts) {
             btmRows = (opts.bodyTopCols + topRows) - 1;
       _.times(topRows, (row) => {
         const cols = opts.bodyTopCols + row,
-              rowX = -(cols / 2);
+              rowX = -(cols / 2) + 0.5;
         _.times(opts.bodyRowRepeat, (rowOffset) => {
           const rowY = opts.loopRows + (row * opts.bodyRowRepeat) + rowOffset;
           _.times(cols, (col) => {
@@ -117,7 +117,7 @@ export function generateBlankDesign(template, userOpts) {
       });
       _.times(btmRows, (row) => {
         const cols = (opts.bodyTopCols + topRows) - row,
-              rowX = -(cols / 2);
+              rowX = -(cols / 2) + 0.5;
         _.times(opts.bodyRowRepeat, (rowOffset) => {
           const rowY = opts.loopRows + (topRows * opts.bodyRowRepeat) + (row * opts.bodyRowRepeat) + rowOffset;
           _.times(cols, (col) => {
@@ -131,7 +131,7 @@ export function generateBlankDesign(template, userOpts) {
       });
       beads.push({
         beadId: null,
-        col: -0.5,
+        col: 0,
         row: opts.loopRows + ((topRows + btmRows) * opts.bodyRowRepeat)
       })
 

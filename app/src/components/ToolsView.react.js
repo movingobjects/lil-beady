@@ -56,7 +56,7 @@ export default class ToolsView extends React.Component {
               })}
               onClick={() => this.props.onToolClick('draw')}
             >
-              Draw
+              Small
             </li>
             <li
               className={classNames({
@@ -64,7 +64,7 @@ export default class ToolsView extends React.Component {
               })}
               onClick={() => this.props.onToolClick('fill')}
             >
-              Fill
+              Big
             </li>
           </ul>
         </div>
