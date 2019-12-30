@@ -3,6 +3,7 @@
   width: 100%;
   height: calc(100% - #{$toolsViewH});
   position: relative;
+  overflow: hidden;
 
   div.wrap-beads {
     position: absolute;
