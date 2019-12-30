@@ -44,19 +44,6 @@ export default class DesignView extends React.Component {
 
   // Event handlers
 
-  onKeyDown = (e) => {
-
-    if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
-      const offset   = (e.key === 'ArrowLeft') ? -1 : 1,
-            newIndex = Math.max(0, Math.min(templates.length - 1, this.state.templateIndex + offset));
-      this.setState({
-        templateIndex: newIndex
-      })
-
-    }
-
-  }
-
   onDraw = (beads) => {
 
     const designUpdate = {
@@ -72,6 +59,7 @@ export default class DesignView extends React.Component {
     })
 
   }
+
 
   // Methods
 
@@ -136,14 +124,15 @@ export default class DesignView extends React.Component {
 
   // React
 
-  componentDidMount() {
+  componentDidUpdate(prevProps, prevState) {
 
-    document.addEventListener('keydown', this.onKeyDown);
+    if (prevProps.template !== this.props.template) {
 
-  }
-  componentWillUnmount() {
+      this.setState({
+        design: generateBlankDesign(this.props.template)
+      });
 
-    document.removeEventListener('keydown', this.onKeyDown);
+    }
 
   }
 

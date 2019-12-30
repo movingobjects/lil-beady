@@ -33,7 +33,8 @@ export default class App extends React.Component {
       appH: 0,
       tool: 'draw',
       beadLibrary: beadsLibrary,
-      beadLibraryIndex: 0
+      beadLibraryIndex: 0,
+      templateIndex: 0
     }
 
   }
@@ -46,6 +47,21 @@ export default class App extends React.Component {
       appW: window.innerWidth,
       appH: window.innerHeight
     });
+  }
+
+  onKeyDown = (e) => {
+
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+
+      const offset   = (e.key === 'ArrowLeft') ? -1 : 1,
+            newIndex = Math.max(0, Math.min(templates.length - 1, this.state.templateIndex + offset));
+
+      this.setState({
+        templateIndex: newIndex
+      });
+
+    }
+
   }
 
 
@@ -75,7 +91,7 @@ export default class App extends React.Component {
       beadLibraryIndex
     } = this.state;
 
-    const template = templates[0];
+    const template = templates[this.state.templateIndex];
 
     return (
       <main>
@@ -87,12 +103,12 @@ export default class App extends React.Component {
           onToolClick={this.onToolClick}
           onBeadLibraryClick={this.onBeadLibraryClick} />
 
-          <DesignView
-            appW={appW}
-            appH={appH}
-            template={template}
-            bead={beadLibrary[beadLibraryIndex]}
-            tool={tool} />
+        <DesignView
+          appW={appW}
+          appH={appH}
+          template={template}
+          bead={beadLibrary[beadLibraryIndex]}
+          tool={tool} />
 
       </main>
     )
@@ -100,11 +116,18 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
+
     window.addEventListener('resize', () => this.onResize());
+    document.addEventListener('keydown', this.onKeyDown);
+
     this.onResize();
+
   }
   componentWillUnmount() {
+
     window.removeEventListener('resize', () => this.onResize());
+    document.removeEventListener('keydown', this.onKeyDown);
+
   }
 
 }
