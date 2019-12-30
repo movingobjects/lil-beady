@@ -1,12 +1,14 @@
 
 #design-view {
-  width: $appW;
-  height: $appH - $toolsViewH;
-  border-bottom: 1px solid #ddd;
-  padding-top: 25px;
+  width: 100%;
+  height: calc(100% - #{$toolsViewH});
+  position: relative;
 
-  div.wrap-design {
-    margin: 0 auto;
+  div.wrap-beads {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 
 }
