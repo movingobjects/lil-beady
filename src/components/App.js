@@ -2,11 +2,11 @@
 // Imports
 
 import * as React from 'react';
-import DesignView from './DesignView.react';
-import ToolsView from './ToolsView.react';
+import DesignView from 'components/DesignView';
+import ToolsView from 'components/ToolsView';
 
-import templates from '../data/templates.json';
-import beadsLibrary from '../data/beads-library.json';
+import templates from 'data/templates.json';
+import beadsLibrary from 'data/beads-library.json';
 
 
 // Constants

@@ -3,11 +3,11 @@
 
 import * as React from 'react';
 import { maths, geom } from 'varyd-utils';
-import BeadsView from './BeadsView.react';
+import BeadsView from 'components/BeadsView';
 
-import { generateBlankDesign } from '../utils/utils';
+import { generateBlankDesign } from 'utils/utils';
 
-import beadsLibrary from '../data/beads-library.json';
+import beadsLibrary from 'data/beads-library.json';
 
 
 // Constants
