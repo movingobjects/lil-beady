@@ -1,0 +1,17 @@
+[
+  {
+    "id": "small",
+    "dist": 15,
+    "maxCount": 1
+  },
+  {
+    "id": "medium",
+    "dist": 15,
+    "maxCount": null
+  },
+  {
+    "id": "large",
+    "dist": 50,
+    "maxCount": null
+  }
+]

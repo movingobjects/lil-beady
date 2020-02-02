@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 
 import { maths, geom } from 'varyd-utils';
 
+import brushesData from 'data/brushes.json';
+
 class BeadsView extends React.Component {
 
   constructor() {
@@ -105,16 +107,10 @@ class BeadsView extends React.Component {
   }
   onDrag = (x, y) => {
 
-    const {
-      brushIndex
-    } = this.props;
-
     if (this.drawing) {
 
-      const brushDist = (brushIndex === 0) ? 25 : 50,
-            maxCount  = (brushIndex === 0) ? 1 : undefined;
-
-      const beads = this.getBeadsNear(x, y, brushDist, maxCount);
+      const brush = brushesData[this.props.brushIndex],
+            beads = this.getBeadsNear(x, y, brush.dist, brush.maxCount);
 
       if (beads.length) {
         this.props.onDraw(beads);
@@ -151,7 +147,7 @@ class BeadsView extends React.Component {
 
     });
 
-    if (maxCount !== undefined) {
+    if (maxCount !== null) {
       beads.sort((a, b) => a.distSq - b.distSq);
       beads = beads.slice(0, maxCount);
     }

@@ -2,7 +2,9 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import * as classNames from 'classnames';
+import classNames from 'classnames';
+
+import brushesData from 'data/brushes.json';
 
 
 class ToolsView extends React.Component {
@@ -35,20 +37,16 @@ class ToolsView extends React.Component {
 
         <div className="tools">
           <ul>
-            <li
-              className={classNames({
-                'selected': (brushIndex === 0)
-              })}
-              onClick={() => this.props.onBrushSelect(0)}>
-              Small
-            </li>
-            <li
-              className={classNames({
-                'selected': (brushIndex === 1)
-              })}
-              onClick={() => this.props.onBrushSelect(1)}>
-              Big
-            </li>
+            {brushesData.map((brush, i) => (
+              <li
+                key={`brush-${brush.id}`}
+                className={classNames({
+                  'selected': i === brushIndex
+                })}
+                onClick={() => this.props.onBrushSelect(i)}>
+                {brush.id}
+              </li>
+            ))}
           </ul>
         </div>
 
@@ -63,8 +61,7 @@ class ToolsView extends React.Component {
                 style={{
                   '--color-bead': bead.color
                 }}
-                onClick={() => this.props.onBeadLibraryClick(i)}
-              >
+                onClick={() => this.props.onBeadLibraryClick(i)}>
                 {bead.label}
               </li>
             ))}
