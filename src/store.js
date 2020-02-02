@@ -15,7 +15,7 @@ const middleware = [];
 if (isDevMode) {
   const { createLogger } = require('redux-logger');
   middleware.push(createLogger({
-    collapsed: true
+    collapsed: false
   }));
 }
 

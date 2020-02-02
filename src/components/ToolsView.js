@@ -33,13 +33,22 @@ class ToolsView extends React.Component {
 
   }
 
+  onBeadSelect = (index) => {
+
+    this.props.dispatch({
+      type: 'setBeadIndex',
+      index
+    });
+
+  }
+
 
   render() {
 
     const {
       brushIndex,
-      beadLibrary,
-      beadLibraryIndex
+      beads,
+      beadIndex
     } = this.props;
 
     return (
@@ -62,16 +71,16 @@ class ToolsView extends React.Component {
 
         <div className="bead-library">
           <ul>
-            {beadLibrary.map((bead, i) => (
+            {beads.map((bead, i) => (
               <li
                 key={`${bead.id}`}
                 className={classNames({
-                  'selected': (i === beadLibraryIndex)
+                  'selected': (i === beadIndex)
                 })}
                 style={{
                   '--color-bead': bead.color
                 }}
-                onClick={() => this.props.onBeadLibraryClick(i)}>
+                onClick={() => this.onBeadSelect(i)}>
                 {bead.label}
               </li>
             ))}
@@ -86,5 +95,7 @@ class ToolsView extends React.Component {
 }
 
 export default connect((state) => ({
-  brushIndex: state.brushIndex
+  brushIndex: state.brushIndex,
+  beads: state.beads,
+  beadIndex: state.beadIndex
 }))(ToolsView)

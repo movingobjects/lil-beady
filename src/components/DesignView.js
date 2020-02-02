@@ -2,14 +2,18 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import { getTemplate } from 'selectors';
+import {
+  getTemplate,
+  getBead
+} from 'selectors';
 
-import { maths, geom } from 'varyd-utils';
+import {
+  maths,
+  geom
+} from 'varyd-utils';
+
 import BeadsView from 'components/BeadsView';
-
 import { generateBlankDesign } from 'utils/utils';
-
-import beadsLibrary from 'data/beads-library.json';
 
 const BLANK_COLOR = '#eeeeee';
 
@@ -94,7 +98,9 @@ class DesignView extends React.Component {
     } = LAYOUT_OPTS;
 
     const getBeadColor = (id) => {
-      return beadsLibrary.some((b) => b.id === id) ? beadsLibrary.find((b) => b.id === id).color : BLANK_COLOR;
+      const beads = this.props.beads,
+            bead  = beads.find((b) => b.id === id);
+      return bead ? bead.color : BLANK_COLOR;
     }
 
     const topY    = padding,
@@ -140,7 +146,6 @@ class DesignView extends React.Component {
           areaW={beadsArea.w}
           areaH={beadsArea.h}
           rects={beadRects}
-          tool={this.props.tool}
           onDraw={this.onDraw} />
 
       </section>
@@ -151,5 +156,7 @@ class DesignView extends React.Component {
 }
 
 export default connect((state) => ({
+  bead: getBead(state),
+  beads: state.beads,
   template: getTemplate(state)
 }))(DesignView);

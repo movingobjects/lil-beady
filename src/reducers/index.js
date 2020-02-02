@@ -7,10 +7,17 @@ import {
   templateIndex
 } from 'reducers/design';
 
+import {
+  beads,
+  beadIndex
+} from 'reducers/beads';
+
 const rootReducer = combineReducers({
   brushIndex,
   templates,
-  templateIndex
+  templateIndex,
+  beads,
+  beadIndex
 });
 
 export default rootReducer;
