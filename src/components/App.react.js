@@ -117,7 +117,7 @@ export default class App extends React.Component {
 
   componentDidMount() {
 
-    window.addEventListener('resize', () => this.onResize());
+    window.addEventListener('resize', this.onResize);
     document.addEventListener('keydown', this.onKeyDown);
 
     this.onResize();
@@ -125,7 +125,7 @@ export default class App extends React.Component {
   }
   componentWillUnmount() {
 
-    window.removeEventListener('resize', () => this.onResize());
+    window.removeEventListener('resize', this.onResize);
     document.removeEventListener('keydown', this.onKeyDown);
 
   }
