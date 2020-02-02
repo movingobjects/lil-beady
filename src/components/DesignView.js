@@ -1,16 +1,13 @@
 
-// Imports
-
 import * as React from 'react';
+import { connect } from 'react-redux';
+
 import { maths, geom } from 'varyd-utils';
 import BeadsView from 'components/BeadsView';
 
 import { generateBlankDesign } from 'utils/utils';
 
 import beadsLibrary from 'data/beads-library.json';
-
-
-// Constants
 
 const BLANK_COLOR = '#eeeeee';
 
@@ -22,12 +19,7 @@ const LAYOUT_OPTS = {
   beadH: 8
 };
 
-
-// Class
-
-export default class DesignView extends React.Component {
-
-  // Constructor
+class DesignView extends React.Component {
 
   constructor(props) {
 
@@ -41,8 +33,6 @@ export default class DesignView extends React.Component {
 
   }
 
-
-  // Event handlers
 
   onDraw = (beads) => {
 
@@ -60,8 +50,6 @@ export default class DesignView extends React.Component {
 
   }
 
-
-  // Methods
 
   getBeadsArea(beads) {
 
@@ -122,8 +110,6 @@ export default class DesignView extends React.Component {
   }
 
 
-  // React
-
   componentDidUpdate(prevProps, prevState) {
 
     if (prevProps.template !== this.props.template) {
@@ -161,3 +147,5 @@ export default class DesignView extends React.Component {
   }
 
 }
+
+export default connect((state) => ({ }))(DesignView);

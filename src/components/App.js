@@ -1,22 +1,14 @@
 
-// Imports
-
 import * as React from 'react';
+import { connect } from 'react-redux';
+
 import DesignView from 'components/DesignView';
 import ToolsView from 'components/ToolsView';
 
 import templates from 'data/templates.json';
 import beadsLibrary from 'data/beads-library.json';
 
-
-// Constants
-
-
-// Class
-
-export default class App extends React.Component {
-
-  // Constructor
+class App extends React.Component {
 
   constructor() {
 
@@ -29,9 +21,6 @@ export default class App extends React.Component {
   initState() {
 
     this.state = {
-      appW: 0,
-      appH: 0,
-      tool: 'draw',
       beadLibrary: beadsLibrary,
       beadLibraryIndex: 0,
       templateIndex: 0
@@ -39,15 +28,6 @@ export default class App extends React.Component {
 
   }
 
-
-  // Event handlers
-
-  onResize = () => {
-    this.setState({
-      appW: window.innerWidth,
-      appH: window.innerHeight
-    });
-  }
 
   onKeyDown = (e) => {
 
@@ -65,11 +45,12 @@ export default class App extends React.Component {
   }
 
 
-  // Methods
+  onBrushSelect = (index) => {
 
-  onToolClick = (tool) => {
-
-    this.setState({ tool });
+    this.props.dispatch({
+      type: 'setBrushIndex',
+      index
+    })
 
   }
   onBeadLibraryClick = (beadLibraryIndex) => {
@@ -79,14 +60,9 @@ export default class App extends React.Component {
   }
 
 
-  // React
-
   render() {
 
     const {
-      appW,
-      appH,
-      tool,
       beadLibrary,
       beadLibraryIndex
     } = this.state;
@@ -97,18 +73,14 @@ export default class App extends React.Component {
       <main>
 
         <ToolsView
-          tool={tool}
           beadLibrary={beadLibrary}
           beadLibraryIndex={beadLibraryIndex}
-          onToolClick={this.onToolClick}
+          onBrushSelect={this.onBrushSelect}
           onBeadLibraryClick={this.onBeadLibraryClick} />
 
         <DesignView
-          appW={appW}
-          appH={appH}
           template={template}
-          bead={beadLibrary[beadLibraryIndex]}
-          tool={tool} />
+          bead={beadLibrary[beadLibraryIndex]} />
 
       </main>
     )
@@ -117,17 +89,15 @@ export default class App extends React.Component {
 
   componentDidMount() {
 
-    window.addEventListener('resize', this.onResize);
     document.addEventListener('keydown', this.onKeyDown);
-
-    this.onResize();
 
   }
   componentWillUnmount() {
 
-    window.removeEventListener('resize', this.onResize);
     document.removeEventListener('keydown', this.onKeyDown);
 
   }
 
 }
+
+export default connect((state) => ({ }))(App);

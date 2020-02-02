@@ -1,16 +1,10 @@
 
-// Imports
-
 import * as React from 'react';
+import { connect } from 'react-redux';
+
 import { maths, geom } from 'varyd-utils';
 
-// Constants
-
-// Class
-
-export default class BeadsView extends React.Component {
-
-  // Constructor
+class BeadsView extends React.Component {
 
   constructor() {
 
@@ -34,8 +28,6 @@ export default class BeadsView extends React.Component {
 
   }
 
-
-  // Event handlers
 
   onMouseStart = (e) => {
 
@@ -113,10 +105,14 @@ export default class BeadsView extends React.Component {
   }
   onDrag = (x, y) => {
 
+    const {
+      brushIndex
+    } = this.props;
+
     if (this.drawing) {
 
-      const brushDist = (this.props.tool === 'draw') ? 25 : 50,
-            maxCount  = (this.props.tool === 'draw') ? 1 : undefined;
+      const brushDist = (brushIndex === 0) ? 25 : 50,
+            maxCount  = (brushIndex === 0) ? 1 : undefined;
 
       const beads = this.getBeadsNear(x, y, brushDist, maxCount);
 
@@ -133,8 +129,6 @@ export default class BeadsView extends React.Component {
 
   }
 
-
-  // Methods
 
   getBeadsNear(x, y, dist, maxCount) {
 
@@ -185,15 +179,12 @@ export default class BeadsView extends React.Component {
   }
 
 
-
-  // React
-
   render() {
 
     const {
       areaW,
       areaH,
-      rects
+      rects,
     } = this.props;
 
     return (
@@ -237,3 +228,7 @@ export default class BeadsView extends React.Component {
   }
 
 }
+
+export default connect((state) => ({
+  brushIndex: state.brushIndex
+}))(BeadsView);

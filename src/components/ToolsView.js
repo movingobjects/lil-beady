@@ -1,18 +1,11 @@
 
-// Imports
-
 import * as React from 'react';
+import { connect } from 'react-redux';
+
 import * as classNames from 'classnames';
 
 
-// Constants
-
-
-// Class
-
-export default class ToolsView extends React.Component {
-
-  // Constructor
+class ToolsView extends React.Component {
 
   constructor() {
 
@@ -29,18 +22,10 @@ export default class ToolsView extends React.Component {
   }
 
 
-  // Event handlers
-
-
-  // Methods
-
-
-  // React
-
   render() {
 
     const {
-      tool,
+      brushIndex,
       beadLibrary,
       beadLibraryIndex
     } = this.props;
@@ -52,18 +37,16 @@ export default class ToolsView extends React.Component {
           <ul>
             <li
               className={classNames({
-                'selected': (tool === 'draw')
+                'selected': (brushIndex === 0)
               })}
-              onClick={() => this.props.onToolClick('draw')}
-            >
+              onClick={() => this.props.onBrushSelect(0)}>
               Small
             </li>
             <li
               className={classNames({
-                'selected': (tool === 'fill')
+                'selected': (brushIndex === 1)
               })}
-              onClick={() => this.props.onToolClick('fill')}
-            >
+              onClick={() => this.props.onBrushSelect(1)}>
               Big
             </li>
           </ul>
@@ -94,3 +77,7 @@ export default class ToolsView extends React.Component {
   }
 
 }
+
+export default connect((state) => ({
+  brushIndex: state.brushIndex
+}))(ToolsView)
