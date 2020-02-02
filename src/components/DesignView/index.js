@@ -12,7 +12,8 @@ import {
   geom
 } from 'varyd-utils';
 
-import BeadsView from 'components/BeadsView';
+import Beads from './Beads';
+import Toolbar from './Toolbar';
 import { generateBlankDesign } from 'utils/utils';
 
 const BLANK_COLOR = '#eeeeee';
@@ -142,11 +143,13 @@ class DesignView extends React.Component {
     return (
       <section id='design-view'>
 
-        <BeadsView
+        <Beads
           areaW={beadsArea.w}
           areaH={beadsArea.h}
           rects={beadRects}
           onDraw={this.onDraw} />
+
+        <Toolbar />
 
       </section>
     )

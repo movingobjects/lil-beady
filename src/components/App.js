@@ -6,7 +6,6 @@ import { maths } from 'varyd-utils';
 import { getTemplate } from 'selectors';
 
 import DesignView from 'components/DesignView';
-import ToolsView from 'components/ToolsView';
 
 class App extends React.Component {
 
@@ -36,7 +35,6 @@ class App extends React.Component {
 
     return (
       <main>
-        <ToolsView />
         <DesignView />
       </main>
     )

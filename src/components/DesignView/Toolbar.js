@@ -7,7 +7,7 @@ import classNames from 'classnames';
 import brushesData from 'data/brushes.json';
 
 
-class ToolsView extends React.Component {
+class Toolbar extends React.Component {
 
   constructor() {
 
@@ -52,7 +52,7 @@ class ToolsView extends React.Component {
     } = this.props;
 
     return (
-      <section id="tools-view">
+      <section id="toolbar">
 
         <div className="tools">
           <ul>
@@ -69,7 +69,7 @@ class ToolsView extends React.Component {
           </ul>
         </div>
 
-        <div className="bead-library">
+        <div className="beads">
           <ul>
             {beads.map((bead, i) => (
               <li
@@ -98,4 +98,4 @@ export default connect((state) => ({
   brushIndex: state.brushIndex,
   beads: state.beads,
   beadIndex: state.beadIndex
-}))(ToolsView)
+}))(Toolbar)

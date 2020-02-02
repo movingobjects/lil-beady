@@ -6,7 +6,7 @@ import { maths, geom } from 'varyd-utils';
 
 import brushesData from 'data/brushes.json';
 
-class BeadsView extends React.Component {
+class Beads extends React.Component {
 
   constructor() {
 
@@ -227,4 +227,4 @@ class BeadsView extends React.Component {
 
 export default connect((state) => ({
   brushIndex: state.brushIndex
-}))(BeadsView);
+}))(Beads);
