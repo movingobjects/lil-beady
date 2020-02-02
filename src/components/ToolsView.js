@@ -24,6 +24,16 @@ class ToolsView extends React.Component {
   }
 
 
+  onBrushSelect = (index) => {
+
+    this.props.dispatch({
+      type: 'setBrushIndex',
+      index
+    });
+
+  }
+
+
   render() {
 
     const {
@@ -43,7 +53,7 @@ class ToolsView extends React.Component {
                 className={classNames({
                   'selected': i === brushIndex
                 })}
-                onClick={() => this.props.onBrushSelect(i)}>
+                onClick={() => this.onBrushSelect(i)}>
                 {brush.id}
               </li>
             ))}

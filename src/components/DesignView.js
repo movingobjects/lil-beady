@@ -2,6 +2,8 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
+import { getTemplate } from 'selectors';
+
 import { maths, geom } from 'varyd-utils';
 import BeadsView from 'components/BeadsView';
 
@@ -148,4 +150,6 @@ class DesignView extends React.Component {
 
 }
 
-export default connect((state) => ({ }))(DesignView);
+export default connect((state) => ({
+  template: getTemplate(state)
+}))(DesignView);

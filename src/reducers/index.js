@@ -1,10 +1,16 @@
 
 import { combineReducers } from 'redux';
 
-import { brushIndex } from 'reducers/design';
+import {
+  brushIndex,
+  templates,
+  templateIndex
+} from 'reducers/design';
 
 const rootReducer = combineReducers({
-  brushIndex
+  brushIndex,
+  templates,
+  templateIndex
 });
 
 export default rootReducer;

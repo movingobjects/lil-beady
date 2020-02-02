@@ -1,11 +1,13 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { maths } from 'varyd-utils';
+
+import { getTemplate } from 'selectors';
 
 import DesignView from 'components/DesignView';
 import ToolsView from 'components/ToolsView';
 
-import templates from 'data/templates.json';
 import beadsLibrary from 'data/beads-library.json';
 
 class App extends React.Component {
@@ -22,8 +24,7 @@ class App extends React.Component {
 
     this.state = {
       beadLibrary: beadsLibrary,
-      beadLibraryIndex: 0,
-      templateIndex: 0
+      beadLibraryIndex: 0
     }
 
   }
@@ -33,11 +34,18 @@ class App extends React.Component {
 
     if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
 
-      const offset   = (e.key === 'ArrowLeft') ? -1 : 1,
-            newIndex = Math.max(0, Math.min(templates.length - 1, this.state.templateIndex + offset));
+      const {
+        dispatch,
+        templates,
+        templateIndex
+      } = this.props;
 
-      this.setState({
-        templateIndex: newIndex
+      const offset   = (e.key === 'ArrowLeft') ? -1 : 1,
+            newIndex = maths.clamp(templateIndex + offset, 0, templates.length - 1);
+
+      dispatch({
+        type: 'setTemplateIndex',
+        index: newIndex
       });
 
     }
@@ -45,14 +53,6 @@ class App extends React.Component {
   }
 
 
-  onBrushSelect = (index) => {
-
-    this.props.dispatch({
-      type: 'setBrushIndex',
-      index
-    })
-
-  }
   onBeadLibraryClick = (beadLibraryIndex) => {
 
     this.setState({ beadLibraryIndex });
@@ -63,11 +63,16 @@ class App extends React.Component {
   render() {
 
     const {
+      templates,
+      templateIndex
+    } = this.props;
+
+    const {
       beadLibrary,
       beadLibraryIndex
     } = this.state;
 
-    const template = templates[this.state.templateIndex];
+    const template = templates[templateIndex];
 
     return (
       <main>
@@ -75,11 +80,9 @@ class App extends React.Component {
         <ToolsView
           beadLibrary={beadLibrary}
           beadLibraryIndex={beadLibraryIndex}
-          onBrushSelect={this.onBrushSelect}
           onBeadLibraryClick={this.onBeadLibraryClick} />
 
         <DesignView
-          template={template}
           bead={beadLibrary[beadLibraryIndex]} />
 
       </main>
@@ -100,4 +103,8 @@ class App extends React.Component {
 
 }
 
-export default connect((state) => ({ }))(App);
+export default connect((state) => ({
+  template: getTemplate(state),
+  templates: state.templates,
+  templateIndex: state.templateIndex
+}))(App);
