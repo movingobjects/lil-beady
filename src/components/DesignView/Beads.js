@@ -136,10 +136,13 @@ class Beads extends React.Component {
 
     if (this.currentDraw) {
 
-      const brush  = brushesData[this.props.brushIndex],
-            distSq = brush.dist * brush.dist;
+      const brush = brushesData[this.props.brushIndex];
 
-      this.draw(x, y, distSq, brush.maxCount);
+      if (brush.drawDist) {
+        this.draw(x, y, brush.drawDist);
+      } else {
+        this.drawSingle(x, y);
+      }
 
     }
 
@@ -150,8 +153,7 @@ class Beads extends React.Component {
 
   }
 
-
-  draw(x, y, minDistSq, maxCount) {
+  draw(x, y, dist) {
 
     const {
       hit,
@@ -167,12 +169,14 @@ class Beads extends React.Component {
       bead
     } = this.props;
 
+    const maxDistSq = dist * dist;
+
     const newHits = unhit.filter((index) => {
       const rect   = rects[index],
             rectX  = rect.x + (rect.w * 0.5),
             rectY  = rect.y + (rect.h * 0.5),
             distSq = geom.distSqXY(rectX, rectY, x, y);
-      return (distSq < minDistSq);
+      return (distSq < maxDistSq);
     });
 
     if (newHits.length) {
@@ -180,7 +184,7 @@ class Beads extends React.Component {
       this.currentDraw = {
         hit: [
           ...hit,
-          newHits
+          newHits // TODO (...?)
         ],
         unhit: unhit.filter((index) => !newHits.includes(index))
       };
@@ -188,6 +192,56 @@ class Beads extends React.Component {
       dispatch({
         type: 'updateBeads',
         beads: newHits,
+        beadId: bead.id
+      });
+
+    }
+
+  }
+  drawSingle(x, y) {
+
+    const {
+      hit,
+      unhit
+    } = this.currentDraw;
+
+    const {
+      rects
+    } = this.state;
+
+    const {
+      dispatch,
+      bead
+    } = this.props;
+
+    const isHit = (index) => {
+
+      const rect  = rects[index];
+
+      if (x < rect.x) return false;
+      if (y < rect.y) return false;
+      if (x > rect.x + rect.w) return false;
+      if (y > rect.y + rect.h) return false;
+      
+      return true;
+
+    }
+
+    const newHit = unhit.find((index) => isHit(index));
+
+    if (newHit !== undefined) {
+
+      this.currentDraw = {
+        hit: [
+          ...hit,
+          newHit
+        ],
+        unhit: unhit.filter((index) => index !== newHit)
+      };
+
+      dispatch({
+        type: 'updateBeads',
+        beads: [ newHit ],
         beadId: bead.id
       });
 

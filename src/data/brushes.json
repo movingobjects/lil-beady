@@ -1,17 +1,14 @@
 [
   {
     "id": "small",
-    "dist": 15,
-    "maxCount": 1
+    "drawDist": 0
   },
   {
     "id": "medium",
-    "dist": 15,
-    "maxCount": null
+    "drawDist": 15
   },
   {
     "id": "large",
-    "dist": 50,
-    "maxCount": null
+    "drawDist": 50
   }
 ]
