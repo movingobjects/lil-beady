@@ -1,5 +1,23 @@
 [
   {
+    "id": "blank-triangle",
+    "label": "Blank Triangle",
+    "template": "triangle",
+    "design": null
+  },
+  {
+    "id": "blank-square",
+    "label": "Blank Square",
+    "template": "square",
+    "design": null
+  },
+  {
+    "id": "blank-diamond",
+    "label": "Blank Diamond",
+    "template": "diamond",
+    "design": null
+  },
+  {
     "id": "rainbow-diamond",
     "label": "Rainbow Diamond",
     "template": "diamond",
@@ -1213,24 +1231,5 @@
       ],
       "fringeCols": []
     }
-  },
-  {
-    "id": "blank-triangle",
-    "label": "Blank Triangle",
-    "template": "triangle",
-    "design": null
-  },
-  {
-    "id": "blank-square",
-    "label": "Blank Square",
-    "template": "square",
-    "design": null
-  },
-  {
-    "id": "blank-diamond",
-    "label": "Blank Diamond",
-    "template": "diamond",
-    "design": null
   }
-
 ]
