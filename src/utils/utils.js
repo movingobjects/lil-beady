@@ -168,7 +168,6 @@ export function generateBlankDesign(template, userOpts) {
         fringeCols = getFringeCols(beads);
 
   return {
-    name: 'Untitled',
     beads,
     fringeCols
   };

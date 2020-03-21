@@ -1,22 +1,25 @@
 
 import { cloneDeep } from 'lodash';
 
-export const design = (state = { }, action) => {
+export const project = (state = null, action) => {
 
   switch (action.type) {
 
-    case 'setDesign':
-      return action.design;
+    case 'setProject':
+      return action.project;
 
     case 'updateBeads':
 
-      const design = cloneDeep(state);
+      const design = cloneDeep(state.design);
 
       action.beads.forEach((index) => {
         design.beads[index].beadId = action.beadId;
       })
 
-      return design;
+      return {
+        ...state,
+        design
+      };
 
     default:
       return state;
@@ -24,7 +27,6 @@ export const design = (state = { }, action) => {
   }
 
 }
-
 
 export const brushIndex = (state = 1, action) => {
 

@@ -1,0 +1,1236 @@
+[
+  {
+    "id": "rainbow-diamond",
+    "label": "Rainbow Diamond",
+    "template": "diamond",
+    "design": {
+      "beads": [
+        {
+          "beadId": "purple",
+          "col": -0.5,
+          "row": 0
+        },
+        {
+          "beadId": "purple",
+          "col": 0.5,
+          "row": 0
+        },
+        {
+          "beadId": "purple",
+          "col": -1,
+          "row": 1
+        },
+        {
+          "beadId": "purple",
+          "col": 1,
+          "row": 1
+        },
+        {
+          "beadId": "purple",
+          "col": -1,
+          "row": 2
+        },
+        {
+          "beadId": "purple",
+          "col": 1,
+          "row": 2
+        },
+        {
+          "beadId": "purple",
+          "col": -1,
+          "row": 3
+        },
+        {
+          "beadId": "purple",
+          "col": 0,
+          "row": 3
+        },
+        {
+          "beadId": "purple",
+          "col": 1,
+          "row": 3
+        },
+        {
+          "beadId": "purple",
+          "col": -1,
+          "row": 4
+        },
+        {
+          "beadId": "purple",
+          "col": 0,
+          "row": 4
+        },
+        {
+          "beadId": "purple",
+          "col": 1,
+          "row": 4
+        },
+        {
+          "beadId": "purple",
+          "col": -1.5,
+          "row": 5
+        },
+        {
+          "beadId": "purple",
+          "col": -0.5,
+          "row": 5
+        },
+        {
+          "beadId": "purple",
+          "col": 0.5,
+          "row": 5
+        },
+        {
+          "beadId": "blue",
+          "col": 1.5,
+          "row": 5
+        },
+        {
+          "beadId": "purple",
+          "col": -1.5,
+          "row": 6
+        },
+        {
+          "beadId": "purple",
+          "col": -0.5,
+          "row": 6
+        },
+        {
+          "beadId": "purple",
+          "col": 0.5,
+          "row": 6
+        },
+        {
+          "beadId": "blue",
+          "col": 1.5,
+          "row": 6
+        },
+        {
+          "beadId": "purple",
+          "col": -2,
+          "row": 7
+        },
+        {
+          "beadId": "purple",
+          "col": -1,
+          "row": 7
+        },
+        {
+          "beadId": "purple",
+          "col": 0,
+          "row": 7
+        },
+        {
+          "beadId": "blue",
+          "col": 1,
+          "row": 7
+        },
+        {
+          "beadId": "blue",
+          "col": 2,
+          "row": 7
+        },
+        {
+          "beadId": "purple",
+          "col": -2,
+          "row": 8
+        },
+        {
+          "beadId": "purple",
+          "col": -1,
+          "row": 8
+        },
+        {
+          "beadId": "purple",
+          "col": 0,
+          "row": 8
+        },
+        {
+          "beadId": "blue",
+          "col": 1,
+          "row": 8
+        },
+        {
+          "beadId": "blue",
+          "col": 2,
+          "row": 8
+        },
+        {
+          "beadId": "purple",
+          "col": -2.5,
+          "row": 9
+        },
+        {
+          "beadId": "purple",
+          "col": -1.5,
+          "row": 9
+        },
+        {
+          "beadId": "purple",
+          "col": -0.5,
+          "row": 9
+        },
+        {
+          "beadId": "purple",
+          "col": 0.5,
+          "row": 9
+        },
+        {
+          "beadId": "blue",
+          "col": 1.5,
+          "row": 9
+        },
+        {
+          "beadId": "green",
+          "col": 2.5,
+          "row": 9
+        },
+        {
+          "beadId": "purple",
+          "col": -2.5,
+          "row": 10
+        },
+        {
+          "beadId": "purple",
+          "col": -1.5,
+          "row": 10
+        },
+        {
+          "beadId": "purple",
+          "col": -0.5,
+          "row": 10
+        },
+        {
+          "beadId": "blue",
+          "col": 0.5,
+          "row": 10
+        },
+        {
+          "beadId": "green",
+          "col": 1.5,
+          "row": 10
+        },
+        {
+          "beadId": "green",
+          "col": 2.5,
+          "row": 10
+        },
+        {
+          "beadId": "purple",
+          "col": -3,
+          "row": 11
+        },
+        {
+          "beadId": "purple",
+          "col": -2,
+          "row": 11
+        },
+        {
+          "beadId": "purple",
+          "col": -1,
+          "row": 11
+        },
+        {
+          "beadId": "purple",
+          "col": 0,
+          "row": 11
+        },
+        {
+          "beadId": "blue",
+          "col": 1,
+          "row": 11
+        },
+        {
+          "beadId": "green",
+          "col": 2,
+          "row": 11
+        },
+        {
+          "beadId": "green",
+          "col": 3,
+          "row": 11
+        },
+        {
+          "beadId": "purple",
+          "col": -3,
+          "row": 12
+        },
+        {
+          "beadId": "purple",
+          "col": -2,
+          "row": 12
+        },
+        {
+          "beadId": "purple",
+          "col": -1,
+          "row": 12
+        },
+        {
+          "beadId": "blue",
+          "col": 0,
+          "row": 12
+        },
+        {
+          "beadId": "blue",
+          "col": 1,
+          "row": 12
+        },
+        {
+          "beadId": "green",
+          "col": 2,
+          "row": 12
+        },
+        {
+          "beadId": "green",
+          "col": 3,
+          "row": 12
+        },
+        {
+          "beadId": "purple",
+          "col": -3.5,
+          "row": 13
+        },
+        {
+          "beadId": "purple",
+          "col": -2.5,
+          "row": 13
+        },
+        {
+          "beadId": "purple",
+          "col": -1.5,
+          "row": 13
+        },
+        {
+          "beadId": "purple",
+          "col": -0.5,
+          "row": 13
+        },
+        {
+          "beadId": "blue",
+          "col": 0.5,
+          "row": 13
+        },
+        {
+          "beadId": "green",
+          "col": 1.5,
+          "row": 13
+        },
+        {
+          "beadId": "green",
+          "col": 2.5,
+          "row": 13
+        },
+        {
+          "beadId": "green",
+          "col": 3.5,
+          "row": 13
+        },
+        {
+          "beadId": "purple",
+          "col": -3.5,
+          "row": 14
+        },
+        {
+          "beadId": "purple",
+          "col": -2.5,
+          "row": 14
+        },
+        {
+          "beadId": "purple",
+          "col": -1.5,
+          "row": 14
+        },
+        {
+          "beadId": "blue",
+          "col": -0.5,
+          "row": 14
+        },
+        {
+          "beadId": "blue",
+          "col": 0.5,
+          "row": 14
+        },
+        {
+          "beadId": "green",
+          "col": 1.5,
+          "row": 14
+        },
+        {
+          "beadId": "green",
+          "col": 2.5,
+          "row": 14
+        },
+        {
+          "beadId": "green",
+          "col": 3.5,
+          "row": 14
+        },
+        {
+          "beadId": "purple",
+          "col": -4,
+          "row": 15
+        },
+        {
+          "beadId": "purple",
+          "col": -3,
+          "row": 15
+        },
+        {
+          "beadId": "purple",
+          "col": -2,
+          "row": 15
+        },
+        {
+          "beadId": "blue",
+          "col": -1,
+          "row": 15
+        },
+        {
+          "beadId": "blue",
+          "col": 0,
+          "row": 15
+        },
+        {
+          "beadId": "green",
+          "col": 1,
+          "row": 15
+        },
+        {
+          "beadId": "green",
+          "col": 2,
+          "row": 15
+        },
+        {
+          "beadId": "yellow",
+          "col": 3,
+          "row": 15
+        },
+        {
+          "beadId": "yellow",
+          "col": 4,
+          "row": 15
+        },
+        {
+          "beadId": "purple",
+          "col": -4,
+          "row": 16
+        },
+        {
+          "beadId": "purple",
+          "col": -3,
+          "row": 16
+        },
+        {
+          "beadId": "purple",
+          "col": -2,
+          "row": 16
+        },
+        {
+          "beadId": "blue",
+          "col": -1,
+          "row": 16
+        },
+        {
+          "beadId": "blue",
+          "col": 0,
+          "row": 16
+        },
+        {
+          "beadId": "green",
+          "col": 1,
+          "row": 16
+        },
+        {
+          "beadId": "green",
+          "col": 2,
+          "row": 16
+        },
+        {
+          "beadId": "yellow",
+          "col": 3,
+          "row": 16
+        },
+        {
+          "beadId": "yellow",
+          "col": 4,
+          "row": 16
+        },
+        {
+          "beadId": "purple",
+          "col": -4.5,
+          "row": 17
+        },
+        {
+          "beadId": "purple",
+          "col": -3.5,
+          "row": 17
+        },
+        {
+          "beadId": "purple",
+          "col": -2.5,
+          "row": 17
+        },
+        {
+          "beadId": "blue",
+          "col": -1.5,
+          "row": 17
+        },
+        {
+          "beadId": "blue",
+          "col": -0.5,
+          "row": 17
+        },
+        {
+          "beadId": "green",
+          "col": 0.5,
+          "row": 17
+        },
+        {
+          "beadId": "green",
+          "col": 1.5,
+          "row": 17
+        },
+        {
+          "beadId": "green",
+          "col": 2.5,
+          "row": 17
+        },
+        {
+          "beadId": "yellow",
+          "col": 3.5,
+          "row": 17
+        },
+        {
+          "beadId": "orange",
+          "col": 4.5,
+          "row": 17
+        },
+        {
+          "beadId": "purple",
+          "col": -4.5,
+          "row": 18
+        },
+        {
+          "beadId": "purple",
+          "col": -3.5,
+          "row": 18
+        },
+        {
+          "beadId": "purple",
+          "col": -2.5,
+          "row": 18
+        },
+        {
+          "beadId": "blue",
+          "col": -1.5,
+          "row": 18
+        },
+        {
+          "beadId": "green",
+          "col": -0.5,
+          "row": 18
+        },
+        {
+          "beadId": "green",
+          "col": 0.5,
+          "row": 18
+        },
+        {
+          "beadId": "green",
+          "col": 1.5,
+          "row": 18
+        },
+        {
+          "beadId": "yellow",
+          "col": 2.5,
+          "row": 18
+        },
+        {
+          "beadId": "yellow",
+          "col": 3.5,
+          "row": 18
+        },
+        {
+          "beadId": "orange",
+          "col": 4.5,
+          "row": 18
+        },
+        {
+          "beadId": "purple",
+          "col": -5,
+          "row": 19
+        },
+        {
+          "beadId": "purple",
+          "col": -4,
+          "row": 19
+        },
+        {
+          "beadId": "purple",
+          "col": -3,
+          "row": 19
+        },
+        {
+          "beadId": "blue",
+          "col": -2,
+          "row": 19
+        },
+        {
+          "beadId": "green",
+          "col": -1,
+          "row": 19
+        },
+        {
+          "beadId": "green",
+          "col": 0,
+          "row": 19
+        },
+        {
+          "beadId": "green",
+          "col": 1,
+          "row": 19
+        },
+        {
+          "beadId": "yellow",
+          "col": 2,
+          "row": 19
+        },
+        {
+          "beadId": "yellow",
+          "col": 3,
+          "row": 19
+        },
+        {
+          "beadId": "orange",
+          "col": 4,
+          "row": 19
+        },
+        {
+          "beadId": "red",
+          "col": 5,
+          "row": 19
+        },
+        {
+          "beadId": "purple",
+          "col": -5,
+          "row": 20
+        },
+        {
+          "beadId": "purple",
+          "col": -4,
+          "row": 20
+        },
+        {
+          "beadId": "blue",
+          "col": -3,
+          "row": 20
+        },
+        {
+          "beadId": "blue",
+          "col": -2,
+          "row": 20
+        },
+        {
+          "beadId": "green",
+          "col": -1,
+          "row": 20
+        },
+        {
+          "beadId": "green",
+          "col": 0,
+          "row": 20
+        },
+        {
+          "beadId": "green",
+          "col": 1,
+          "row": 20
+        },
+        {
+          "beadId": "yellow",
+          "col": 2,
+          "row": 20
+        },
+        {
+          "beadId": "yellow",
+          "col": 3,
+          "row": 20
+        },
+        {
+          "beadId": "orange",
+          "col": 4,
+          "row": 20
+        },
+        {
+          "beadId": "red",
+          "col": 5,
+          "row": 20
+        },
+        {
+          "beadId": "purple",
+          "col": -4.5,
+          "row": 21
+        },
+        {
+          "beadId": "blue",
+          "col": -3.5,
+          "row": 21
+        },
+        {
+          "beadId": "blue",
+          "col": -2.5,
+          "row": 21
+        },
+        {
+          "beadId": "green",
+          "col": -1.5,
+          "row": 21
+        },
+        {
+          "beadId": "green",
+          "col": -0.5,
+          "row": 21
+        },
+        {
+          "beadId": "green",
+          "col": 0.5,
+          "row": 21
+        },
+        {
+          "beadId": "yellow",
+          "col": 1.5,
+          "row": 21
+        },
+        {
+          "beadId": "yellow",
+          "col": 2.5,
+          "row": 21
+        },
+        {
+          "beadId": "orange",
+          "col": 3.5,
+          "row": 21
+        },
+        {
+          "beadId": "orange",
+          "col": 4.5,
+          "row": 21
+        },
+        {
+          "beadId": "purple",
+          "col": -4.5,
+          "row": 22
+        },
+        {
+          "beadId": "blue",
+          "col": -3.5,
+          "row": 22
+        },
+        {
+          "beadId": "blue",
+          "col": -2.5,
+          "row": 22
+        },
+        {
+          "beadId": "green",
+          "col": -1.5,
+          "row": 22
+        },
+        {
+          "beadId": "green",
+          "col": -0.5,
+          "row": 22
+        },
+        {
+          "beadId": "green",
+          "col": 0.5,
+          "row": 22
+        },
+        {
+          "beadId": "yellow",
+          "col": 1.5,
+          "row": 22
+        },
+        {
+          "beadId": "yellow",
+          "col": 2.5,
+          "row": 22
+        },
+        {
+          "beadId": "orange",
+          "col": 3.5,
+          "row": 22
+        },
+        {
+          "beadId": "red",
+          "col": 4.5,
+          "row": 22
+        },
+        {
+          "beadId": "blue",
+          "col": -4,
+          "row": 23
+        },
+        {
+          "beadId": "blue",
+          "col": -3,
+          "row": 23
+        },
+        {
+          "beadId": "green",
+          "col": -2,
+          "row": 23
+        },
+        {
+          "beadId": "green",
+          "col": -1,
+          "row": 23
+        },
+        {
+          "beadId": "green",
+          "col": 0,
+          "row": 23
+        },
+        {
+          "beadId": "yellow",
+          "col": 1,
+          "row": 23
+        },
+        {
+          "beadId": "yellow",
+          "col": 2,
+          "row": 23
+        },
+        {
+          "beadId": "orange",
+          "col": 3,
+          "row": 23
+        },
+        {
+          "beadId": "red",
+          "col": 4,
+          "row": 23
+        },
+        {
+          "beadId": "blue",
+          "col": -4,
+          "row": 24
+        },
+        {
+          "beadId": "blue",
+          "col": -3,
+          "row": 24
+        },
+        {
+          "beadId": "green",
+          "col": -2,
+          "row": 24
+        },
+        {
+          "beadId": "green",
+          "col": -1,
+          "row": 24
+        },
+        {
+          "beadId": "green",
+          "col": 0,
+          "row": 24
+        },
+        {
+          "beadId": "yellow",
+          "col": 1,
+          "row": 24
+        },
+        {
+          "beadId": "orange",
+          "col": 2,
+          "row": 24
+        },
+        {
+          "beadId": "orange",
+          "col": 3,
+          "row": 24
+        },
+        {
+          "beadId": "red",
+          "col": 4,
+          "row": 24
+        },
+        {
+          "beadId": "blue",
+          "col": -3.5,
+          "row": 25
+        },
+        {
+          "beadId": "green",
+          "col": -2.5,
+          "row": 25
+        },
+        {
+          "beadId": "green",
+          "col": -1.5,
+          "row": 25
+        },
+        {
+          "beadId": "green",
+          "col": -0.5,
+          "row": 25
+        },
+        {
+          "beadId": "yellow",
+          "col": 0.5,
+          "row": 25
+        },
+        {
+          "beadId": "yellow",
+          "col": 1.5,
+          "row": 25
+        },
+        {
+          "beadId": "orange",
+          "col": 2.5,
+          "row": 25
+        },
+        {
+          "beadId": "orange",
+          "col": 3.5,
+          "row": 25
+        },
+        {
+          "beadId": "blue",
+          "col": -3.5,
+          "row": 26
+        },
+        {
+          "beadId": "green",
+          "col": -2.5,
+          "row": 26
+        },
+        {
+          "beadId": "green",
+          "col": -1.5,
+          "row": 26
+        },
+        {
+          "beadId": "yellow",
+          "col": -0.5,
+          "row": 26
+        },
+        {
+          "beadId": "yellow",
+          "col": 0.5,
+          "row": 26
+        },
+        {
+          "beadId": "orange",
+          "col": 1.5,
+          "row": 26
+        },
+        {
+          "beadId": "orange",
+          "col": 2.5,
+          "row": 26
+        },
+        {
+          "beadId": "red",
+          "col": 3.5,
+          "row": 26
+        },
+        {
+          "beadId": "green",
+          "col": -3,
+          "row": 27
+        },
+        {
+          "beadId": "green",
+          "col": -2,
+          "row": 27
+        },
+        {
+          "beadId": "green",
+          "col": -1,
+          "row": 27
+        },
+        {
+          "beadId": "yellow",
+          "col": 0,
+          "row": 27
+        },
+        {
+          "beadId": "orange",
+          "col": 1,
+          "row": 27
+        },
+        {
+          "beadId": "orange",
+          "col": 2,
+          "row": 27
+        },
+        {
+          "beadId": "red",
+          "col": 3,
+          "row": 27
+        },
+        {
+          "beadId": "green",
+          "col": -3,
+          "row": 28
+        },
+        {
+          "beadId": "green",
+          "col": -2,
+          "row": 28
+        },
+        {
+          "beadId": "yellow",
+          "col": -1,
+          "row": 28
+        },
+        {
+          "beadId": "yellow",
+          "col": 0,
+          "row": 28
+        },
+        {
+          "beadId": "orange",
+          "col": 1,
+          "row": 28
+        },
+        {
+          "beadId": "orange",
+          "col": 2,
+          "row": 28
+        },
+        {
+          "beadId": "red",
+          "col": 3,
+          "row": 28
+        },
+        {
+          "beadId": "green",
+          "col": -2.5,
+          "row": 29
+        },
+        {
+          "beadId": "yellow",
+          "col": -1.5,
+          "row": 29
+        },
+        {
+          "beadId": "yellow",
+          "col": -0.5,
+          "row": 29
+        },
+        {
+          "beadId": "orange",
+          "col": 0.5,
+          "row": 29
+        },
+        {
+          "beadId": "orange",
+          "col": 1.5,
+          "row": 29
+        },
+        {
+          "beadId": "red",
+          "col": 2.5,
+          "row": 29
+        },
+        {
+          "beadId": "green",
+          "col": -2.5,
+          "row": 30
+        },
+        {
+          "beadId": "yellow",
+          "col": -1.5,
+          "row": 30
+        },
+        {
+          "beadId": "yellow",
+          "col": -0.5,
+          "row": 30
+        },
+        {
+          "beadId": "orange",
+          "col": 0.5,
+          "row": 30
+        },
+        {
+          "beadId": "orange",
+          "col": 1.5,
+          "row": 30
+        },
+        {
+          "beadId": "red",
+          "col": 2.5,
+          "row": 30
+        },
+        {
+          "beadId": "yellow",
+          "col": -2,
+          "row": 31
+        },
+        {
+          "beadId": "yellow",
+          "col": -1,
+          "row": 31
+        },
+        {
+          "beadId": "orange",
+          "col": 0,
+          "row": 31
+        },
+        {
+          "beadId": "orange",
+          "col": 1,
+          "row": 31
+        },
+        {
+          "beadId": "red",
+          "col": 2,
+          "row": 31
+        },
+        {
+          "beadId": "yellow",
+          "col": -2,
+          "row": 32
+        },
+        {
+          "beadId": "yellow",
+          "col": -1,
+          "row": 32
+        },
+        {
+          "beadId": "orange",
+          "col": 0,
+          "row": 32
+        },
+        {
+          "beadId": "red",
+          "col": 1,
+          "row": 32
+        },
+        {
+          "beadId": "red",
+          "col": 2,
+          "row": 32
+        },
+        {
+          "beadId": "yellow",
+          "col": -1.5,
+          "row": 33
+        },
+        {
+          "beadId": "orange",
+          "col": -0.5,
+          "row": 33
+        },
+        {
+          "beadId": "red",
+          "col": 0.5,
+          "row": 33
+        },
+        {
+          "beadId": "red",
+          "col": 1.5,
+          "row": 33
+        },
+        {
+          "beadId": "orange",
+          "col": -1.5,
+          "row": 34
+        },
+        {
+          "beadId": "orange",
+          "col": -0.5,
+          "row": 34
+        },
+        {
+          "beadId": "red",
+          "col": 0.5,
+          "row": 34
+        },
+        {
+          "beadId": "red",
+          "col": 1.5,
+          "row": 34
+        },
+        {
+          "beadId": "orange",
+          "col": -1,
+          "row": 35
+        },
+        {
+          "beadId": "red",
+          "col": 0,
+          "row": 35
+        },
+        {
+          "beadId": "red",
+          "col": 1,
+          "row": 35
+        },
+        {
+          "beadId": "orange",
+          "col": -1,
+          "row": 36
+        },
+        {
+          "beadId": "red",
+          "col": 0,
+          "row": 36
+        },
+        {
+          "beadId": "red",
+          "col": 1,
+          "row": 36
+        },
+        {
+          "beadId": "red",
+          "col": -0.5,
+          "row": 37
+        },
+        {
+          "beadId": "red",
+          "col": 0.5,
+          "row": 37
+        },
+        {
+          "beadId": "red",
+          "col": -0.5,
+          "row": 38
+        },
+        {
+          "beadId": "red",
+          "col": 0.5,
+          "row": 38
+        },
+        {
+          "beadId": "red",
+          "col": 0,
+          "row": 39
+        }
+      ],
+      "fringeCols": []
+    }
+  },
+  {
+    "id": "blank-triangle",
+    "label": "Blank Triangle",
+    "template": "triangle",
+    "design": null
+  },
+  {
+    "id": "blank-square",
+    "label": "Blank Square",
+    "template": "square",
+    "design": null
+  },
+  {
+    "id": "blank-diamond",
+    "label": "Blank Diamond",
+    "template": "diamond",
+    "design": null
+  }
+
+]

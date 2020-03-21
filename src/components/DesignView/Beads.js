@@ -213,11 +213,12 @@ class Beads extends React.Component {
     document.removeEventListener('touchend', this.onTouchEnd);
   }
 
-  updateDesign() {
+  updateProject() {
 
-    const design = this.props.design,
-          area   = this.getBeadsArea(design.beads),
-          rects  = this.getBeadRects(design.beads, area);
+    const project = this.props.project,
+          beads   = project.design.beads,
+          area    = this.getBeadsArea(beads),
+          rects   = this.getBeadRects(beads, area);
 
     this.setState({ area, rects });
 
@@ -298,7 +299,7 @@ class Beads extends React.Component {
 
     window.addEventListener('resize', this.onResize);
 
-    this.updateDesign();
+    this.updateProject();
 
   }
   componentWillUnmount() {
@@ -311,8 +312,8 @@ class Beads extends React.Component {
 
     const propChanged = (val) => this.props[val] !== prevProps[val];
 
-    if (propChanged('design')) {
-      this.updateDesign();
+    if (propChanged('project')) {
+      this.updateProject();
     }
 
   }
@@ -338,7 +339,6 @@ class Beads extends React.Component {
 
         <svg
           ref={this.svgRef}
-          className='rs-view'
           viewBox={`0 0 ${area.w} ${area.h}`}
           style={{
             width: area.w,
@@ -369,7 +369,7 @@ class Beads extends React.Component {
 }
 
 export default connect((state) => ({
-  design: state.design,
+  project: state.project,
   brushIndex: state.brushIndex,
   bead: getBead(state),
   beads: state.beads
