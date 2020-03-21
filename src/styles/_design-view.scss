@@ -1,9 +1,31 @@
 
-#tools-view {
+$toolbarH: 100px;
+
+#design-view {
   width: 100%;
-  height: $toolsViewH;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+
+  div.wrap-beads {
+    position: absolute;
+
+    svg {
+      pointer-events: none;
+    }
+
+  }
+
+}
+
+#toolbar {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  height: $toolbarH;
   display: flex;
-  border-bottom: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+  background-color: rgba(100%, 100%, 100%, 0.65);
 
   ul {
     padding: 15px;
@@ -65,7 +87,7 @@
 
   }
 
-  div.bead-library {
+  div.beads {
     flex: 1;
 
     ul {
