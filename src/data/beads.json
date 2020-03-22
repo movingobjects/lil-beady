@@ -1,32 +1,32 @@
 [
   {
     "id": "red",
-    "label": "Red",
+    "name": "Red",
     "color": "#ff6666"
   },
   {
     "id": "orange",
-    "label": "Orange",
+    "name": "Orange",
     "color": "#ff9966"
   },
   {
     "id": "yellow",
-    "label": "Yellow",
+    "name": "Yellow",
     "color": "#ffdd66"
   },
   {
     "id": "green",
-    "label": "Green",
+    "name": "Green",
     "color": "#99cc66"
   },
   {
     "id": "blue",
-    "label": "Blue",
+    "name": "Blue",
     "color": "#66ccdd"
   },
   {
     "id": "purple",
-    "label": "Purple",
+    "name": "Purple",
     "color": "#cc66ff"
   }
 ]

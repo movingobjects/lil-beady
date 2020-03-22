@@ -2,10 +2,11 @@
 import { combineReducers } from 'redux';
 
 import {
-  mode,
   projects,
   templates,
-  beads
+  beads,
+  mode,
+  editBeadId
 } from 'reducers/app';
 
 import {
@@ -15,10 +16,11 @@ import {
 } from 'reducers/design';
 
 const rootReducer = combineReducers({
-  mode,
   projects,
   templates,
   beads,
+  mode,
+  editBeadId,
   project,
   brushIndex,
   beadIndex

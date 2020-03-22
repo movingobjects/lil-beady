@@ -13,7 +13,7 @@ class DashboardView extends React.Component {
 
   }
 
-  onProjectOpen = (id) => {
+  onProjectSelect = (id) => {
 
     const {
       dispatch,
@@ -48,8 +48,13 @@ class DashboardView extends React.Component {
   onBeadCreate = () => {
     console.log(`Create bead!`);
   }
-  onBeadOpen = (id) => {
-    console.log(`Open bead: ${id}!`);
+  onBeadSelect = (id) => {
+
+    this.props.dispatch({
+      type: 'setEditBeadId',
+      id
+    });
+
   }
 
   render() {
@@ -75,7 +80,7 @@ class DashboardView extends React.Component {
           {projects.map((project, i) => (
             <li
               key={`project-${project.id}`}
-              onClick={() => this.onProjectOpen(project.id)}>
+              onClick={() => this.onProjectSelect(project.id)}>
               {project.label}
             </li>
           ))}
@@ -96,7 +101,7 @@ class DashboardView extends React.Component {
               style={{
                 backgroundColor: bead.color
               }}
-              onClick={() => this.onBeadOpen(bead.id)} />
+              onClick={() => this.onBeadSelect(bead.id)} />
           ))}
         </ul>
 

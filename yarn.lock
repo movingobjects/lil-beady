@@ -723,6 +723,19 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
+"@irojs/iro-core@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@irojs/iro-core/-/iro-core-1.0.0.tgz#8cbd19c699c59f70b3c3a773fb7ca2985de5f367"
+  integrity sha512-7vup43KLDtLuurfVXmhFnnNxtDVQ5JvjQglo5yZDM5DcHwSF3XeEjyeerM5nE6Me1QmAoKRGNDz4QVhzQI1OBw==
+
+"@jaames/iro@^5.1.5":
+  version "5.1.5"
+  resolved "https://registry.yarnpkg.com/@jaames/iro/-/iro-5.1.5.tgz#ce02b41a02b819e5b17b9393e7328f9a9375740a"
+  integrity sha512-mV9rofbS2sClVbWFRI0wf4EE9QGGK1Fo5Vj7sQNJQNYHOhDzfByYI1RP5XSJsdm/ZBlJFJqiWXhiAFLyb2AODg==
+  dependencies:
+    "@irojs/iro-core" "^1.0.0"
+    preact "^10.0.0"
+
 "@types/events@*":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@types/events/-/events-3.0.0.tgz#2862f3f58a9a7f7c3e78d79f130dd4d71c25c2a7"
@@ -4606,6 +4619,11 @@ postcss@^7.0.14, postcss@^7.0.5, postcss@^7.0.6:
     source-map "^0.6.1"
     supports-color "^6.1.0"
 
+preact@^10.0.0:
+  version "10.3.4"
+  resolved "https://registry.yarnpkg.com/preact/-/preact-10.3.4.tgz#e1542a4d3eba3e7a37f312a2c331231b97052024"
+  integrity sha512-wMgzs/RGYf0I1PZf8ZFJdyU/3kCcwepJyVYe+N9FGajyQWarMoPrPfrQajcG0psPj6ySYv2cSuLYFCihvV/Qrw==
+
 pretty-error@^2.0.2:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/pretty-error/-/pretty-error-2.1.1.tgz#5f4f87c8f91e5ae3f3ba87ab4cf5e03b1a17f1a3"
@@ -6028,6 +6046,11 @@ uuid@^3.0.1, uuid@^3.3.2:
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.3.2.tgz#1b4af4955eb3077c501c23872fc6513811587131"
   integrity sha512-yXJmeNaw3DnnKAOKJE51sL/ZaYfWJRl1pK9dr19YFCu0ObS231AB1/LbqTKRAQ5kw8A90rA6fr4riOUpTZvQZA==
+
+uuid@^7.0.2:
+  version "7.0.2"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-7.0.2.tgz#7ff5c203467e91f5e0d85cfcbaaf7d2ebbca9be6"
+  integrity sha512-vy9V/+pKG+5ZTYKf+VcphF5Oc6EFiu3W8Nv3P3zIh0EqVI80ZxOzuPfe9EHjkFNvf8+xuTHVeei4Drydlx4zjw==
 
 v8-compile-cache@2.0.3:
   version "2.0.3"

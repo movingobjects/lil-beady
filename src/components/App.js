@@ -5,6 +5,7 @@ import { maths } from 'varyd-utils';
 
 import DesignView from './DesignView';
 import DashboardView from './DashboardView';
+import EditBeadView from './EditBeadView';
 
 class App extends React.Component {
 
@@ -16,13 +17,7 @@ class App extends React.Component {
 
   onKeyDown = (e) => {
 
-    switch (e.key) {
-
-      case 'p':
-        console.log(JSON.stringify(this.props.project));
-        break;
-      
-    }
+    switch (e.key) { }
 
   }
 
@@ -36,11 +31,16 @@ class App extends React.Component {
   render() {
 
     const {
-      mode
+      mode,
+      editBeadId
     } = this.props;
 
     return (
       <main>
+
+        {editBeadId && (
+          <EditBeadView />
+        )}
 
         {mode === 'dashboard' && (
           <DashboardView />
@@ -59,5 +59,6 @@ class App extends React.Component {
 
 export default connect((state) => ({
   mode: state.mode,
-  project: state.project
+  project: state.project,
+  editBeadId: state.editBeadId
 }))(App);
