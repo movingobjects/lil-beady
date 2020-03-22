@@ -1,0 +1,14 @@
+[
+  {
+    "id": "small",
+    "drawDist": 0
+  },
+  {
+    "id": "medium",
+    "drawDist": 15
+  },
+  {
+    "id": "large",
+    "drawDist": 50
+  }
+]

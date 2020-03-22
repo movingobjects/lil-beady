@@ -11,11 +11,18 @@ const isDev = process.env.NODE_ENV !== 'production';
 module.exports = {
 
   entry: {
-    app: './app/src/entry.js'
+    app: './src/entry.js'
+  },
+
+  resolve: {
+    modules: [
+      path.resolve(__dirname, 'src'),
+      'node_modules'
+    ]
   },
 
   output: {
-    path: path.resolve(__dirname, './app/dist'),
+    path: path.resolve(__dirname, './dist'),
     filename: 'resources/[name].bundle.js',
     publicPath: ''
   },
@@ -25,7 +32,7 @@ module.exports = {
       {
         test: /\.(jsx?)$/i,
         include: [
-          path.resolve(__dirname, 'app'),
+          path.resolve(__dirname, 'src'),
           path.resolve(__dirname, 'node_modules/varyd-utils')
         ],
         use: [
@@ -49,7 +56,7 @@ module.exports = {
       {
         test: /\.(html)$/i,
         include: [
-          path.resolve(__dirname, 'app')
+          path.resolve(__dirname, 'src')
         ],
         use: [
           {
@@ -63,7 +70,7 @@ module.exports = {
       {
         test: /\.(css|scss)$/i,
         include: [
-          path.resolve(__dirname, 'app')
+          path.resolve(__dirname, 'src')
         ],
         use: [
           isDev ? 'style-loader' : {
@@ -90,7 +97,7 @@ module.exports = {
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
         include: [
-          path.resolve(__dirname, 'app')
+          path.resolve(__dirname, 'src')
         ],
         use: [
           {
@@ -104,7 +111,7 @@ module.exports = {
       {
         test: /\.(ttf|otf|eot|woff|woff2)$/i,
         include: [
-          path.resolve(__dirname, 'app')
+          path.resolve(__dirname, 'src')
         ],
         use: [
           {
@@ -118,7 +125,7 @@ module.exports = {
       {
         test: /\.(mp3|aif|aiff|wav)$/i,
         include: [
-          path.resolve(__dirname, 'app')
+          path.resolve(__dirname, 'src')
         ],
         use: [
           {
@@ -132,7 +139,7 @@ module.exports = {
       {
         test: /\.(mp4|webm)$/i,
         include: [
-          path.resolve(__dirname, 'app')
+          path.resolve(__dirname, 'src')
         ],
         use: [
           {
@@ -148,7 +155,7 @@ module.exports = {
 
   plugins: [
     new HtmlWebpackPlugin({
-      template: './app/src/index.html',
+      template: './src/index.html',
       filename: 'index.html'
     }),
     new HtmlWebpackIncludeAssetsPlugin({

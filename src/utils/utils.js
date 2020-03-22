@@ -1,5 +1,5 @@
 
-import * as _ from 'lodash';
+import { times } from 'lodash';
 
 export function generateBlankDesign(template, userOpts) {
 
@@ -23,7 +23,7 @@ export function generateBlankDesign(template, userOpts) {
 
     const beads = [];
 
-    _.times(opts.loopRows, (row) => {
+    times(opts.loopRows, (row) => {
       if (row === 0) {
         beads.push(
           { beadId: null, col: -0.5, row: row },
@@ -39,12 +39,12 @@ export function generateBlankDesign(template, userOpts) {
 
     if (template.id === 'triangle') {
 
-      _.times(opts.bodyRows, (row) => {
+      times(opts.bodyRows, (row) => {
         const cols = opts.bodyTopCols + row,
               rowX = -(cols / 2) + 0.5;
-        _.times(opts.bodyRowRepeat, (rowOffset) => {
+        times(opts.bodyRowRepeat, (rowOffset) => {
           const rowY = opts.loopRows + (row * opts.bodyRowRepeat) + rowOffset;
-          _.times(cols, (col) => {
+          times(cols, (col) => {
             beads.push({
               beadId: null,
               col: rowX + col,
@@ -57,8 +57,8 @@ export function generateBlankDesign(template, userOpts) {
       const totalCols = opts.bodyTopCols + opts.bodyRows,
             rowX      = -(totalCols / 2) + 0.5;
 
-      _.times(totalCols, (col) => {
-        _.times(opts.fringeRows, (row) => {
+      times(totalCols, (col) => {
+        times(opts.fringeRows, (row) => {
           const rowY = opts.loopRows + (opts.bodyRows * opts.bodyRowRepeat) + row;
           beads.push({
             beadId: null,
@@ -72,11 +72,11 @@ export function generateBlankDesign(template, userOpts) {
 
     } else if (template.id === 'square') {
 
-      _.times(opts.bodyRows, (row) => {
+      times(opts.bodyRows, (row) => {
         const cols = opts.bodyTopCols,
               rowX = -(cols / 2) + 0.5,
               rowY = opts.loopRows + row;
-        _.times(cols, (col) => {
+        times(cols, (col) => {
           beads.push({
             beadId: null,
             col: rowX + col,
@@ -85,8 +85,8 @@ export function generateBlankDesign(template, userOpts) {
         });
       });
       const rowX = -(opts.bodyTopCols / 2) + 0.5;
-      _.times(opts.bodyTopCols, (col) => {
-        _.times(opts.fringeRows, (row) => {
+      times(opts.bodyTopCols, (col) => {
+        times(opts.fringeRows, (row) => {
           const rowY = opts.loopRows + opts.bodyRows + row;
           beads.push({
             beadId: null,
@@ -101,12 +101,12 @@ export function generateBlankDesign(template, userOpts) {
     } else if (template.id === 'diamond') {
       const topRows = Math.ceil(opts.bodyRows / 2),
             btmRows = (opts.bodyTopCols + topRows) - 1;
-      _.times(topRows, (row) => {
+      times(topRows, (row) => {
         const cols = opts.bodyTopCols + row,
               rowX = -(cols / 2) + 0.5;
-        _.times(opts.bodyRowRepeat, (rowOffset) => {
+        times(opts.bodyRowRepeat, (rowOffset) => {
           const rowY = opts.loopRows + (row * opts.bodyRowRepeat) + rowOffset;
-          _.times(cols, (col) => {
+          times(cols, (col) => {
             beads.push({
               beadId: null,
               col: rowX + col,
@@ -115,12 +115,12 @@ export function generateBlankDesign(template, userOpts) {
           })
         });
       });
-      _.times(btmRows, (row) => {
+      times(btmRows, (row) => {
         const cols = (opts.bodyTopCols + topRows) - row,
               rowX = -(cols / 2) + 0.5;
-        _.times(opts.bodyRowRepeat, (rowOffset) => {
+        times(opts.bodyRowRepeat, (rowOffset) => {
           const rowY = opts.loopRows + (topRows * opts.bodyRowRepeat) + (row * opts.bodyRowRepeat) + rowOffset;
-          _.times(cols, (col) => {
+          times(cols, (col) => {
             beads.push({
               beadId: null,
               col: rowX + col,
@@ -168,7 +168,6 @@ export function generateBlankDesign(template, userOpts) {
         fringeCols = getFringeCols(beads);
 
   return {
-    name: 'Untitled',
     beads,
     fringeCols
   };
