@@ -46,7 +46,12 @@ class DashboardView extends React.Component {
   }
 
   onBeadCreate = () => {
-    console.log(`Create bead!`);
+
+    this.props.dispatch({
+      type: 'setCreateBeadOn',
+      on: true
+    });
+
   }
   onBeadSelect = (id) => {
 

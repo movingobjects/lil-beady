@@ -6,6 +6,7 @@ import { maths } from 'varyd-utils';
 import DesignView from './DesignView';
 import DashboardView from './DashboardView';
 import EditBeadView from './EditBeadView';
+import CreateBeadView from './CreateBeadView';
 
 class App extends React.Component {
 
@@ -32,7 +33,8 @@ class App extends React.Component {
 
     const {
       mode,
-      editBeadId
+      editBeadId,
+      createBeadOn
     } = this.props;
 
     return (
@@ -40,6 +42,10 @@ class App extends React.Component {
 
         {editBeadId && (
           <EditBeadView />
+        )}
+
+        {createBeadOn && (
+          <CreateBeadView />
         )}
 
         {mode === 'dashboard' && (
@@ -60,5 +66,7 @@ class App extends React.Component {
 export default connect((state) => ({
   mode: state.mode,
   project: state.project,
+  beads: state.beads,
+  createBeadOn: state.createBeadOn,
   editBeadId: state.editBeadId
 }))(App);

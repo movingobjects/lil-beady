@@ -1,32 +1,72 @@
 [
   {
-    "id": "red",
-    "name": "Red",
-    "color": "#ff6666"
+    "id": "4c8ffc70-e8fb-4c8e-9cb1-4fbddb6002a1",
+    "name": "Sienna",
+    "color": "#70261c"
   },
   {
-    "id": "orange",
-    "name": "Orange",
-    "color": "#ff9966"
+    "id": "d571ddc4-0576-4f22-847e-9fd368858204",
+    "name": "Bone Luster",
+    "color": "#ebe9df"
   },
   {
-    "id": "yellow",
-    "name": "Yellow",
-    "color": "#ffdd66"
+    "id": "cabbc9f7-9b4f-4705-9eb8-df2e8b20cfb6",
+    "name": "Black",
+    "color": "#111111"
   },
   {
-    "id": "green",
-    "name": "Green",
-    "color": "#99cc66"
+    "id": "64f43dca-8f79-41ad-9a05-220b085238d9",
+    "name": "Pink Champagne",
+    "color": "#ffe3e3"
   },
   {
-    "id": "blue",
-    "name": "Blue",
-    "color": "#66ccdd"
+    "id": "1b6770c7-4fe0-414e-ac36-3c9a0dcc9bd6",
+    "name": "Cream",
+    "color": "#fff"
   },
   {
-    "id": "purple",
-    "name": "Purple",
-    "color": "#cc66ff"
+    "id": "37acf6f9-76d0-42c2-829a-7e5af0e04c54",
+    "name": "Espresso",
+    "color": "#471200"
+  },
+  {
+    "id": "74b90288-01c5-4a16-9f23-0b0e7a9648aa",
+    "name": "Olive Luster",
+    "color": "#a3bf7e"
+  },
+  {
+    "id": "4bd8d5dd-e1b4-4d14-a383-7b0460dd2470",
+    "name": "Opaque Cream",
+    "color": "#fffce8"
+  },
+  {
+    "id": "a4467d71-3983-4297-a9b0-ea8fd7c1eba6",
+    "name": "Mauve",
+    "color": "#cc9fe0"
+  },
+  {
+    "id": "1ffc4847-1c41-4b85-adfc-6c7c1254a40a",
+    "name": "Hawthorne",
+    "color": "#c27400"
+  },
+  {
+    "id": "d2b7db85-1458-4de7-a647-a62d10ab2a08",
+    "name": "Opaque Pumpkin",
+    "color": "#b35730"
+  },
+  {
+    "id": "7a4bbee7-7968-44bc-9167-f5b3355a399b",
+    "name": "Opaque Orange",
+    "color": "#ff3519"
+  },
+  {
+    "id": "6fe92104-3fc6-4d9f-aec2-e36dd31fe25c",
+    "name": "Old Rose",
+    "color": "#edc0e2"
+  },
+  {
+    "id": "d14b1870-6ca4-4f0a-93da-55e9ff280d63",
+    "name": "Opaque Gray",
+    "color": "#cfd8e3"
   }
 ]

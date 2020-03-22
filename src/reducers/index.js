@@ -6,6 +6,7 @@ import {
   templates,
   beads,
   mode,
+  createBeadOn,
   editBeadId
 } from 'reducers/app';
 
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   templates,
   beads,
   mode,
+  createBeadOn,
   editBeadId,
   project,
   brushIndex,

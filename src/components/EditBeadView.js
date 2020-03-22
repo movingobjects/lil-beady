@@ -22,6 +22,8 @@ class EditBeadView extends React.Component {
       color: bead ? bead.color : '#fff'
     }
 
+    this.nameInputRef = React.createRef();
+
   }
 
   onTapOff = () => {
@@ -49,6 +51,24 @@ class EditBeadView extends React.Component {
   }
 
   onCancel = () => {
+
+    this.props.dispatch({
+      type: 'setEditBeadId',
+      id: null
+    });
+
+  }
+  onDelete = () => {
+
+    const {
+      dispatch,
+      editBeadId
+    } = this.props;
+
+    dispatch({
+      type: 'deleteBead',
+      id: editBeadId
+    });
 
     this.props.dispatch({
       type: 'setEditBeadId',
@@ -151,13 +171,14 @@ class EditBeadView extends React.Component {
             className='field'>
 
             <label
-              htmlFor='input-bead-name'>
+              htmlFor='input-name'>
               Bead name
             </label>
 
             <input
+              ref={this.nameInputRef}
               type='text'
-              id='input-bead-name'
+              id='input-name'
               defaultValue={name}
               onChange={this.onNameChange} />
 
@@ -185,6 +206,10 @@ class EditBeadView extends React.Component {
             <button
               onClick={this.onCancel}>
               Cancel
+            </button>
+            <button
+              onClick={this.onDelete}>
+              Delete
             </button>
             <button
               onClick={this.onSave}

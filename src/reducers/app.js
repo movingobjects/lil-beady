@@ -25,6 +25,15 @@ export const beads = (state = beadsData, action) => {
     case 'setBeads':
       return action.beads;
 
+    case 'createBead':
+      return [
+        ...state,
+        action.bead
+      ];
+
+    case 'deleteBead':
+      return state.filter((b) => b.id !== action.id);
+
     case 'updateBead':
       return state.map((bead) => {
         if (bead.id === action.id) {
@@ -76,7 +85,6 @@ export const mode = (state = 'dashboard', action) => {
 
 }
 
-
 export const editBeadId = (state = null, action) => {
   
   switch (action.type) {
@@ -92,4 +100,19 @@ export const editBeadId = (state = null, action) => {
 
   }
   
+}
+
+export const createBeadOn = (state = false, action) => {
+
+  switch (action.type) {
+
+    case 'setCreateBeadOn':
+      return action.on;
+
+    default:
+      return state;
+
+  }
+
+
 }
