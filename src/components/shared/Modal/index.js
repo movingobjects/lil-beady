@@ -51,9 +51,9 @@ export default class Modal extends React.Component {
         <div
           className='panel'
           onClick={this.onTapInside}>
-          
+
           {this.props.children}
-          
+
         </div>
 
       </div>

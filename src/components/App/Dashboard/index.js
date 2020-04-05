@@ -5,21 +5,24 @@ import { random } from 'varyd-utils';
 class Dashboard extends React.Component {
 
   onProjectCreate = () => {
-    
-    console.log(`Create project!`);
-    
+
+    const {
+      dispatch
+    } = this.props;
+
+    // TODO create project
+
   }
 
   onProjectSelect = (id) => {
 
     const {
-      dispatch,
       projects,
       templates
     } = this.props;
-    
+
     const project = projects.find((p) => p.id === id);
-    
+
     if (!project) return;
 
     window.location.hash = `#/project/${project.id}`;

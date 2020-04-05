@@ -209,7 +209,7 @@ class Beads extends React.Component {
       if (y < rect.y) return false;
       if (x > rect.x + rect.w) return false;
       if (y > rect.y + rect.h) return false;
-      
+
       return true;
 
     }
@@ -288,7 +288,7 @@ class Beads extends React.Component {
     } = this.state;
 
     const project = projects.find((p) => p.id === projectId);
-    
+
     if (!project) return;
 
     const design = cloneDeep(project.design);
