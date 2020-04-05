@@ -1,16 +1,13 @@
-
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { random } from 'varyd-utils';
 
-import { generateBlankDesign } from 'utils/utils';
-
-class DashboardView extends React.Component {
+class Dashboard extends React.Component {
 
   onProjectCreate = () => {
-
+    
     console.log(`Create project!`);
-
+    
   }
 
   onProjectSelect = (id) => {
@@ -20,51 +17,30 @@ class DashboardView extends React.Component {
       projects,
       templates
     } = this.props;
-
+    
     const project = projects.find((p) => p.id === id);
-
+    
     if (!project) return;
 
-    if (!project.design) {
-
-      const template = templates.find((t) => t.id === project.template) || random.item(templates);
-
-      project.design = generateBlankDesign(template);
-
-    }
-
-    dispatch({
-      type: 'setProject',
-      project
-    });
-
-    dispatch({
-      type: 'setMode',
-      mode: 'design'
-    });
+    window.location.hash = `#/project/${project.id}`;
 
   }
 
   onBeadCreate = () => {
 
-    this.props.dispatch({
-      type: 'setCreateBeadOn',
-      on: true
-    });
+    window.location.hash = `#/dashboard/bead/create`;
 
   }
   onBeadSelect = (id) => {
 
-    this.props.dispatch({
-      type: 'setEditBeadId',
-      id
-    });
+    window.location.hash = `#/dashboard/bead/edit/${id}`;
 
   }
 
   render() {
 
     const {
+      templates,
       projects,
       beads
     } = this.props;
@@ -121,4 +97,4 @@ export default connect((state) => ({
   projects: state.projects,
   templates: state.templates,
   beads: state.beads
-}))(DashboardView);
+}))(Dashboard);

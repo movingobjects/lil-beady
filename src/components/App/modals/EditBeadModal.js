@@ -13,10 +13,10 @@ class EditBeadModal extends React.Component {
 
     const {
       beads,
-      editBeadId
+      beadId
     } = props;
 
-    let bead = beads.find((b) => b.id === editBeadId);
+    let bead = beads.find((b) => b.id === beadId);
 
     this.state = {
       name: bead ? bead.name : 'Untitled',
@@ -29,10 +29,7 @@ class EditBeadModal extends React.Component {
 
   onTapOutside = () => {
 
-    this.props.dispatch({
-      type: 'setEditBeadId',
-      id: null
-    })
+    window.location.hash = '#/dashboard';
 
   }
 
@@ -53,35 +50,29 @@ class EditBeadModal extends React.Component {
 
   onCancel = () => {
 
-    this.props.dispatch({
-      type: 'setEditBeadId',
-      id: null
-    });
+    window.location.hash = '#/dashboard';
 
   }
   onDelete = () => {
 
     const {
       dispatch,
-      editBeadId
+      beadId
     } = this.props;
 
     dispatch({
       type: 'deleteBead',
-      id: editBeadId
+      beadId
     });
 
-    this.props.dispatch({
-      type: 'setEditBeadId',
-      id: null
-    });
+    window.location.hash = '#/dashboard';
 
   }
   onSave = () => {
 
     const {
       dispatch,
-      editBeadId
+      beadId
     } = this.props;
 
     const {
@@ -91,14 +82,11 @@ class EditBeadModal extends React.Component {
 
     dispatch({
       type: 'updateBead',
-      id: editBeadId,
+      beadId,
       bead: { name, color }
     });
 
-    dispatch({
-      type: 'setEditBeadId',
-      id: null
-    });
+    window.location.hash = '#/dashboard';
 
   }
 
@@ -223,6 +211,5 @@ class EditBeadModal extends React.Component {
 }
 
 export default connect((state) => ({
-  beads: state.beads,
-  editBeadId: state.editBeadId
+  beads: state.beads
 }))(EditBeadModal);

@@ -1,7 +1,7 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { v4 as uuid } from 'uuid';
+import shortId from 'shortid';
 
 import iro from '@jaames/iro';
 import Modal from 'components/shared/Modal';
@@ -23,10 +23,7 @@ class CreateBeadModal extends React.Component {
 
   onTapOutside = () => {
 
-    this.props.dispatch({
-      type: 'setCreateBeadOn',
-      on: false
-    })
+    window.location.hash = '#/dashboard';
 
   }
 
@@ -47,10 +44,7 @@ class CreateBeadModal extends React.Component {
 
   onCancel = () => {
 
-    this.props.dispatch({
-      type: 'setCreateBeadOn',
-      on: false
-    });
+    window.location.hash = '#/dashboard';
 
   }
   onSave = () => {
@@ -63,16 +57,13 @@ class CreateBeadModal extends React.Component {
     this.props.dispatch({
       type: 'createBead',
       bead: {
-        id: uuid(),
+        id: shortId.generate(),
         name,
         color
       }
     });
 
-    this.props.dispatch({
-      type: 'setCreateBeadOn',
-      on: false
-    });
+    window.location.hash = '#/dashboard';
 
   }
 

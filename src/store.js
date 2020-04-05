@@ -6,13 +6,14 @@ import {
 } from 'redux';
 
 import rootReducer from 'reducers';
+import config from 'config.json';
 
 const isDevMode        = process.env.NODE_ENV === 'development',
       composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const middleware = [];
 
-if (isDevMode) {
+if (isDevMode && config.reduxLoggerOn) {
   const { createLogger } = require('redux-logger');
   middleware.push(createLogger({
     collapsed: false

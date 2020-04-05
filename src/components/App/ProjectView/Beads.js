@@ -1,6 +1,7 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { cloneDeep } from 'lodash';
 import {
   maths,
   geom
@@ -164,11 +165,6 @@ class Beads extends React.Component {
       rects
     } = this.state;
 
-    const {
-      dispatch,
-      bead
-    } = this.props;
-
     const maxDistSq = dist * dist;
 
     const newHits = unhit.filter((index) => {
@@ -189,11 +185,7 @@ class Beads extends React.Component {
         unhit: unhit.filter((index) => !newHits.includes(index))
       };
 
-      dispatch({
-        type: 'updateBeads',
-        beads: newHits,
-        beadId: bead.id
-      });
+      this.applyDraw(newHits);
 
     }
 
@@ -208,11 +200,6 @@ class Beads extends React.Component {
     const {
       rects
     } = this.state;
-
-    const {
-      dispatch,
-      bead
-    } = this.props;
 
     const isHit = (index) => {
 
@@ -239,13 +226,34 @@ class Beads extends React.Component {
         unhit: unhit.filter((index) => index !== newHit)
       };
 
-      dispatch({
-        type: 'updateBeads',
-        beads: [ newHit ],
-        beadId: bead.id
-      });
+      this.applyDraw([ newHit ]);
 
     }
+
+  }
+
+  applyDraw(rectIndexes) {
+
+    const {
+      bead
+    } = this.props;
+
+    const {
+      rects
+    } = this.state;
+
+    const newRects = cloneDeep(rects);
+
+    rectIndexes.forEach((index) => {
+      newRects[index] = {
+        ...newRects[index],
+        beadId: bead.id
+      }
+    })
+
+    this.setState({
+      rects: newRects
+    });
 
   }
 
@@ -267,17 +275,65 @@ class Beads extends React.Component {
     document.removeEventListener('touchend', this.onTouchEnd);
   }
 
+  save() {
+
+    const {
+      dispatch,
+      projects,
+      projectId
+    } = this.props;
+
+    const {
+      rects
+    } = this.state;
+
+    const project = projects.find((p) => p.id === projectId);
+    
+    if (!project) return;
+
+    const design = cloneDeep(project.design);
+
+    /*
+    rects.forEach((r) => {
+      design.beads[]
+    })
+
+    action.beads.forEach((index) => {
+      design.beads[index].beadId = action.beadId;
+    });
+    */
+
+    dispatch({
+      type: 'updateProject',
+      projectId,
+      project: {
+        ...project,
+        design
+      }
+    });
+
+  }
+
   updateProject() {
 
-    const project = this.props.project,
-          beads   = project.design.beads,
+    const {
+      projects,
+      projectId
+    } = this.props;
+
+    const project = projects.find((p) => p.id === projectId);
+
+    if (!project) return;
+    if (!project.design) return;
+    if (!project.design.beads) return;
+
+    const beads   = project.design.beads,
           area    = this.getBeadsArea(beads),
           rects   = this.getBeadRects(beads, area);
 
     this.setState({ area, rects });
 
   }
-
 
   getBeadsArea(beads) {
 
@@ -317,12 +373,6 @@ class Beads extends React.Component {
       beadH
     } = LAYOUT_OPTS;
 
-    const getBeadColor = (id) => {
-      const beads = this.props.beads,
-            bead  = beads.find((b) => b.id === id);
-      return bead ? bead.color : BLANK_COLOR;
-    }
-
     const topY    = padding,
           centerX = (rect.w / 2);
 
@@ -332,10 +382,16 @@ class Beads extends React.Component {
       y: topY + (bead.row * rowH) - (beadH / 2),
       w: beadW,
       h: beadH,
-      color: getBeadColor(bead.beadId)
+      beadId: bead.beadId
     }));
 
   }
+  getBeadColor(beadId) {
+    const beads = this.props.beads,
+          bead  = beads.find((b) => b.id === beadId);
+    return bead ? bead.color : BLANK_COLOR;
+  }
+
 
   toSvgPt(clientX, clientY) {
 
@@ -364,9 +420,7 @@ class Beads extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
 
-    const propChanged = (val) => this.props[val] !== prevProps[val];
-
-    if (propChanged('project')) {
+    if (this.props.projectId !== prevProps.projectId) {
       this.updateProject();
     }
 
@@ -408,7 +462,7 @@ class Beads extends React.Component {
               height={r.h}
               rx='2'
               style={{
-                fill: r.color
+                fill: this.getBeadColor(r.beadId)
               }}
             />
           ))}
@@ -423,7 +477,7 @@ class Beads extends React.Component {
 }
 
 export default connect((state) => ({
-  project: state.project,
+  projects: state.projects,
   brushIndex: state.brushIndex,
   bead: getBead(state),
   beads: state.beads

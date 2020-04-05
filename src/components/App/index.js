@@ -3,10 +3,12 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { maths } from 'varyd-utils';
 
-import DesignView from './DesignView';
-import DashboardView from './DashboardView';
+import ProjectView from './ProjectView';
+import Dashboard from './Dashboard';
 import EditBeadModal from './modals/EditBeadModal';
 import CreateBeadModal from './modals/CreateBeadModal';
+
+import Route from 'components/Router/Route';
 
 class App extends React.Component {
 
@@ -31,30 +33,17 @@ class App extends React.Component {
 
   render() {
 
-    const {
-      mode,
-      editBeadId,
-      createBeadOn
-    } = this.props;
-
     return (
       <main>
 
-        {editBeadId && (
-          <EditBeadModal />
-        )}
+        <Route path='#/dashboard' component={Dashboard} />
+        <Route path='#/dashboard/bead/create' component={CreateBeadModal} />
+        <Route path='#/dashboard/bead/edit/:beadId' component={EditBeadModal} />
 
-        {createBeadOn && (
-          <CreateBeadModal />
-        )}
-
-        {mode === 'dashboard' && (
-          <DashboardView />
-        )}
-
-        {mode === 'design' && (
-          <DesignView />
-        )}
+        <Route path='#/project/:projectId' component={ProjectView} />
+        {/* <Route path='#/project/:projectId/edit' component={EditProjectModal} /> */}
+        {/* <Route path='#/project/:projectId/export' component={ExportModal} /> */}
+        {/* <Route path='#/project/:projectId/add-version' component={AddVersionModal} /> */}
 
       </main>
     )
@@ -64,9 +53,6 @@ class App extends React.Component {
 }
 
 export default connect((state) => ({
-  mode: state.mode,
   project: state.project,
-  beads: state.beads,
-  createBeadOn: state.createBeadOn,
-  editBeadId: state.editBeadId
+  beads: state.beads
 }))(App);

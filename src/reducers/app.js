@@ -8,6 +8,27 @@ export const projects = (state = projectsData, action) => {
     case 'setProjects':
       return action.projects;
 
+    case 'createProject':
+      return [
+        ...state,
+        action.project
+      ];
+
+    case 'deleteProject':
+      return state.filter((p) => p.id !== action.id);
+
+    case 'updateProject':
+      return state.map((p) => {
+        if (p.id === action.projectId) {
+          return {
+            ...p,
+            ...action.project
+          }
+        } else {
+          return p;
+        }
+      });
+
     default:
       return state;
 
@@ -32,11 +53,11 @@ export const beads = (state = beadsData, action) => {
       ];
 
     case 'deleteBead':
-      return state.filter((b) => b.id !== action.id);
+      return state.filter((b) => b.id !== action.beadId);
 
     case 'updateBead':
       return state.map((bead) => {
-        if (bead.id === action.id) {
+        if (bead.id === action.beadId) {
           return {
             ...bead,
             ...action.bead
@@ -67,52 +88,5 @@ export const templates = (state = templatesData, action) => {
       return state;
 
   }
-
-}
-
-
-export const mode = (state = 'dashboard', action) => {
-
-  switch (action.type) {
-
-    case 'setMode':
-      return action.mode;
-
-    default:
-      return state;
-
-  }
-
-}
-
-export const editBeadId = (state = null, action) => {
-  
-  switch (action.type) {
-
-    case 'setEditBeadId':
-      return action.id;
-      
-    case 'clearEditBeadId':
-      return null;
-
-    default:
-      return state;
-
-  }
-  
-}
-
-export const createBeadOn = (state = false, action) => {
-
-  switch (action.type) {
-
-    case 'setCreateBeadOn':
-      return action.on;
-
-    default:
-      return state;
-
-  }
-
 
 }

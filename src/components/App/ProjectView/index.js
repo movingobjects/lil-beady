@@ -5,29 +5,34 @@ import { connect } from 'react-redux';
 import Beads from './Beads';
 import Toolbar from './Toolbar';
 
-class DesignView extends React.Component {
+class ProjectView extends React.Component {
 
   onBack = () => {
 
-    this.props.dispatch({
-      type: 'setMode',
-      mode: 'dashboard'
-    })
+    window.location.hash = `#/dashboard`;
 
   }
 
   render() {
 
+    const {
+      projectId
+    } = this.props;
+
     return (
       <section id='design-view'>
-        <div
-          className='menu'>
+
+        <div className='menu'>
           <button
             className='back'
             onClick={this.onBack} />
         </div>
-        <Beads />
+
+        <Beads
+          projectId={projectId} />
+
         <Toolbar />
+
       </section>
     );
 
@@ -35,4 +40,7 @@ class DesignView extends React.Component {
 
 }
 
-export default connect((state) => ({ }))(DesignView);
+export default connect((state) => ({
+  projects: state.projects,
+  templates: state.templates
+}))(ProjectView);

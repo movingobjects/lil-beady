@@ -2,28 +2,25 @@
 import { combineReducers } from 'redux';
 
 import {
-  projects,
-  templates,
-  beads,
-  mode,
-  createBeadOn,
-  editBeadId
-} from 'reducers/app';
+  route
+} from './router';
 
 import {
-  project,
+  projects,
+  templates,
+  beads
+} from './app';
+
+import {
   brushIndex,
   beadIndex
-} from 'reducers/design';
+} from './design';
 
 const rootReducer = combineReducers({
+  route,
   projects,
   templates,
   beads,
-  mode,
-  createBeadOn,
-  editBeadId,
-  project,
   brushIndex,
   beadIndex
 });
