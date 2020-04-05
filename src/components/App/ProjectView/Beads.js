@@ -180,7 +180,7 @@ class Beads extends React.Component {
       this.currentDraw = {
         hit: [
           ...hit,
-          newHits // TODO (...?)
+          newHits
         ],
         unhit: unhit.filter((index) => !newHits.includes(index))
       };
@@ -293,15 +293,7 @@ class Beads extends React.Component {
 
     const design = cloneDeep(project.design);
 
-    /*
-    rects.forEach((r) => {
-      design.beads[]
-    })
-
-    action.beads.forEach((index) => {
-      design.beads[index].beadId = action.beadId;
-    });
-    */
+    // TODO save design here!
 
     dispatch({
       type: 'updateProject',
