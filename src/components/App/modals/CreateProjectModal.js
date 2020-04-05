@@ -1,37 +1,31 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { v4 as uuid } from 'uuid';
 
 import iro from '@jaames/iro';
-import ModalView from './ModalView';
+import Modal from 'components/shared/Modal';
 
-class EditBeadModal extends React.Component {
+class CreateProjectModal extends React.Component {
 
   constructor(props) {
 
     super();
 
-    const {
-      beads,
-      editBeadId
-    } = props;
-
-    let bead = beads.find((b) => b.id === editBeadId);
-
     this.state = {
-      name: bead ? bead.name : 'Untitled',
-      color: bead ? bead.color : '#fff'
+      name: 'Bead name',
+      color: '#fff'
     }
 
     this.nameInputRef = React.createRef();
 
   }
 
-  onTapOff = () => {
+  onTapOutside = () => {
 
     this.props.dispatch({
-      type: 'setEditBeadId',
-      id: null
+      type: 'setCreateBeadOn',
+      on: false
     })
 
   }
@@ -54,50 +48,30 @@ class EditBeadModal extends React.Component {
   onCancel = () => {
 
     this.props.dispatch({
-      type: 'setEditBeadId',
-      id: null
-    });
-
-  }
-  onDelete = () => {
-
-    const {
-      dispatch,
-      editBeadId
-    } = this.props;
-
-    dispatch({
-      type: 'deleteBead',
-      id: editBeadId
-    });
-
-    this.props.dispatch({
-      type: 'setEditBeadId',
-      id: null
+      type: 'setCreateBeadOn',
+      on: false
     });
 
   }
   onSave = () => {
 
     const {
-      dispatch,
-      editBeadId
-    } = this.props;
-
-    const {
       name,
       color
     } = this.state;
 
-    dispatch({
-      type: 'updateBead',
-      id: editBeadId,
-      bead: { name, color }
+    this.props.dispatch({
+      type: 'createBead',
+      bead: {
+        id: uuid(),
+        name,
+        color
+      }
     });
 
-    dispatch({
-      type: 'setEditBeadId',
-      id: null
+    this.props.dispatch({
+      type: 'setCreateBeadOn',
+      on: false
     });
 
   }
@@ -145,7 +119,13 @@ class EditBeadModal extends React.Component {
   }
 
   componentDidMount() {
+
     this.setupColorPicker();
+
+    const nameInput = this.nameInputRef.current;
+    nameInput.focus();
+    nameInput.setSelectionRange(0, nameInput.value.length)
+
   }
 
   render() {
@@ -157,11 +137,11 @@ class EditBeadModal extends React.Component {
 
     return (
 
-      <ModalView
+      <Modal
         id='edit-bead-modal'
-        onTapOff={this.onTapOff}>
+        onTapOutside={this.onTapOutside}>
 
-        <h2>Edit Bead</h2>
+        <h2>Add New Bead</h2>
 
         <div
           className='field'>
@@ -204,18 +184,13 @@ class EditBeadModal extends React.Component {
             Cancel
           </button>
           <button
-            onClick={this.onDelete}>
-            Delete
-          </button>
-          <button
             onClick={this.onSave}
             className='default'>
             Save
           </button>
         </div>
 
-      </ModalView>
-
+      </Modal>
     );
 
   }
@@ -223,6 +198,5 @@ class EditBeadModal extends React.Component {
 }
 
 export default connect((state) => ({
-  beads: state.beads,
-  editBeadId: state.editBeadId
-}))(EditBeadModal);
+
+}))(CreateProjectModal);

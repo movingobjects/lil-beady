@@ -5,8 +5,8 @@ import { maths } from 'varyd-utils';
 
 import DesignView from './DesignView';
 import DashboardView from './DashboardView';
-import EditBeadModal from './EditBeadModal';
-import CreateBeadModal from './CreateBeadModal';
+import EditBeadModal from './modals/EditBeadModal';
+import CreateBeadModal from './modals/CreateBeadModal';
 
 class App extends React.Component {
 

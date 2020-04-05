@@ -1,21 +1,13 @@
 
 div.modal-view {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  background-color: rgba(90%, 90%, 90%, 0.85);
 
   $panelPadding: 75px;
-
-  div.bg-cover {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(90%, 90%, 90%, 0.85);
-  }
 
   div.panel {
     position: absolute;
@@ -41,7 +33,7 @@ div.modal-view {
     text-transform: uppercase;
     font-weight: bold;
   }
-  
+
   input[type='text'] {
     width: 100%;
     padding: 10px;
