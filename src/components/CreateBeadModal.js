@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 
 import iro from '@jaames/iro';
+import ModalView from './ModalView';
 
-class CreateBeadView extends React.Component {
+class CreateBeadModal extends React.Component {
 
   constructor(props) {
 
@@ -135,68 +136,61 @@ class CreateBeadView extends React.Component {
     } = this.state;
 
     return (
-      <section
-        id='edit-bead-view'>
+
+      <ModalView
+        id='edit-bead-modal'
+        onTapOff={this.onTapOff}>
+
+        <h2>Add New Bead</h2>
 
         <div
-          className='bg-cover'
-          onClick={this.onTapOff} />
+          className='field'>
 
-        <div
-          className='panel'>
+          <label
+            htmlFor='input-name'>
+            Bead name
+          </label>
 
-          <h2>Add New Bead</h2>
-
-          <div
-            className='field'>
-
-            <label
-              htmlFor='input-name'>
-              Bead name
-            </label>
-
-            <input
-              ref={this.nameInputRef}
-              type='text'
-              id='input-name'
-              defaultValue={name}
-              onChange={this.onNameChange} />
-
-          </div>
-
-          <div
-            className='field'>
-
-            <label>Color</label>
-
-            <div
-              className='wrap-color-preview'>
-              <div
-                className='color-preview'
-                style={{
-                  backgroundColor: this.state.color
-                }}/>
-            </div>
-
-            <div id='color-picker'></div>
-
-          </div>
-
-          <div className='buttons'>
-            <button
-              onClick={this.onCancel}>
-              Cancel
-            </button>
-            <button
-              onClick={this.onSave}
-              className='default'>
-              Save
-            </button>
-          </div>
+          <input
+            ref={this.nameInputRef}
+            type='text'
+            id='input-name'
+            defaultValue={name}
+            onChange={this.onNameChange} />
 
         </div>
 
-      </section>
+        <div
+          className='field'>
+
+          <label>Color</label>
+
+          <div
+            className='wrap-color-preview'>
+            <div
+              className='color-preview'
+              style={{
+                backgroundColor: this.state.color
+              }}/>
+          </div>
+
+          <div id='color-picker'></div>
+
+        </div>
+
+        <div className='buttons'>
+          <button
+            onClick={this.onCancel}>
+            Cancel
+          </button>
+          <button
+            onClick={this.onSave}
+            className='default'>
+            Save
+          </button>
+        </div>
+
+      </ModalView>
     );
 
   }
@@ -205,4 +199,4 @@ class CreateBeadView extends React.Component {
 
 export default connect((state) => ({
 
-}))(CreateBeadView);
+}))(CreateBeadModal);

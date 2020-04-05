@@ -5,8 +5,8 @@ import { maths } from 'varyd-utils';
 
 import DesignView from './DesignView';
 import DashboardView from './DashboardView';
-import EditBeadView from './EditBeadView';
-import CreateBeadView from './CreateBeadView';
+import EditBeadModal from './EditBeadModal';
+import CreateBeadModal from './CreateBeadModal';
 
 class App extends React.Component {
 
@@ -41,11 +41,11 @@ class App extends React.Component {
       <main>
 
         {editBeadId && (
-          <EditBeadView />
+          <EditBeadModal />
         )}
 
         {createBeadOn && (
-          <CreateBeadView />
+          <CreateBeadModal />
         )}
 
         {mode === 'dashboard' && (
