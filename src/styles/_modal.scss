@@ -1,4 +1,6 @@
 
+$color-input-focus: #f55;
+
 div.modal-view {
   position: fixed;
   top: 0;
@@ -22,8 +24,7 @@ div.modal-view {
   }
 
   div.field {
-    margin-top: 35px;
-    margin-bottom: 35px;
+    margin-top: 25px;
     color: #666;
   }
 
@@ -34,14 +35,33 @@ div.modal-view {
     font-weight: bold;
   }
 
+  select,
   input[type='text'] {
     width: 100%;
     padding: 10px;
-    font-size: 25px;
+    font-size: 20px;
     font-weight: bold;
     letter-spacing: 0.01em;
     border-radius: 8px;
     border: 1px solid #ccc;
+
+    &:focus {
+      outline: none;
+      border-color: $color-input-focus;
+    }
+
+  }
+
+  select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    background-image: url('../images/select-caret.svg');
+    background-repeat: no-repeat;
+    background-position: right 25px center;
+    background-size: 15px 15px;
+
   }
 
   div.buttons {

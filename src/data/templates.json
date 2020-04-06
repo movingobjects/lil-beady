@@ -4,6 +4,7 @@
     "opts": [
       {
         "id": "loopRows",
+        "label": "Loop Rows",
         "type": "range",
         "min": 3,
         "max": 5,
@@ -11,6 +12,7 @@
       },
       {
         "id": "bodyRowRepeat",
+        "label": "Body Row Repeat",
         "type": "range",
         "min": 1,
         "max": 4,
@@ -18,6 +20,7 @@
       },
       {
         "id": "bodyRows",
+        "label": "Body Rows",
         "type": "range",
         "min": 3,
         "max": 20,
@@ -25,6 +28,7 @@
       },
       {
         "id": "bodyTopCols",
+        "label": "Body Top Cols",
         "type": "range",
         "min": 3,
         "max": 20,
@@ -32,6 +36,7 @@
       },
       {
         "id": "fringeRows",
+        "label": "Fringe Rows",
         "type": "range",
         "min": 0,
         "max": 75,
@@ -44,6 +49,7 @@
     "opts": [
       {
         "id": "loopRows",
+        "label": "Loop Rows",
         "type": "range",
         "min": 3,
         "max": 5,
@@ -51,6 +57,7 @@
       },
       {
         "id": "bodyTopCols",
+        "label": "Body Top Cols",
         "type": "range",
         "min": 3,
         "max": 50,
@@ -58,6 +65,7 @@
       },
       {
         "id": "bodyRows",
+        "label": "Body Rows",
         "type": "range",
         "min": 3,
         "max": 40,
@@ -65,6 +73,7 @@
       },
       {
         "id": "fringeRows",
+        "label": "Fringe Rows",
         "type": "range",
         "min": 0,
         "max": 75,
@@ -77,6 +86,7 @@
     "opts": [
       {
         "id": "loopRows",
+        "label": "Loop Rows",
         "type": "range",
         "min": 3,
         "max": 5,
@@ -84,6 +94,7 @@
       },
       {
         "id": "bodyRowRepeat",
+        "label": "Body Row Repeat",
         "type": "range",
         "min": 1,
         "max": 4,
@@ -91,6 +102,7 @@
       },
       {
         "id": "bodyRows",
+        "label": "Body Rows",
         "type": "range",
         "min": 3,
         "max": 50,
@@ -98,6 +110,7 @@
       },
       {
         "id": "bodyTopCols",
+        "label": "Body Top Cols",
         "type": "range",
         "min": 3,
         "max": 20,

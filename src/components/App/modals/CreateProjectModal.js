@@ -2,7 +2,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import shortId from 'shortid';
-import Select from 'react-select';
 
 import { generateBlankDesign } from 'utils/utils';
 import Modal from 'components/shared/Modal';
@@ -15,7 +14,8 @@ class CreateProjectModal extends React.Component {
 
     this.state = {
       name: 'Project name',
-      template: null
+      templateId: 'triangle',
+      values: { }
     }
 
     this.nameInputRef = React.createRef();
@@ -23,18 +23,43 @@ class CreateProjectModal extends React.Component {
   }
 
   onNameChange = (e) => {
-
     this.setState({
       name: e.target.value
+    });
+  }
+  onTemplateSelect = (e) => {
+    this.setState({
+      templateId: e.target.value
     });
 
   }
 
-  onTemplateSelect = (template) => {
+  updateTemplateOpts() {
 
-    this.setState({ template });
+    const { templateId } = this.state;
+    const { templates }  = this.props;
+
+    const template = templates.find((t) => t.id === templateId);
+
+    this.setState({
+      values: {
+        ...this.state.values,
+        ...template.opts.reduce((acc, opt) => ({
+          ...acc,
+          [opt.id]: opt.default
+        }), { })
+      }
+    });
 
   };
+  onTemplateOptChange = (id, value) => {
+    this.setState({
+      values: {
+        ...this.state.values,
+        [id]: Number(value)
+      }
+    });
+  }
 
   onCancel = () => {
 
@@ -43,27 +68,46 @@ class CreateProjectModal extends React.Component {
   }
   onSave = () => {
 
-    const {
-      templates
-    } = this.props;
-
-    const projectId = shortId.generate(),
-          template  = templates.find((t) => t.id === this.state.template.value),
-          design    = generateBlankDesign(template);
-
-    const project = {
-      id: projectId,
-      name: this.state.name,
-      template,
-      design
-    }
+    const project = this.generateProject();
 
     this.props.dispatch({
       type: 'createProject',
       project
     });
 
-    window.location.hash = `#/project/${projectId}`;
+    window.location.hash = `#/project/${project.id}`;
+
+  }
+
+  generateProject() {
+
+    const projectId = shortId.generate(),
+          template  = this.props.templates.find((t) => t.id === this.state.templateId),
+          design    = generateBlankDesign(template, this.getUserOpts());
+
+    return {
+      id: projectId,
+      name: this.state.name,
+      template,
+      design
+    };
+
+  }
+
+  getUserOpts() {
+
+    const {
+      templateId,
+      values
+    } = this.state;
+
+    const template     = this.props.templates.find((t) => t.id === templateId),
+          templateOpts = template ? template.opts : [];
+
+    return templateOpts.reduce((acc, opt) => ({
+      ...acc,
+      [opt.id]: values.hasOwnProperty(opt.id) ? values[opt.id] : opt.default
+    }), { });
 
   }
 
@@ -73,14 +117,32 @@ class CreateProjectModal extends React.Component {
     nameInput.focus();
     nameInput.setSelectionRange(0, nameInput.value.length)
 
+    this.updateTemplateOpts();
+
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+
+    if (prevState.values.templateId !== this.state.values.templateId) {
+      this.updateTemplateOpts();
+    }
+
   }
 
   render() {
 
     const {
       name,
-      template
+      templateId,
+      values
     } = this.state;
+
+    const {
+      templates
+    } = this.props;
+
+    const template     = templates.find((t) => t.id === templateId),
+          templateOpts = template ? template.opts : [];
 
     return (
 
@@ -95,14 +157,14 @@ class CreateProjectModal extends React.Component {
 
           <label
             htmlFor='input-name'>
-            Bead name
+            Project name
           </label>
 
           <input
             ref={this.nameInputRef}
             type='text'
-            id='input-name'
-            defaultValue={name}
+            name='input-name'
+            value={name}
             onChange={this.onNameChange} />
 
         </div>
@@ -111,51 +173,44 @@ class CreateProjectModal extends React.Component {
           className='field'>
 
           <label
-            htmlFor='input-name'>
+            htmlFor='select-template'>
             Template
           </label>
 
-          <Select
-            isSearchable={false}
-            styles={{
-
-              singleValue: (provided, state) => ({
-                ...provided,
-                fontWeight: 'bold',
-                color: '#000'
-              }),
-              menu: (provided, state) => ({
-                ...provided,
-                color: state.selectProps.menuColor,
-                padding: 10,
-                fontSize: 20
-              }),
-              control: (provided, state) => ({
-                ...provided,
-                fontSize: 25,
-                borderRadius: 8,
-                padding: 10
-              }),
-              valueContainer: (provided, state) => ({
-                ...provided,
-                padding: 0,
-                margin: 0
-              }),
-              dropdownIndicator: (provided, state) => ({
-                ...provided,
-                padding: '0 5px 0 10px'
-              }),
-
-            }}
-            value={template}
-            onChange={this.onTemplateSelect}
-            options={[
-              { label: 'Triangle', value: 'triangle' },
-              { label: 'Square', value: 'square' },
-              { label: 'Diamond', value: 'diamond' },
-            ]} />
+          <select
+            name='select-template'
+            value={templateId}
+            onChange={this.onTemplateSelect}>
+            <option value='triangle'>Triangle</option>
+            <option value='square'>Square</option>
+            <option value='diamond'>Diamond</option>
+          </select>
 
         </div>
+
+        {templateOpts.map((opt) => {
+
+          if (!values.hasOwnProperty(opt.id)) return null;
+
+          return (
+            <div
+              key={`opt-${opt.id}`}
+              className='field'>
+
+              <label
+                htmlFor={`opt-${opt.id}`}>
+                {opt.label} ({opt.min} - {opt.max})
+              </label>
+
+              <input
+                type='text'
+                name={`opt-${opt.id}`}
+                value={values[opt.id]}
+                onChange={(e) => this.onTemplateOptChange(opt.id, e.target.value)} />
+
+            </div>
+          );
+        })}
 
         <div className='buttons'>
           <button

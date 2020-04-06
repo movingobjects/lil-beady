@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="10px" height="6px" viewBox="0 0 10 6" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 64 (93537) - https://sketch.com -->
+    <title>Caret icon</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M9.84989597,4.63848755 L5.36159385,0.149729485 C5.16175913,-0.0499098284 4.83810244,-0.0499098284 4.6384957,0.149729485 L0.14970506,4.63848755 C-0.0499016865,4.838192 -0.0499016865,5.16181612 0.14970506,5.36152057 L0.511237852,5.72305337 C0.710844599,5.92288808 1.0347944,5.92288808 1.23453141,5.72305337 L5,1.95739345 L8.7655907,5.72305337 C8.96516488,5.92288808 9.28895184,5.92288808 9.48862372,5.72305337 L9.85015651,5.36152057 C10.0499912,5.16158815 10.0499912,4.838192 9.84989597,4.63848755 Z" id="Caret-icon" fill="#000000" transform="translate(5.000000, 2.936465) scale(1, -1) translate(-5.000000, -2.936465) "></path>
+    </g>
+</svg>
