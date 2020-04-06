@@ -27,12 +27,6 @@ class EditBeadModal extends React.Component {
 
   }
 
-  onTapOutside = () => {
-
-    window.location.hash = '#/dashboard';
-
-  }
-
   onNameChange = (e) => {
 
     this.setState({
@@ -147,7 +141,7 @@ class EditBeadModal extends React.Component {
 
       <Modal
         id='edit-bead-modal'
-        onTapOutside={this.onTapOutside}>
+        onTapOutside={this.onCancel}>
 
         <h2>Edit Bead</h2>
 

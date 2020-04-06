@@ -7,6 +7,7 @@ import ProjectView from './ProjectView';
 import Dashboard from './Dashboard';
 import EditBeadModal from './modals/EditBeadModal';
 import CreateBeadModal from './modals/CreateBeadModal';
+import CreateProjectModal from './modals/CreateProjectModal';
 
 import Route from 'components/Router/Route';
 
@@ -39,6 +40,7 @@ class App extends React.Component {
         <Route path='#/dashboard' component={Dashboard} />
         <Route path='#/dashboard/bead/create' component={CreateBeadModal} />
         <Route path='#/dashboard/bead/edit/:beadId' component={EditBeadModal} />
+        <Route path='#/dashboard/create' component={CreateProjectModal} />
 
         <Route path='#/project/:projectId' component={ProjectView} />
         {/* <Route path='#/project/:projectId/edit' component={EditProjectModal} /> */}

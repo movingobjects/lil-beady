@@ -66,7 +66,7 @@ class Toolbar extends React.Component {
                   '--color-bead': bead.color
                 }}
                 onClick={() => this.onBeadSelect(i)}>
-                {bead.label}
+                {bead.name}
               </li>
             ))}
           </ul>

@@ -4,13 +4,9 @@ import { random } from 'varyd-utils';
 
 class Dashboard extends React.Component {
 
-  onProjectCreate = () => {
+  onProjectCreateClick = () => {
 
-    const {
-      dispatch
-    } = this.props;
-
-    // TODO create project
+    window.location.hash = `#/dashboard/create`;
 
   }
 
@@ -59,13 +55,13 @@ class Dashboard extends React.Component {
 
           <li
             className='create'
-            onClick={() => this.onProjectCreate()} />
+            onClick={this.onProjectCreateClick} />
 
           {projects.map((project, i) => (
             <li
               key={`project-${project.id}`}
               onClick={() => this.onProjectSelect(project.id)}>
-              {project.label}
+              {project.name}
             </li>
           ))}
 

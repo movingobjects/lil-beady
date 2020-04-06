@@ -1,7 +1,7 @@
 [
   {
     "id": "blank-triangle",
-    "label": "Blank Triangle",
+    "name": "Blank Triangle",
     "template": "triangle",
     "design": {
       "beads": [
@@ -1056,7 +1056,7 @@
   },
   {
     "id": "blank-square",
-    "label": "Blank Square",
+    "name": "Blank Square",
     "template": "square",
     "design": {
       "beads": [
@@ -1913,7 +1913,7 @@
   },
   {
     "id": "blank-diamond",
-    "label": "Blank Diamond",
+    "name": "Blank Diamond",
     "template": "diamond",
     "design": {
       "beads": [
