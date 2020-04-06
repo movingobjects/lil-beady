@@ -1,17 +1,24 @@
 
-const path                           = require('path');
+const path    = require('path'),
+      package = require('./package.json');
 
-const CopyWebpackPlugin              = require('copy-webpack-plugin'),
-      HtmlWebpackPlugin              = require('html-webpack-plugin'),
-      MiniCssExtractPlugin           = require('mini-css-extract-plugin'),
-      HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
+const CopyWebpackPlugin     = require('copy-webpack-plugin'),
+      HtmlWebpackPlugin     = require('html-webpack-plugin'),
+      MiniCssExtractPlugin  = require('mini-css-extract-plugin'),
+      HtmlWebpackTagsPlugin = require('html-webpack-tags-plugin');
 
-const isDev = process.env.NODE_ENV !== 'production';
+const isDev = (process.env.NODE_ENV !== 'production');
 
 module.exports = {
 
   entry: {
     app: './src/index.js'
+  },
+
+  output: {
+    path: path.resolve(__dirname, './dist'),
+    filename: 'resources/[name].bundle.js',
+    publicPath: ''
   },
 
   resolve: {
@@ -21,19 +28,12 @@ module.exports = {
     ]
   },
 
-  output: {
-    path: path.resolve(__dirname, './dist'),
-    filename: 'resources/[name].bundle.js',
-    publicPath: ''
-  },
-
   module: {
     rules: [
       {
         test: /\.(jsx?)$/i,
         include: [
-          path.resolve(__dirname, 'src'),
-          path.resolve(__dirname, 'node_modules/varyd-utils')
+          path.resolve(__dirname, 'src')
         ],
         use: [
           {
@@ -44,11 +44,11 @@ module.exports = {
                 '@babel/preset-react'
               ],
               plugins: [
-                'lodash',
+                '@babel/plugin-proposal-class-properties',
+                '@babel/plugin-proposal-nullish-coalescing-operator',
                 '@babel/plugin-proposal-object-rest-spread',
-                '@babel/plugin-proposal-class-properties'
+                '@babel/plugin-proposal-optional-chaining',
               ]
-
             }
           }
         ]
@@ -101,8 +101,10 @@ module.exports = {
         ],
         use: [
           {
-            loader: 'file-loader',
+            loader: 'url-loader',
             options: {
+              limit: 8192,
+              fallback: 'file-loader',
               name: 'resources/images/[name].[ext]'
             }
           }
@@ -153,13 +155,36 @@ module.exports = {
     ]
   },
 
+  externals: {
+    'react': 'React',
+    'react-dom': 'ReactDOM',
+  },
+
   plugins: [
+    new CopyWebpackPlugin([
+      {
+        from: 'src/static',
+        to: './'
+      },
+      {
+        from: `node_modules/react/umd/react.${isDev ? 'development' : 'production.min'}.js`,
+        to: './resources/vendor/react/'
+      },
+      {
+        from: `node_modules/react-dom/umd/react-dom.${isDev ? 'development' : 'production.min'}.js`,
+        to: './resources/vendor/react/'
+      }
+    ]),
     new HtmlWebpackPlugin({
-      template: './src/index.html',
-      filename: 'index.html'
+      template: './src/templates/index.ejs',
+      filename: 'index.html',
+      title: package.productName
     }),
-    new HtmlWebpackIncludeAssetsPlugin({
-      assets: [ ],
+    new HtmlWebpackTagsPlugin({
+      tags: [
+        `resources/vendor/react/react.${isDev ? 'development' : 'production.min'}.js`,
+        `resources/vendor/react/react-dom.${isDev ? 'development' : 'production.min'}.js`
+      ],
       append: false
     }),
     new MiniCssExtractPlugin({
