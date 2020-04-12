@@ -16,7 +16,8 @@
   "main": "src/index.js",
   "scripts": {
     "dev": "export NODE_ENV=development&& webpack-dev-server --open --hot --mode development",
-    "dist": "rm -rf ./dist; export NODE_ENV=production&& webpack --mode production"
+    "dist": "rm -rf ./dist; export NODE_ENV=production&& webpack --mode production",
+    "reinstall": "rm -rf ./node_modules; yarn"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
