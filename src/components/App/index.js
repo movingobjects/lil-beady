@@ -43,9 +43,6 @@ class App extends React.Component {
         <Route path='#/dashboard/create' component={CreateProjectModal} />
 
         <Route path='#/project/:projectId' component={ProjectView} />
-        {/* <Route path='#/project/:projectId/edit' component={EditProjectModal} /> */}
-        {/* <Route path='#/project/:projectId/export' component={ExportModal} /> */}
-        {/* <Route path='#/project/:projectId/add-version' component={AddVersionModal} /> */}
 
       </main>
     )

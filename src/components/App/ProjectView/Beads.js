@@ -136,15 +136,8 @@ class Beads extends React.Component {
   onDrag = (x, y) => {
 
     if (this.currentDraw) {
-
       const brush = brushesData[this.props.brushIndex];
-
-      if (brush.drawDist) {
-        this.draw(x, y, brush.drawDist);
-      } else {
-        this.drawSingle(x, y);
-      }
-
+      this.draw(x, y, brush);
     }
 
   }
@@ -154,43 +147,7 @@ class Beads extends React.Component {
 
   }
 
-  draw(x, y, dist) {
-
-    const {
-      hit,
-      unhit
-    } = this.currentDraw;
-
-    const {
-      rects
-    } = this.state;
-
-    const maxDistSq = dist * dist;
-
-    const newHits = unhit.filter((index) => {
-      const rect   = rects[index],
-            rectX  = rect.x + (rect.w * 0.5),
-            rectY  = rect.y + (rect.h * 0.5),
-            distSq = geom.distSqXY(rectX, rectY, x, y);
-      return (distSq < maxDistSq);
-    });
-
-    if (newHits.length) {
-
-      this.currentDraw = {
-        hit: [
-          ...hit,
-          newHits
-        ],
-        unhit: unhit.filter((index) => !newHits.includes(index))
-      };
-
-      this.applyDraw(newHits);
-
-    }
-
-  }
-  drawSingle(x, y) {
+  draw(x, y, brush) {
 
     const {
       hit,
@@ -203,7 +160,7 @@ class Beads extends React.Component {
 
     const isHit = (index) => {
 
-      const rect  = rects[index];
+      const rect = rects[index].area;
 
       if (x < rect.x) return false;
       if (y < rect.y) return false;
@@ -214,21 +171,19 @@ class Beads extends React.Component {
 
     }
 
-    const newHit = unhit.find((index) => isHit(index));
+    const center = unhit.find((index) => isHit(index));
 
-    if (newHit !== undefined) {
+    if (!center) return;
 
-      this.currentDraw = {
-        hit: [
-          ...hit,
-          newHit
-        ],
-        unhit: unhit.filter((index) => index !== newHit)
-      };
+    this.currentDraw = {
+      hit: [
+        ...hit,
+        center
+      ],
+      unhit: unhit.filter((index) => index !== center)
+    };
 
-      this.applyDraw([ newHit ]);
-
-    }
+    this.applyDraw([ center ]);
 
   }
 
@@ -370,11 +325,19 @@ class Beads extends React.Component {
 
     return beads.map((bead, index) => ({
       index: index,
-      x: centerX + (bead.col * colW) - (beadW / 2),
-      y: topY + (bead.row * rowH) - (beadH / 2),
-      w: beadW,
-      h: beadH,
-      beadId: bead.beadId
+      beadId: bead.beadId,
+      area: {
+        x: centerX + (bead.col * colW) - (colW / 2),
+        y: topY + (bead.row * rowH) - (rowH / 2),
+        w: colW,
+        h: rowH
+      },
+      bead: {
+        x: centerX + (bead.col * colW) - (beadW / 2),
+        y: topY + (bead.row * rowH) - (beadH / 2),
+        w: beadW,
+        h: beadH,
+      }
     }));
 
   }
@@ -448,10 +411,10 @@ class Beads extends React.Component {
           {rects.map((r, i) => (
             <rect
               key={`bead-${i}`}
-              x={r.x}
-              y={r.y}
-              width={r.w}
-              height={r.h}
+              x={r.bead.x}
+              y={r.bead.y}
+              width={r.bead.w}
+              height={r.bead.h}
               rx='2'
               style={{
                 fill: this.getBeadColor(r.beadId)
