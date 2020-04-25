@@ -19,157 +19,129 @@ export function generateBlankDesign(template, userOpts) {
 
   }
 
-  const getBeads = (opts) => {
+  const opts = getOpts(template.opts, userOpts);
 
-    const beads = [];
+  const design = [];
 
-    times(opts.loopRows, (row) => {
-      if (row === 0) {
-        beads.push(
-          { beadId: null, col: -0.5, row: row },
-          { beadId: null, col:  0.5, row: row }
-        );
-      } else {
-        beads.push(
-          { beadId: null, col: -1, row: row },
-          { beadId: null, col:  1, row: row }
-        );
-      }
+  times(opts.loopRows, (row) => {
+    if (row === 0) {
+      design.push(
+        { beadId: null, col: -0.5, row: row },
+        { beadId: null, col:  0.5, row: row }
+      );
+    } else {
+      design.push(
+        { beadId: null, col: -1, row: row },
+        { beadId: null, col:  1, row: row }
+      );
+    }
+  });
+
+  if (template.id === 'triangle') {
+
+    times(opts.bodyRows, (row) => {
+      const cols = opts.bodyTopCols + row,
+            rowX = -(cols / 2) + 0.5;
+      times(opts.bodyRowRepeat, (rowOffset) => {
+        const rowY = opts.loopRows + (row * opts.bodyRowRepeat) + rowOffset;
+        times(cols, (col) => {
+          design.push({
+            beadId: null,
+            col: rowX + col,
+            row: rowY
+          })
+        })
+      });
     });
 
-    if (template.id === 'triangle') {
+    const totalCols = opts.bodyTopCols + opts.bodyRows,
+          rowX      = -(totalCols / 2) + 0.5;
 
-      times(opts.bodyRows, (row) => {
-        const cols = opts.bodyTopCols + row,
-              rowX = -(cols / 2) + 0.5;
-        times(opts.bodyRowRepeat, (rowOffset) => {
-          const rowY = opts.loopRows + (row * opts.bodyRowRepeat) + rowOffset;
-          times(cols, (col) => {
-            beads.push({
-              beadId: null,
-              col: rowX + col,
-              row: rowY
-            })
-          })
+    times(totalCols, (col) => {
+      times(opts.fringeRows, (row) => {
+        const rowY = opts.loopRows + (opts.bodyRows * opts.bodyRowRepeat) + row;
+        design.push({
+          beadId: null,
+          fCol: col,
+          fRow: row,
+          col: rowX + col,
+          row: rowY
+        })
+      });
+    });
+
+  } else if (template.id === 'square') {
+
+    times(opts.bodyRows, (row) => {
+      const cols = opts.bodyTopCols,
+            rowX = -(cols / 2) + 0.5,
+            rowY = opts.loopRows + row;
+      times(cols, (col) => {
+        design.push({
+          beadId: null,
+          col: rowX + col,
+          row: rowY
         });
       });
+    });
 
-      const totalCols = opts.bodyTopCols + opts.bodyRows,
-            rowX      = -(totalCols / 2) + 0.5;
+    const rowX = -(opts.bodyTopCols / 2) + 0.5;
 
-      times(totalCols, (col) => {
-        times(opts.fringeRows, (row) => {
-          const rowY = opts.loopRows + (opts.bodyRows * opts.bodyRowRepeat) + row;
-          beads.push({
-            beadId: null,
-            fCol: col,
-            fRow: row,
-            col: rowX + col,
-            row: rowY
-          })
-        });
+    times(opts.bodyTopCols, (col) => {
+      times(opts.fringeRows, (row) => {
+        const rowY = opts.loopRows + opts.bodyRows + row;
+        design.push({
+          beadId: null,
+          fCol: col,
+          fRow: row,
+          col: rowX + col,
+          row: rowY
+        })
       });
+    });
 
-    } else if (template.id === 'square') {
+  } else if (template.id === 'diamond') {
 
-      times(opts.bodyRows, (row) => {
-        const cols = opts.bodyTopCols,
-              rowX = -(cols / 2) + 0.5,
-              rowY = opts.loopRows + row;
+    const topRows = Math.ceil(opts.bodyRows / 2),
+          btmRows = (opts.bodyTopCols + topRows) - 1;
+    times(topRows, (row) => {
+      const cols = opts.bodyTopCols + row,
+            rowX = -(cols / 2) + 0.5;
+      times(opts.bodyRowRepeat, (rowOffset) => {
+        const rowY = opts.loopRows + (row * opts.bodyRowRepeat) + rowOffset;
         times(cols, (col) => {
-          beads.push({
+          design.push({
             beadId: null,
             col: rowX + col,
             row: rowY
-          });
-        });
+          })
+        })
       });
-      const rowX = -(opts.bodyTopCols / 2) + 0.5;
-      times(opts.bodyTopCols, (col) => {
-        times(opts.fringeRows, (row) => {
-          const rowY = opts.loopRows + opts.bodyRows + row;
-          beads.push({
+    });
+
+    times(btmRows, (row) => {
+      const cols = (opts.bodyTopCols + topRows) - row,
+            rowX = -(cols / 2) + 0.5;
+      times(opts.bodyRowRepeat, (rowOffset) => {
+        const rowY = opts.loopRows + (topRows * opts.bodyRowRepeat) + (row * opts.bodyRowRepeat) + rowOffset;
+        times(cols, (col) => {
+          design.push({
             beadId: null,
-            fCol: col,
-            fRow: row,
             col: rowX + col,
             row: rowY
           })
-        });
+        })
       });
+    });
 
-    } else if (template.id === 'diamond') {
-      const topRows = Math.ceil(opts.bodyRows / 2),
-            btmRows = (opts.bodyTopCols + topRows) - 1;
-      times(topRows, (row) => {
-        const cols = opts.bodyTopCols + row,
-              rowX = -(cols / 2) + 0.5;
-        times(opts.bodyRowRepeat, (rowOffset) => {
-          const rowY = opts.loopRows + (row * opts.bodyRowRepeat) + rowOffset;
-          times(cols, (col) => {
-            beads.push({
-              beadId: null,
-              col: rowX + col,
-              row: rowY
-            })
-          })
-        });
-      });
-      times(btmRows, (row) => {
-        const cols = (opts.bodyTopCols + topRows) - row,
-              rowX = -(cols / 2) + 0.5;
-        times(opts.bodyRowRepeat, (rowOffset) => {
-          const rowY = opts.loopRows + (topRows * opts.bodyRowRepeat) + (row * opts.bodyRowRepeat) + rowOffset;
-          times(cols, (col) => {
-            beads.push({
-              beadId: null,
-              col: rowX + col,
-              row: rowY
-            })
-          })
-        });
-      });
-      beads.push({
-        beadId: null,
-        col: 0,
-        row: opts.loopRows + ((topRows + btmRows) * opts.bodyRowRepeat)
-      })
-
-    }
-
-    return beads;
-
-  }
-
-  const getFringeCols = (beads) => {
-
-    const fringeCols = [];
-
-    beads.forEach((bead, index) => {
-
-      const col = bead.fCol,
-            row = bead.fRow;
-
-      if (Number.isInteger(col) && Number.isInteger(row)) {
-        if (!Array.isArray(fringeCols[col])) {
-          fringeCols[col] = [];
-        }
-        fringeCols[col][row] = index;
-      }
-
+    design.push({
+      beadId: null,
+      col: 0,
+      row: opts.loopRows + ((topRows + btmRows) * opts.bodyRowRepeat)
     })
 
-    return fringeCols;
-
   }
 
-  const opts       = getOpts(template.opts, userOpts),
-        beads      = getBeads(opts),
-        fringeCols = getFringeCols(beads);
-
-  return {
-    beads,
-    fringeCols
-  };
+  return design;
 
 }

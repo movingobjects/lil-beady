@@ -7,12 +7,14 @@
 
   ul {
     display: flex;
+    flex-wrap: wrap;
     margin-bottom: 50px;
 
     li {
       flex: 0 0 auto;
       border: 1px solid #ccc;
       border-radius: 5px;
+      cursor: pointer;
 
       &.create {
         background-position: center;
@@ -31,14 +33,12 @@
     }
 
     &.projects {
-      flex-wrap: nowrap;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
 
       li {
         width: 200px;
         height: 200px;
         margin-right: 10px;
+        margin-bottom: 10px;
 
         &.create {
           background-image: url('../images/icon-dashboard-new-project.svg');

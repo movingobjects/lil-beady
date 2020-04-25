@@ -20,7 +20,7 @@ const LAYOUT_OPTS = {
   beadH: 8
 };
 
-class Beads extends React.Component {
+class Design extends React.Component {
 
   constructor() {
 
@@ -275,14 +275,14 @@ class Beads extends React.Component {
     if (!project.design.beads) return;
 
     const beads   = project.design.beads,
-          area    = this.getBeadsArea(beads),
+          area    = this.getDesignArea(beads),
           rects   = this.getBeadRects(beads, area);
 
     this.setState({ area, rects });
 
   }
 
-  getBeadsArea(beads) {
+  getDesignArea(beads) {
 
     const {
       padding,
@@ -436,4 +436,4 @@ export default connect((state) => ({
   brushIndex: state.brushIndex,
   bead: getBead(state),
   beads: state.beads
-}))(Beads);
+}))(Design);
