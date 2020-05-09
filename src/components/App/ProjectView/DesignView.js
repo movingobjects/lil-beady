@@ -28,6 +28,7 @@ class DesignView extends React.Component {
     super();
 
     this.state = {
+      workingLayout: null,
       layoutArea: { x: 0, y: 0, w: 1, h: 1},
       layoutRects: [ ]
     }
@@ -85,68 +86,53 @@ class DesignView extends React.Component {
   draw(x, y) {
 
     const {
-      hit,
-      unhit
-    } = this.currentDraw;
-
-    const {
+      workingLayout,
       layoutRects
     } = this.state;
-
-    const isHit = (index) => {
-
-      const rect = layoutRects[index].area;
-
-      if (x < rect.x) return false;
-      if (y < rect.y) return false;
-      if (x > rect.x + rect.w) return false;
-      if (y > rect.y + rect.h) return false;
-
-      return true;
-
-    }
-
-    const center = unhit.find((index) => isHit(index));
-
-    if (!center) return;
-
-    this.currentDraw = {
-      hit: [
-        ...hit,
-        center
-      ],
-      unhit: unhit.filter((index) => index !== center)
-    };
-
-    this.applyDraw([ center ]);
-
-  }
-
-  applyDraw(rectIndexes) {
 
     const {
       bead
     } = this.props;
 
     const {
-      layoutRects
-    } = this.state;
+      hit,
+      unhit
+    } = this.currentDraw;
 
-    const newRects = cloneDeep(layoutRects);
+    const hitIndex = unhit.find((rectIndex) => {
+      const rect = layoutRects[rectIndex].hit;
+      return (
+        (x > rect.x) &&
+        (y > rect.y) &&
+        (x < rect.x + rect.w) &&
+        (y < rect.y + rect.h)
+      )
+    });
 
-    rectIndexes.forEach((index) => {
-      newRects[index] = {
-        ...newRects[index],
-        beadId: bead.id
-      }
-    })
+    if (hitIndex === -1) return;
+
+    this.currentDraw = {
+      hit: [
+        ...hit,
+        hitIndex
+      ],
+      unhit: unhit.filter((index) => index !== hitIndex)
+    };
 
     this.setState({
-      layoutRects: newRects
+      workingLayout: workingLayout.map((item, index) => {
+        if (index === hitIndex) {
+          return {
+            ...item,
+            beadId: bead.id
+          }
+        } else {
+          return item;
+        }
+      })
     });
 
   }
-
   save() {
 
     const {
@@ -155,24 +141,16 @@ class DesignView extends React.Component {
       projectId
     } = this.props;
 
-    const {
-      layoutRects
-    } = this.state;
-
     const project = projects.find((p) => p.id === projectId);
 
     if (!project) return;
-
-    const layout = cloneDeep(project.layout);
-
-    // TODO save layout here!
 
     dispatch({
       type: 'updateProject',
       projectId,
       project: {
         ...project,
-        layout
+        layout: cloneDeep(this.state.workingLayout)
       }
     });
 
@@ -190,16 +168,17 @@ class DesignView extends React.Component {
     if (!project) return;
     if (!project.layout) return;
 
-    const layoutArea  = this.getLayoutArea(project.layout),
-          layoutRects = this.getLayoutRects(project.layout, layoutArea);
+    const workingLayout = cloneDeep(project.layout),
+          layoutArea    = this.getLayoutArea(project.layout),
+          layoutRects   = this.getLayoutRects(project.layout, layoutArea);
 
     this.setState({
+      workingLayout,
       layoutArea,
       layoutRects
     });
 
   }
-
   getLayoutArea(layout) {
 
     const {
@@ -242,9 +221,7 @@ class DesignView extends React.Component {
           centerX = (layoutArea.w / 2);
 
     return layout.map((bead, index) => ({
-      index: index,
-      beadId: bead.beadId,
-      area: {
+      hit: {
         x: centerX + (bead.col * colW) - (colW / 2),
         y: topY + (bead.row * rowH) - (rowH / 2),
         w: colW,
@@ -259,10 +236,21 @@ class DesignView extends React.Component {
     }));
 
   }
-  getBeadColor(beadId) {
-    const beads = this.props.beads,
-          bead  = beads.find((b) => b.id === beadId);
-    return bead ? bead.color : BLANK_COLOR;
+
+  getBeadColor(index) {
+
+    const {
+      beads
+    } = this.props;
+
+    const {
+      workingLayout
+    } = this.state;
+
+    const item   = workingLayout[index];
+
+    return beads.find((b) => b.id === item.beadId)?.color || BLANK_COLOR;
+
   }
 
   componentDidMount() {
@@ -313,7 +301,7 @@ class DesignView extends React.Component {
               height={r.bead.h}
               rx='2'
               style={{
-                fill: this.getBeadColor(r.beadId)
+                fill: this.getBeadColor(i)
               }}
             />
           ))}
