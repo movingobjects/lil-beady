@@ -8,15 +8,7 @@ import * as selectors from 'selectors';
 
 import DragArea from './DragArea';
 
-const BLANK_COLOR = '#eeeeee';
-
-const LAYOUT_OPTS = {
-  padding: 25,
-  colW: 12,
-  rowH: 10,
-  beadW: 10,
-  beadH: 8
-};
+import layoutOptsData from 'data/layout-opts.json';
 
 class DesignView extends React.Component {
 
@@ -25,7 +17,7 @@ class DesignView extends React.Component {
     super();
 
     this.state = {
-      workingLayout: null,
+      workingLayout: [ ],
       layoutArea: { x: 0, y: 0, w: 1, h: 1},
       layoutRects: [ ]
     }
@@ -49,7 +41,7 @@ class DesignView extends React.Component {
         x: (window.innerWidth - layoutArea.w) / 2,
         y: (window.innerHeight - layoutArea.h) / 2
       }
-    })
+    });
 
   }
 
@@ -178,6 +170,7 @@ class DesignView extends React.Component {
     }
 
   }
+
   save() {
 
     const {
@@ -201,27 +194,59 @@ class DesignView extends React.Component {
 
   }
 
-  setupProject() {
+  resetWorkingLayout() {
+
+    const project       = this.getProject(),
+          workingLayout = project ? cloneDeep(project.layout) : [];
+
+    this.setState({ workingLayout });
+
+  }
+  resetView() {
+
+    const project = this.getProject();
+
+    if (project?.layout) {
+
+      const layoutArea  = this.getLayoutArea(project.layout),
+            layoutRects = this.getLayoutRects(project.layout, layoutArea);
+
+      this.setState({
+        layoutArea,
+        layoutRects
+      });
+
+    }
+
+  }
+
+  getProject() {
 
     const {
       projects,
       projectId
     } = this.props;
 
-    const project = projects.find((p) => p.id === projectId);
+    return projects.find((p) => p.id === projectId);
 
-    if (!project) return;
-    if (!project.layout) return;
+  }
+  getLayoutOpts() {
 
-    const workingLayout = cloneDeep(project.layout),
-          layoutArea    = this.getLayoutArea(project.layout),
-          layoutRects   = this.getLayoutRects(project.layout, layoutArea);
+    const {
+      zoomLevel
+    } = this.props;
 
-    this.setState({
-      workingLayout,
-      layoutArea,
-      layoutRects
-    });
+    const data = layoutOptsData;
+
+    return {
+      ...data,
+      padding: zoomLevel * data.padding,
+      colW: zoomLevel * data.colW,
+      rowH: zoomLevel * data.rowH,
+      beadW: zoomLevel * data.beadW,
+      beadH: zoomLevel * data.beadH,
+      cornerRadius: zoomLevel * data.cornerRadius
+    }
 
   }
   getLayoutArea(layout) {
@@ -230,7 +255,7 @@ class DesignView extends React.Component {
       padding,
       colW,
       rowH
-    } = LAYOUT_OPTS;
+    } = this.getLayoutOpts();
 
     let minCol = NaN,
         maxCol = NaN,
@@ -260,7 +285,7 @@ class DesignView extends React.Component {
       rowH,
       beadW,
       beadH
-    } = LAYOUT_OPTS;
+    } = this.getLayoutOpts();
 
     const topY    = padding,
           centerX = (layoutArea.w / 2);
@@ -281,7 +306,6 @@ class DesignView extends React.Component {
     }));
 
   }
-
   getBeadColor(index) {
 
     const {
@@ -294,7 +318,18 @@ class DesignView extends React.Component {
 
     const item   = workingLayout[index];
 
-    return beads.find((b) => b.id === item.beadId)?.color || BLANK_COLOR;
+    return beads.find((b) => b.id === item.beadId)?.color || layoutOptsData.blankColor;
+
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+
+    const propChanged  = (key) => this.props[key] !== prevProps[key],
+          stateChanged = (key) => this.state[key] !== prevState[key];
+
+    if (propChanged('zoomLevel')) {
+      this.resetView();
+    }
 
   }
 
@@ -302,7 +337,8 @@ class DesignView extends React.Component {
 
     window.addEventListener('resize', this.onResize);
 
-    this.setupProject();
+    this.resetWorkingLayout();
+    this.resetView();
 
   }
   componentWillUnmount() {
@@ -312,6 +348,10 @@ class DesignView extends React.Component {
   }
 
   render() {
+
+    const {
+      cornerRadius
+    } = this.getLayoutOpts();
 
     const {
       layoutArea,
@@ -344,7 +384,7 @@ class DesignView extends React.Component {
               y={r.bead.y}
               width={r.bead.w}
               height={r.bead.h}
-              rx='2'
+              rx={cornerRadius}
               style={{
                 fill: this.getBeadColor(i)
               }}
