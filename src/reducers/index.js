@@ -8,13 +8,10 @@ import {
 import {
   projects,
   templates,
-  beads
-} from './app';
-
-import {
+  beads,
   toolIndex,
   beadIndex
-} from './design';
+} from './app';
 
 const rootReducer = combineReducers({
   route,

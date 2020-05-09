@@ -1,0 +1,10 @@
+[
+  {
+    "id": "draw",
+    "label": "Draw"
+  },
+  {
+    "id": "fill",
+    "label": "Fill"
+  }
+]

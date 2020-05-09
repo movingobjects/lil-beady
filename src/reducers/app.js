@@ -1,5 +1,21 @@
 
+import templatesData from 'data/templates.json';
 import projectsData from 'data/projects.json';
+import beadsData from 'data/beads.json';
+
+export const templates = (state = templatesData, action) => {
+
+  switch (action.type) {
+
+    case 'setTemplates':
+      return action.templates;
+
+    default:
+      return state;
+
+  }
+
+}
 
 export const projects = (state = projectsData, action) => {
 
@@ -36,9 +52,6 @@ export const projects = (state = projectsData, action) => {
 
 }
 
-
-import beadsData from 'data/beads.json';
-
 export const beads = (state = beadsData, action) => {
 
   switch (action.type) {
@@ -74,15 +87,26 @@ export const beads = (state = beadsData, action) => {
 
 }
 
-
-import templatesData from 'data/templates.json';
-
-export const templates = (state = templatesData, action) => {
+export const beadIndex = (state = 0, action) => {
 
   switch (action.type) {
 
-    case 'setTemplates':
-      return action.templates;
+    case 'setBeadIndex':
+      return action.index;
+
+    default:
+      return state;
+
+  }
+
+}
+
+export const toolIndex = (state = 0, action) => {
+
+  switch (action.type) {
+
+    case 'setToolIndex':
+      return action.index;
 
     default:
       return state;

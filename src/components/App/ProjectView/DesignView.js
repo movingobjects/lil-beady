@@ -2,12 +2,9 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { cloneDeep } from 'lodash';
-import {
-  maths,
-  geom
-} from 'varyd-utils';
+import { maths, geom } from 'varyd-utils';
 
-import { getBead } from 'selectors';
+import * as selectors from 'selectors';
 
 import DragArea from './DragArea';
 
@@ -59,15 +56,17 @@ class DesignView extends React.Component {
   onDragStart = (x, y) => {
 
     const {
-      layoutRects
-    } = this.state;
+      tool
+    } = this.props;
 
-    this.currentDraw = {
-      hit: [],
-      unhit: [ ...Array(layoutRects.length).keys() ]
-    };
+    if (tool.id === 'fill') {
+      this.fill(x, y);
+      return;
 
-    this.onDrag(x, y);
+    } else if (tool.id === 'draw') {
+      this.startDraw();
+      this.draw(x, y);
+    }
 
   }
   onDrag = (x, y) => {
@@ -79,10 +78,24 @@ class DesignView extends React.Component {
   }
   onDragEnd = (x, y) => {
 
-    this.currentDraw = null;
+    if (this.currentDraw) {
+      this.endDraw();
+    }
 
   }
 
+  startDraw() {
+
+    const {
+      layoutRects
+    } = this.state;
+
+    this.currentDraw = {
+      hit: [],
+      unhit: [ ...Array(layoutRects.length).keys() ]
+    };
+
+  }
   draw(x, y) {
 
     const {
@@ -131,6 +144,38 @@ class DesignView extends React.Component {
         }
       })
     });
+
+  }
+  endDraw() {
+    this.currentDraw = null;
+  }
+
+  fill(x, y) {
+
+    const {
+      workingLayout,
+      layoutRects
+    } = this.state;
+
+    const {
+      bead
+    } = this.props;
+
+    const isAHit = !!layoutRects.find(({ hit }) => (
+      (x > hit.x) &&
+      (y > hit.y) &&
+      (x < hit.x + hit.w) &&
+      (y < hit.y + hit.h)
+    ))
+
+    if (isAHit) {
+      this.setState({
+        workingLayout: workingLayout.map((item, index) => ({
+          ...item,
+          beadId: bead.id
+        }))
+      });
+    }
 
   }
   save() {
@@ -317,7 +362,7 @@ class DesignView extends React.Component {
 
 export default connect((state) => ({
   projects: state.projects,
-  toolIndex: state.toolIndex,
-  bead: getBead(state),
+  tool: selectors.getTool(state),
+  bead: selectors.getBead(state),
   beads: state.beads
 }))(DesignView);

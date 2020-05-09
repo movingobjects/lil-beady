@@ -4,10 +4,7 @@ import { connect } from 'react-redux';
 
 import classNames from 'classnames';
 
-const TOOLS = [
-  { id: 'draw', 'label': 'Draw' },
-  { id: 'fill', 'label': 'Fill' }
-]
+import toolsData from 'data/tools.json';
 
 class Toolbar extends React.Component {
 
@@ -39,11 +36,11 @@ class Toolbar extends React.Component {
     } = this.props;
 
     return (
-      <section id="toolbar">
+      <section id='toolbar'>
 
-        <div className="tools">
+        <div className='tools'>
           <ul>
-            {TOOLS.map((tool, i) => (
+            {toolsData.map((tool, i) => (
               <li
                 key={`tool-${tool.id}`}
                 className={classNames({
@@ -56,7 +53,7 @@ class Toolbar extends React.Component {
           </ul>
         </div>
 
-        <div className="beads">
+        <div className='beads'>
           <ul>
             {beads.map((bead, i) => (
               <li
