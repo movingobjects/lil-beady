@@ -12,7 +12,7 @@ import {
 } from './app';
 
 import {
-  brushIndex,
+  toolIndex,
   beadIndex
 } from './design';
 
@@ -21,7 +21,7 @@ const rootReducer = combineReducers({
   projects,
   templates,
   beads,
-  brushIndex,
+  toolIndex,
   beadIndex
 });
 

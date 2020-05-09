@@ -1,10 +1,10 @@
 
 
-export const brushIndex = (state = 1, action) => {
+export const toolIndex = (state = 1, action) => {
 
   switch (action.type) {
 
-    case 'setBrushIndex':
+    case 'setToolIndex':
       return action.index;
 
     default:

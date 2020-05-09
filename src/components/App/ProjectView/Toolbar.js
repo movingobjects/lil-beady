@@ -4,14 +4,17 @@ import { connect } from 'react-redux';
 
 import classNames from 'classnames';
 
-import brushesData from 'data/brushes.json';
+const TOOLS = [
+  { id: 'draw', 'label': 'Draw' },
+  { id: 'fill', 'label': 'Fill' }
+]
 
 class Toolbar extends React.Component {
 
-  onBrushSelect = (index) => {
+  onToolSelect = (index) => {
 
     this.props.dispatch({
-      type: 'setBrushIndex',
+      type: 'setToolIndex',
       index
     });
 
@@ -30,7 +33,7 @@ class Toolbar extends React.Component {
   render() {
 
     const {
-      brushIndex,
+      toolIndex,
       beads,
       beadIndex
     } = this.props;
@@ -40,14 +43,14 @@ class Toolbar extends React.Component {
 
         <div className="tools">
           <ul>
-            {brushesData.map((brush, i) => (
+            {TOOLS.map((tool, i) => (
               <li
-                key={`brush-${brush.id}`}
+                key={`tool-${tool.id}`}
                 className={classNames({
-                  'selected': i === brushIndex
+                  'selected': i === toolIndex
                 })}
-                onClick={() => this.onBrushSelect(i)}>
-                {brush.id}
+                onClick={() => this.onToolSelect(i)}>
+                {tool.label}
               </li>
             ))}
           </ul>
@@ -79,7 +82,7 @@ class Toolbar extends React.Component {
 }
 
 export default connect((state) => ({
-  brushIndex: state.brushIndex,
+  toolIndex: state.toolIndex,
   beads: state.beads,
   beadIndex: state.beadIndex
 }))(Toolbar)

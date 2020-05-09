@@ -8,7 +8,6 @@ import {
 } from 'varyd-utils';
 
 import { getBead } from 'selectors';
-import brushesData from 'data/brushes.json';
 
 const BLANK_COLOR = '#eeeeee';
 
@@ -27,8 +26,8 @@ class DesignView extends React.Component {
     super();
 
     this.state = {
-      area: { x: 0, y: 0, w: 1, h: 1},
-      rects: []
+      layoutArea: { x: 0, y: 0, w: 1, h: 1},
+      layoutRects: [ ]
     }
 
     this.svgRef  = React.createRef();
@@ -42,14 +41,14 @@ class DesignView extends React.Component {
   onResize = (e) => {
 
     const {
-      area
+      layoutArea
     } = this.state;
 
     this.setState({
-      area: {
-        ...area,
-        x: (window.innerWidth - area.w) / 2,
-        y: (window.innerHeight - area.h) / 2
+      layoutArea: {
+        ...layoutArea,
+        x: (window.innerWidth - layoutArea.w) / 2,
+        y: (window.innerHeight - layoutArea.h) / 2
       }
     })
 
@@ -123,11 +122,13 @@ class DesignView extends React.Component {
 
   onDragStart = (x, y) => {
 
-    const count = this.state.rects.length;
+    const {
+      layoutRects
+    } = this.state;
 
     this.currentDraw = {
       hit: [],
-      unhit: [ ...Array(count).keys() ]
+      unhit: [ ...Array(layoutRects.length).keys() ]
     };
 
     this.onDrag(x, y);
@@ -136,8 +137,7 @@ class DesignView extends React.Component {
   onDrag = (x, y) => {
 
     if (this.currentDraw) {
-      const brush = brushesData[this.props.brushIndex];
-      this.draw(x, y, brush);
+      this.draw(x, y);
     }
 
   }
@@ -147,7 +147,7 @@ class DesignView extends React.Component {
 
   }
 
-  draw(x, y, brush) {
+  draw(x, y) {
 
     const {
       hit,
@@ -155,12 +155,12 @@ class DesignView extends React.Component {
     } = this.currentDraw;
 
     const {
-      rects
+      layoutRects
     } = this.state;
 
     const isHit = (index) => {
 
-      const rect = rects[index].area;
+      const rect = layoutRects[index].area;
 
       if (x < rect.x) return false;
       if (y < rect.y) return false;
@@ -194,10 +194,10 @@ class DesignView extends React.Component {
     } = this.props;
 
     const {
-      rects
+      layoutRects
     } = this.state;
 
-    const newRects = cloneDeep(rects);
+    const newRects = cloneDeep(layoutRects);
 
     rectIndexes.forEach((index) => {
       newRects[index] = {
@@ -207,7 +207,7 @@ class DesignView extends React.Component {
     })
 
     this.setState({
-      rects: newRects
+      layoutRects: newRects
     });
 
   }
@@ -239,7 +239,7 @@ class DesignView extends React.Component {
     } = this.props;
 
     const {
-      rects
+      layoutRects
     } = this.state;
 
     const project = projects.find((p) => p.id === projectId);
@@ -273,14 +273,17 @@ class DesignView extends React.Component {
     if (!project) return;
     if (!project.layout) return;
 
-    const area    = this.getLayoutArea(project.layout),
-          rects   = this.getLayoutRects(project.layout, area);
+    const layoutArea  = this.getLayoutArea(project.layout),
+          layoutRects = this.getLayoutRects(project.layout, layoutArea);
 
-    this.setState({ area, rects });
+    this.setState({
+      layoutArea,
+      layoutRects
+    });
 
   }
 
-  getLayoutArea(beads) {
+  getLayoutArea(layout) {
 
     const {
       padding,
@@ -293,7 +296,7 @@ class DesignView extends React.Component {
         minRow = NaN,
         maxRow = NaN;
 
-    beads.forEach((bead) => {
+    layout.forEach((bead) => {
       if (isNaN(minCol) || bead.col < minCol) minCol = bead.col;
       if (isNaN(maxCol) || bead.col > maxCol) maxCol = bead.col;
       if (isNaN(minRow) || bead.row < minRow) minRow = bead.row;
@@ -308,7 +311,7 @@ class DesignView extends React.Component {
     return { x, y, w, h };
 
   }
-  getLayoutRects(beads, rect) {
+  getLayoutRects(layout, layoutArea) {
 
     const {
       padding,
@@ -319,9 +322,9 @@ class DesignView extends React.Component {
     } = LAYOUT_OPTS;
 
     const topY    = padding,
-          centerX = (rect.w / 2);
+          centerX = (layoutArea.w / 2);
 
-    return beads.map((bead, index) => ({
+    return layout.map((bead, index) => ({
       index: index,
       beadId: bead.beadId,
       area: {
@@ -374,31 +377,31 @@ class DesignView extends React.Component {
   render() {
 
     const {
-      area,
-      rects
+      layoutArea,
+      layoutRects
     } = this.state;
 
     return (
       <div
         className='wrap-beads'
         style={{
-          left: area.x,
-          top: area.y,
-          width: area.w,
-          height: area.h
+          left: layoutArea.x,
+          top: layoutArea.y,
+          width: layoutArea.w,
+          height: layoutArea.h
         }}
         onMouseDown={this.onMouseStart}
         onTouchStart={this.onTouchStart}>
 
         <svg
           ref={this.svgRef}
-          viewBox={`0 0 ${area.w} ${area.h}`}
+          viewBox={`0 0 ${layoutArea.w} ${layoutArea.h}`}
           style={{
-            width: area.w,
-            height: area.h
+            width: layoutArea.w,
+            height: layoutArea.h
           }}>
 
-          {rects.map((r, i) => (
+          {layoutRects.map((r, i) => (
             <rect
               key={`bead-${i}`}
               x={r.bead.x}
@@ -423,7 +426,7 @@ class DesignView extends React.Component {
 
 export default connect((state) => ({
   projects: state.projects,
-  brushIndex: state.brushIndex,
+  toolIndex: state.toolIndex,
   bead: getBead(state),
   beads: state.beads
 }))(DesignView);
