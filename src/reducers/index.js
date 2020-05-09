@@ -10,7 +10,8 @@ import {
   templates,
   beads,
   toolIndex,
-  beadIndex
+  beadIndex,
+  zoomIndex
 } from './app';
 
 const rootReducer = combineReducers({
@@ -19,7 +20,8 @@ const rootReducer = combineReducers({
   templates,
   beads,
   toolIndex,
-  beadIndex
+  beadIndex,
+  zoomIndex
 });
 
 export default rootReducer;

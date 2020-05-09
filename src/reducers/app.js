@@ -2,6 +2,7 @@
 import templatesData from 'data/templates.json';
 import projectsData from 'data/projects.json';
 import beadsData from 'data/beads.json';
+import zoomLevelsData from 'data/zoom-levels.json';
 
 export const templates = (state = templatesData, action) => {
 
@@ -107,6 +108,36 @@ export const toolIndex = (state = 0, action) => {
 
     case 'setToolIndex':
       return action.index;
+
+    default:
+      return state;
+
+  }
+
+}
+
+export const zoomIndex = (state = 1, action) => {
+
+  let index;
+
+  switch (action.type) {
+
+    case 'setZoomIndex':
+      return action.index;
+
+    case 'zoomIn':
+      if (state < zoomLevelsData.length - 1) {
+        return state + 1;
+      } else {
+        return state;
+      }
+
+    case 'zoomOut':
+      if (state > 0) {
+        return state - 1;
+      } else {
+        return state;
+      }
 
     default:
       return state;

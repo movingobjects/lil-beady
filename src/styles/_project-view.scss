@@ -118,3 +118,34 @@ $toolbarH: 100px;
   }
 
 }
+
+#zoom-controls {
+  position: absolute;
+  bottom: $toolbarH + 25px;
+  right: 25px;
+  width: 50px;
+
+  button {
+    width: 50px;
+    height: 50px;
+    border: 1px solid #ccc;
+    color: #999;
+    font-size: 24px;
+    margin-bottom: 5px;
+
+    &:disabled {
+      pointer-events: none;
+      opacity: 0.5;
+    }
+
+    &:not(:disabled) {
+      cursor: pointer;
+
+      &:active {
+        color: #ccc;
+      }
+    }
+
+  }
+
+}
