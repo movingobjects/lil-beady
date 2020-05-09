@@ -20,7 +20,7 @@ export const getTool = createSelector(
   (toolIndex) => toolsData[toolIndex]
 );
 
-export const zoomLevel = createSelector(
+export const getZoomLevel = createSelector(
   getZoomIndex,
   (zoomIndex) => zoomLevelsData[zoomIndex]
 );
