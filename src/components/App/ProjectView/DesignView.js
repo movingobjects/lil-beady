@@ -364,5 +364,6 @@ export default connect((state) => ({
   projects: state.projects,
   tool: selectors.getTool(state),
   bead: selectors.getBead(state),
-  beads: state.beads
+  beads: state.beads,
+  zoomLevel: selectors.getZoomLevel(state)
 }))(DesignView);
