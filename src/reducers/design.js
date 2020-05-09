@@ -1,6 +1,6 @@
 
 
-export const toolIndex = (state = 1, action) => {
+export const toolIndex = (state = 0, action) => {
 
   switch (action.type) {
 

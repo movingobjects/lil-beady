@@ -9,6 +9,8 @@ import {
 
 import { getBead } from 'selectors';
 
+import DragArea from './DragArea';
+
 const BLANK_COLOR = '#eeeeee';
 
 const LAYOUT_OPTS = {
@@ -37,7 +39,6 @@ class DesignView extends React.Component {
 
   }
 
-
   onResize = (e) => {
 
     const {
@@ -51,72 +52,6 @@ class DesignView extends React.Component {
         y: (window.innerHeight - layoutArea.h) / 2
       }
     })
-
-  }
-
-  onMouseStart = (e) => {
-
-    this.touchId = 0;
-
-    const pt = this.toSvgPt(e.clientX, e.clientY);
-    this.onDragStart(pt.x, pt.y);
-
-    this.startMouseEvents();
-
-  }
-  onMouseMove = (e) => {
-
-    if (this.touchId !== null) {
-      const pt = this.toSvgPt(e.clientX, e.clientY);
-      this.onDrag(pt.x, pt.y);
-    }
-
-  }
-  onMouseEnd = (e) => {
-
-    this.endMouseEvents();
-
-    const pt = this.toSvgPt(e.clientX, e.clientY);
-    this.onDragEnd(pt.x, pt.y);
-
-    this.touchId = null;
-
-  }
-
-  onTouchStart = (e) => {
-
-    this.startTouchEvents();
-
-    const touch = e.changedTouches[0],
-          pt    = this.toSvgPt(touch.clientX, touch.clientY);
-
-    this.touchId = touch.identifier;
-
-    this.onDragStart(pt.x, pt.y);
-
-  }
-  onTouchMove = (e) => {
-
-    if (this.touchId !== null) {
-
-      const touch = e.changedTouches[0],
-            pt    = this.toSvgPt(touch.clientX, touch.clientY);
-
-      this.onDrag(pt.x, pt.y);
-
-    }
-
-  }
-  onTouchEnd = (e) => {
-
-    this.endTouchEvents();
-
-    const touch = e.changedTouches[0],
-    pt    = this.toSvgPt(touch.clientX, touch.clientY);
-
-    this.onDragEnd(pt.x, pt.y);
-
-    this.touchId = null;
 
   }
 
@@ -210,24 +145,6 @@ class DesignView extends React.Component {
       layoutRects: newRects
     });
 
-  }
-
-  startMouseEvents() {
-    document.addEventListener('mousemove', this.onMouseMove);
-    document.addEventListener('mouseup', this.onMouseEnd);
-  }
-  endMouseEvents() {
-    document.removeEventListener('mousemove', this.onMouseMove);
-    document.removeEventListener('mouseup', this.onMouseEnd);
-  }
-
-  startTouchEvents() {
-    document.addEventListener('touchmove', this.onTouchMove);
-    document.addEventListener('touchend', this.onTouchEnd);
-  }
-  endTouchEvents() {
-    document.removeEventListener('touchmove', this.onTouchMove);
-    document.removeEventListener('touchend', this.onTouchEnd);
   }
 
   save() {
@@ -348,19 +265,6 @@ class DesignView extends React.Component {
     return bead ? bead.color : BLANK_COLOR;
   }
 
-
-  toSvgPt(clientX, clientY) {
-
-    const svgRect = this.svgRef.current.getBoundingClientRect();
-
-    return {
-      x: clientX - svgRect.x,
-      y: clientY - svgRect.y
-    };
-
-  }
-
-
   componentDidMount() {
 
     window.addEventListener('resize', this.onResize);
@@ -382,16 +286,15 @@ class DesignView extends React.Component {
     } = this.state;
 
     return (
-      <div
+      <DragArea
         className='wrap-beads'
-        style={{
-          left: layoutArea.x,
-          top: layoutArea.y,
-          width: layoutArea.w,
-          height: layoutArea.h
-        }}
-        onMouseDown={this.onMouseStart}
-        onTouchStart={this.onTouchStart}>
+        x={layoutArea.x}
+        y={layoutArea.y}
+        w={layoutArea.w}
+        h={layoutArea.h}
+        onDragStart={this.onDragStart}
+        onDrag={this.onDrag}
+        onDragEnd={this.onDragEnd}>
 
         <svg
           ref={this.svgRef}
@@ -417,7 +320,7 @@ class DesignView extends React.Component {
 
         </svg>
 
-      </div>
+      </DragArea>
     );
 
   }
