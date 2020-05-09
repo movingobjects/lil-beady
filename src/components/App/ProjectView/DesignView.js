@@ -20,7 +20,7 @@ const LAYOUT_OPTS = {
   beadH: 8
 };
 
-class Design extends React.Component {
+class DesignView extends React.Component {
 
   constructor() {
 
@@ -246,22 +246,22 @@ class Design extends React.Component {
 
     if (!project) return;
 
-    const design = cloneDeep(project.design);
+    const layout = cloneDeep(project.layout);
 
-    // TODO save design here!
+    // TODO save layout here!
 
     dispatch({
       type: 'updateProject',
       projectId,
       project: {
         ...project,
-        design
+        layout
       }
     });
 
   }
 
-  updateProject() {
+  setupProject() {
 
     const {
       projects,
@@ -271,18 +271,16 @@ class Design extends React.Component {
     const project = projects.find((p) => p.id === projectId);
 
     if (!project) return;
-    if (!project.design) return;
-    if (!project.design.beads) return;
+    if (!project.layout) return;
 
-    const beads   = project.design.beads,
-          area    = this.getDesignArea(beads),
-          rects   = this.getBeadRects(beads, area);
+    const area    = this.getLayoutArea(project.layout),
+          rects   = this.getLayoutRects(project.layout, area);
 
     this.setState({ area, rects });
 
   }
 
-  getDesignArea(beads) {
+  getLayoutArea(beads) {
 
     const {
       padding,
@@ -310,7 +308,7 @@ class Design extends React.Component {
     return { x, y, w, h };
 
   }
-  getBeadRects(beads, rect) {
+  getLayoutRects(beads, rect) {
 
     const {
       padding,
@@ -364,20 +362,12 @@ class Design extends React.Component {
 
     window.addEventListener('resize', this.onResize);
 
-    this.updateProject();
+    this.setupProject();
 
   }
   componentWillUnmount() {
 
     window.removeEventListener('resize', this.onResize);
-
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-
-    if (this.props.projectId !== prevProps.projectId) {
-      this.updateProject();
-    }
 
   }
 
@@ -436,4 +426,4 @@ export default connect((state) => ({
   brushIndex: state.brushIndex,
   bead: getBead(state),
   beads: state.beads
-}))(Design);
+}))(DesignView);

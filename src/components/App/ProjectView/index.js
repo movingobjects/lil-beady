@@ -2,8 +2,8 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import Design from './Design';
-import Tools from './Tools';
+import DesignView from './DesignView';
+import Toolbar from './Toolbar';
 
 class ProjectView extends React.Component {
 
@@ -28,10 +28,10 @@ class ProjectView extends React.Component {
             onClick={this.onBack} />
         </div>
 
-        <Design
+        <DesignView
           projectId={projectId} />
 
-        <Tools />
+        <Toolbar />
 
       </section>
     );

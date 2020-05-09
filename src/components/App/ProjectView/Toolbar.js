@@ -6,7 +6,7 @@ import classNames from 'classnames';
 
 import brushesData from 'data/brushes.json';
 
-class Tools extends React.Component {
+class Toolbar extends React.Component {
 
   onBrushSelect = (index) => {
 
@@ -82,4 +82,4 @@ export default connect((state) => ({
   brushIndex: state.brushIndex,
   beads: state.beads,
   beadIndex: state.beadIndex
-}))(Tools)
+}))(Toolbar)
