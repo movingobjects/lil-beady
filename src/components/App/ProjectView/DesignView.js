@@ -3,6 +3,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { cloneDeep } from 'lodash';
 import { maths, geom } from 'varyd-utils';
+import { Stage, Layer, Rect } from 'react-konva';
 
 import * as selectors from 'selectors';
 
@@ -21,8 +22,6 @@ class DesignView extends React.Component {
       layoutArea: { x: 0, y: 0, w: 1, h: 1},
       layoutRects: [ ]
     }
-
-    this.svgRef  = React.createRef();
 
     this.touchId     = null;
     this.currentDraw = null;
@@ -104,10 +103,7 @@ class DesignView extends React.Component {
       unhit
     } = this.currentDraw;
 
-    const rectIndex = unhit.find((index) => {
-      const rect = layoutRects[index].hit;
-      return (x >= rect.l) && (y >= rect.t) && (x <= rect.r) && (y <= rect.b);
-    });
+    const rectIndex = unhit.find((index) => this.hitRect(x, y, layoutRects[index].hit));
 
     if (!rectIndex) return;
 
@@ -143,12 +139,7 @@ class DesignView extends React.Component {
       bead
     } = this.props;
 
-    const isAHit = !!layoutRects.find(({ hit }) => (
-      (x > hit.x) &&
-      (y > hit.y) &&
-      (x < hit.x + hit.w) &&
-      (y < hit.y + hit.h)
-    ))
+    const isAHit = !!layoutRects.find(({ hit }) => this.hitRect(x, y, hit));
 
     if (isAHit) {
       this.setState({
@@ -318,6 +309,10 @@ class DesignView extends React.Component {
 
   }
 
+  hitRect(x, y, { l, t, r, b }) {
+    return (x >= l) && (y >= t) && (x <= r) && (y <= b);
+  }
+
   componentDidUpdate(prevProps, prevState) {
 
     const propChanged  = (key) => this.props[key] !== prevProps[key],
@@ -365,26 +360,24 @@ class DesignView extends React.Component {
         onDrag={this.onDrag}
         onDragEnd={this.onDragEnd}>
 
-        <svg
-          ref={this.svgRef}
-          viewBox={`0 0 ${layoutArea.w} ${layoutArea.h}`}
-          style={{
-            width: layoutArea.w,
-            height: layoutArea.h
-          }}>
+        <Stage
+          width={layoutArea.w}
+          height={layoutArea.h}>
+          <Layer>
 
-          {layoutRects.map((r, i) => (
-            <rect
-              key={`bead-${i}`}
-              x={r.bead.x}
-              y={r.bead.y}
-              width={r.bead.w}
-              height={r.bead.h}
-              rx={cornerRadius}
-              fill={this.getBeadColor(i)} />
-          ))}
+            {layoutRects.map((r, i) => (
+              <Rect
+                key={`bead-${i}`}
+                x={r.bead.x}
+                y={r.bead.y}
+                width={r.bead.w}
+                height={r.bead.h}
+                cornerRadius={cornerRadius}
+                fill={this.getBeadColor(i)} />
+            ))}
 
-        </svg>
+          </Layer>
+        </Stage>
 
       </DragArea>
     );
