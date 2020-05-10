@@ -104,29 +104,19 @@ class DesignView extends React.Component {
       unhit
     } = this.currentDraw;
 
-    const hitIndex = unhit.find((rectIndex) => {
-      const rect = layoutRects[rectIndex].hit;
-      return (
-        (x > rect.x) &&
-        (y > rect.y) &&
-        (x < rect.x + rect.w) &&
-        (y < rect.y + rect.h)
-      )
+    const rectIndex = unhit.find((index) => {
+      const rect = layoutRects[index].hit;
+      return (x >= rect.l) && (y >= rect.t) && (x <= rect.r) && (y <= rect.b);
     });
 
-    if (hitIndex === -1) return;
+    if (!rectIndex) return;
 
-    this.currentDraw = {
-      hit: [
-        ...hit,
-        hitIndex
-      ],
-      unhit: unhit.filter((index) => index !== hitIndex)
-    };
+    unhit.splice(unhit.indexOf(rectIndex), 1);
+    hit.push(rectIndex);
 
     this.setState({
       workingLayout: workingLayout.map((item, index) => {
-        if (index === hitIndex) {
+        if (index === rectIndex) {
           return {
             ...item,
             beadId: bead.id
@@ -290,20 +280,26 @@ class DesignView extends React.Component {
     const topY    = padding,
           centerX = (layoutArea.w / 2);
 
-    return layout.map((bead, index) => ({
-      hit: {
-        x: centerX + (bead.col * colW) - (colW / 2),
-        y: topY + (bead.row * rowH) - (rowH / 2),
-        w: colW,
-        h: rowH
-      },
-      bead: {
-        x: centerX + (bead.col * colW) - (beadW / 2),
-        y: topY + (bead.row * rowH) - (beadH / 2),
-        w: beadW,
-        h: beadH,
-      }
-    }));
+    return layout.map((bead, index) => {
+
+      const hitX = centerX + (bead.col * colW) - (colW / 2),
+            hitY = topY + (bead.row * rowH) - (rowH / 2);
+
+      return {
+        hit: {
+          l: hitX,
+          t: hitY,
+          r: hitX + colW,
+          b: hitY + rowH
+        },
+        bead: {
+          x: centerX + (bead.col * colW) - (beadW / 2),
+          y: topY + (bead.row * rowH) - (beadH / 2),
+          w: beadW,
+          h: beadH,
+        }
+      };
+    });
 
   }
   getBeadColor(index) {
@@ -385,10 +381,7 @@ class DesignView extends React.Component {
               width={r.bead.w}
               height={r.bead.h}
               rx={cornerRadius}
-              style={{
-                fill: this.getBeadColor(i)
-              }}
-            />
+              fill={this.getBeadColor(i)} />
           ))}
 
         </svg>
