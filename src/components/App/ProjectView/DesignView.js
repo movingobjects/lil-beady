@@ -19,7 +19,12 @@ class DesignView extends React.Component {
 
     this.state = {
       workingLayout: [ ],
-      layoutArea: { x: 0, y: 0, w: 1, h: 1},
+      layoutArea: {
+        x: 0,
+        y: 0,
+        w: 1,
+        h: 1
+      },
       layoutRects: [ ]
     }
 
@@ -105,7 +110,7 @@ class DesignView extends React.Component {
 
     const rectIndex = unhit.find((index) => this.hitRect(x, y, layoutRects[index].hit));
 
-    if (!rectIndex) return;
+    if (rectIndex === undefined) return;
 
     unhit.splice(unhit.indexOf(rectIndex), 1);
     hit.push(rectIndex);
@@ -190,7 +195,7 @@ class DesignView extends React.Component {
     if (project?.layout) {
 
       const layoutArea  = this.getLayoutArea(project.layout),
-            layoutRects = this.getLayoutRects(project.layout, layoutArea);
+            layoutRects = this.getLayoutRects(project.layout, layoutArea.w);
 
       this.setState({
         layoutArea,
@@ -211,32 +216,12 @@ class DesignView extends React.Component {
     return projects.find((p) => p.id === projectId);
 
   }
-  getLayoutOpts() {
-
-    const {
-      zoomLevel
-    } = this.props;
-
-    const data = layoutOptsData;
-
-    return {
-      ...data,
-      padding: zoomLevel * data.padding,
-      colW: zoomLevel * data.colW,
-      rowH: zoomLevel * data.rowH,
-      beadW: zoomLevel * data.beadW,
-      beadH: zoomLevel * data.beadH,
-      cornerRadius: zoomLevel * data.cornerRadius
-    }
-
-  }
   getLayoutArea(layout) {
 
-    const {
-      padding,
-      colW,
-      rowH
-    } = this.getLayoutOpts();
+    const opts    = layoutOptsData,
+          zoom    = this.props.zoomLevel,
+          colW    = zoom * opts.colW,
+          rowH    = zoom * opts.rowH;
 
     let minCol = NaN,
         maxCol = NaN,
@@ -250,26 +235,27 @@ class DesignView extends React.Component {
       if (isNaN(maxRow) || bead.row > maxRow) maxRow = bead.row;
     });
 
-    const w = (padding * 2) + ((maxCol - minCol) * colW),
-          h = (padding * 2) + ((maxRow - minRow) * rowH),
+    const w = (maxCol - minCol + 1) * colW,
+          h = (maxRow - minRow + 1) * rowH,
           x = (window.innerWidth - w) / 2,
           y = (window.innerHeight - h) / 2;
 
     return { x, y, w, h };
 
   }
-  getLayoutRects(layout, layoutArea) {
+  getLayoutRects(layout, totalW) {
 
-    const {
-      padding,
-      colW,
-      rowH,
-      beadW,
-      beadH
-    } = this.getLayoutOpts();
+    const opts = layoutOptsData,
+          zoom = this.props.zoomLevel;
 
-    const topY    = padding,
-          centerX = (layoutArea.w / 2);
+    const colW       = zoom * opts.colW,
+          rowH       = zoom * opts.rowH,
+          beadW      = zoom * opts.beadW,
+          beadH      = zoom * opts.beadH,
+          beadRadius = zoom * opts.beadRadius;
+
+    const topY    = (rowH / 2),
+          centerX = (totalW / 2);
 
     return layout.map((bead, index) => {
 
@@ -288,6 +274,7 @@ class DesignView extends React.Component {
           y: topY + (bead.row * rowH) - (beadH / 2),
           w: beadW,
           h: beadH,
+          r: beadRadius
         }
       };
     });
@@ -341,10 +328,6 @@ class DesignView extends React.Component {
   render() {
 
     const {
-      cornerRadius
-    } = this.getLayoutOpts();
-
-    const {
       layoutArea,
       layoutRects
     } = this.state;
@@ -364,7 +347,6 @@ class DesignView extends React.Component {
           width={layoutArea.w}
           height={layoutArea.h}>
           <Layer>
-
             {layoutRects.map((r, i) => (
               <Rect
                 key={`bead-${i}`}
@@ -372,10 +354,9 @@ class DesignView extends React.Component {
                 y={r.bead.y}
                 width={r.bead.w}
                 height={r.bead.h}
-                cornerRadius={cornerRadius}
+                cornerRadius={r.bead.r}
                 fill={this.getBeadColor(i)} />
             ))}
-
           </Layer>
         </Stage>
 
