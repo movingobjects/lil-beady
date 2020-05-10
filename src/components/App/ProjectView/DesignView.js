@@ -82,14 +82,18 @@ class DesignView extends React.Component {
 
   startDraw() {
 
-    const {
-      layoutRects
-    } = this.state;
+    const { workingLayout } = this.state;
+    const { bead } = this.props;
 
-    this.currentDraw = {
-      hit: [],
-      unhit: [ ...Array(layoutRects.length).keys() ]
-    };
+    const hit   = [],
+          unhit = [];
+
+    // init unhit array with beads _not_ the current draw color
+    workingLayout.forEach((item, index) => {
+      if (item.beadId !== bead.id) unhit.push(index)
+    })
+
+    this.currentDraw = { hit, unhit };
 
   }
   draw(x, y) {
@@ -144,7 +148,7 @@ class DesignView extends React.Component {
       bead
     } = this.props;
 
-    const isAHit = !!layoutRects.find(({ hit }) => this.hitRect(x, y, hit));
+    const isAHit = layoutRects.some((rect) => this.hitRect(x, y, rect.hit));
 
     if (isAHit) {
       this.setState({
