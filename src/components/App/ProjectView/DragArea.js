@@ -3,9 +3,9 @@ import * as React from 'react';
 
 export default class DragArea extends React.Component {
 
-  constructor() {
+  constructor(props) {
 
-    super();
+    super(props);
 
     this.elemRef = React.createRef();
     this.touchId = null;
@@ -141,11 +141,13 @@ export default class DragArea extends React.Component {
 
   toAreaPt(clientX, clientY) {
 
-    const areaRect = this.elemRef.current.getBoundingClientRect();
+    const {
+      layoutArea
+    } = this.props;
 
     return {
-      x: clientX - areaRect.x,
-      y: clientY - areaRect.y
+      x: clientX - layoutArea.x,
+      y: clientY - layoutArea.y
     };
 
   }
@@ -153,8 +155,6 @@ export default class DragArea extends React.Component {
   render() {
 
     const {
-      x, y,
-      w, h,
       children,
       className
     } = this.props;
@@ -163,12 +163,6 @@ export default class DragArea extends React.Component {
       <div
         ref={this.elemRef}
         className={className}
-        style={{
-          left: x,
-          top: y,
-          width: w,
-          height: h
-        }}
         onMouseDown={this.onMouseStart}
         onTouchStart={this.onTouchStart}>
 

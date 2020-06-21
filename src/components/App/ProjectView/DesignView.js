@@ -13,9 +13,9 @@ import layoutOptsData from 'data/layout-opts.json';
 
 class DesignView extends React.Component {
 
-  constructor() {
+  constructor(props) {
 
-    super();
+    super(props);
 
     this.state = {
       workingLayout: [ ],
@@ -25,11 +25,14 @@ class DesignView extends React.Component {
         w: 1,
         h: 1
       },
-      layoutRects: [ ]
+      layoutRects: [ ],
+      offsetX: 0,
+      offsetY: 0
     }
 
     this.touchId     = null;
     this.currentDraw = null;
+    this.currentMove = null;
 
   }
 
@@ -57,17 +60,26 @@ class DesignView extends React.Component {
 
     if (tool.id === 'fill') {
       this.fill(x, y);
-      return;
 
     } else if (tool.id === 'draw') {
       this.startDraw();
       this.draw(x, y);
+
+    } else if (tool.id === 'move') {
+      this.startMove(x, y);
     }
 
   }
   onDrag = (x, y) => {
 
-    if (this.currentDraw) {
+    const {
+      tool
+    } = this.props;
+
+    if (tool.id === 'move') {
+      this.move(x, y);
+
+    } else if (tool.id === 'draw') {
       this.draw(x, y);
     }
 
@@ -76,6 +88,10 @@ class DesignView extends React.Component {
 
     if (this.currentDraw) {
       this.endDraw();
+    }
+
+    if (this.currentMove) {
+      this.endMove();
     }
 
   }
@@ -97,6 +113,8 @@ class DesignView extends React.Component {
 
   }
   draw(x, y) {
+
+    if (!this.currentDraw) return;
 
     const {
       workingLayout,
@@ -135,6 +153,60 @@ class DesignView extends React.Component {
   }
   endDraw() {
     this.currentDraw = null;
+  }
+
+  startMove(x, y) {
+
+    const {
+      offsetX,
+      offsetY
+    } = this.state;
+
+    this.currentMove = {
+      startX: x,
+      startY: y,
+      startOffsetX: offsetX,
+      startOffsetY: offsetY
+    };
+
+  }
+  move(x, y) {
+
+    if (!this.currentMove) return;
+
+    const {
+      startX,
+      startY,
+      startOffsetX,
+      startOffsetY
+    } = this.currentMove;
+
+    this.setState({
+      offsetX: startOffsetX + (x - startX),
+      offsetY: startOffsetY + (y - startY)
+    })
+
+  }
+  endMove() {
+
+    const {
+      layoutArea,
+      offsetX,
+      offsetY
+    } = this.state;
+
+    this.setState({
+      layoutArea: {
+        ...layoutArea,
+        x: layoutArea.x + offsetX,
+        y: layoutArea.y + offsetY
+      },
+      offsetX: 0,
+      offsetY: 0
+    })
+
+    this.currentMove = null;
+
   }
 
   fill(x, y) {
@@ -333,38 +405,53 @@ class DesignView extends React.Component {
 
     const {
       layoutArea,
-      layoutRects
+      layoutRects,
+      offsetX,
+      offsetY
     } = this.state;
 
     return (
-      <DragArea
-        className='wrap-beads'
-        x={layoutArea.x}
-        y={layoutArea.y}
-        w={layoutArea.w}
-        h={layoutArea.h}
-        onDragStart={this.onDragStart}
-        onDrag={this.onDrag}
-        onDragEnd={this.onDragEnd}>
+      <>
 
-        <Stage
-          width={layoutArea.w}
-          height={layoutArea.h}>
-          <Layer>
-            {layoutRects.map((r, i) => (
-              <Rect
-                key={`bead-${i}`}
-                x={r.bead.x}
-                y={r.bead.y}
-                width={r.bead.w}
-                height={r.bead.h}
-                cornerRadius={r.bead.r}
-                fill={this.getBeadColor(i)} />
-            ))}
-          </Layer>
-        </Stage>
+        <DragArea
+          className='drag-area'
+          layoutArea={{
+            x: layoutArea.x,
+            y: layoutArea.y,
+            w: layoutArea.w,
+            h: layoutArea.h
+          }}
+          onDragStart={this.onDragStart}
+          onDrag={this.onDrag}
+          onDragEnd={this.onDragEnd} />
 
-      </DragArea>
+        <div
+          className='wrap-canvas'
+          style={{
+            left: layoutArea.x + offsetX,
+            top: layoutArea.y + offsetY,
+            width: layoutArea.w,
+            height: layoutArea.h
+          }}>
+          <Stage
+            width={layoutArea.w}
+            height={layoutArea.h}>
+            <Layer>
+              {layoutRects.map((r, i) => (
+                <Rect
+                  key={`bead-${i}`}
+                  x={r.bead.x}
+                  y={r.bead.y}
+                  width={r.bead.w}
+                  height={r.bead.h}
+                  cornerRadius={r.bead.r}
+                  fill={this.getBeadColor(i)} />
+              ))}
+            </Layer>
+          </Stage>
+        </div>
+
+      </>
     );
 
   }

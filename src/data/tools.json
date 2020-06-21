@@ -6,5 +6,9 @@
   {
     "id": "fill",
     "label": "Fill"
+  },
+  {
+    "id": "move",
+    "label": "Move"
   }
 ]
