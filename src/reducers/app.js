@@ -125,6 +125,9 @@ export const zoomIndex = (state = 1, action) => {
 
   switch (action.type) {
 
+    case 'resetControls':
+      return 1;
+
     case 'setZoomIndex':
       return action.index;
 
@@ -155,6 +158,9 @@ export const panOffsetX = (state = 0, action) => {
 
   switch (action.type) {
 
+    case 'resetControls':
+      return 0;
+
     case 'resetPan':
       return 0;
 
@@ -176,6 +182,9 @@ export const panOffsetY = (state = 0, action) => {
   let index;
 
   switch (action.type) {
+
+    case 'resetControls':
+      return 0;
 
     case 'resetPan':
       return 0;

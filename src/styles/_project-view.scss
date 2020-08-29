@@ -9,6 +9,8 @@ $btnSize: 40px;
   overflow: hidden;
 
   div.menu {
+    position: relative;
+    z-index: 100;
     padding: 25px;
 
     button.back {

@@ -15,6 +15,14 @@ class ProjectView extends React.Component {
 
   }
 
+  componentDidMount() {
+
+    this.props.dispatch({
+      type: 'resetControls'
+    });
+
+  }
+
   render() {
 
     const {
