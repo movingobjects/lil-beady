@@ -1,3 +1,14 @@
 {
-  "reduxLoggerOn": false
+  "dev": {
+    "reduxLoggerOn": false
+  },
+  "controls": {
+    "zoomLevels": [
+      0.5,
+      1,
+      2,
+      4
+    ],
+    "panDist": -50
+  }
 }

@@ -11,7 +11,9 @@ import {
   beads,
   toolIndex,
   beadIndex,
-  zoomIndex
+  zoomIndex,
+  panOffsetX,
+  panOffsetY
 } from './app';
 
 const rootReducer = combineReducers({
@@ -21,7 +23,9 @@ const rootReducer = combineReducers({
   beads,
   toolIndex,
   beadIndex,
-  zoomIndex
+  zoomIndex,
+  panOffsetX,
+  panOffsetY
 });
 
 export default rootReducer;

@@ -2,7 +2,7 @@
 import { createSelector } from 'reselect';
 
 import toolsData from 'data/tools.json';
-import zoomLevelsData from 'data/zoom-levels.json';
+import config from 'config.json';
 
 const getBeads     = (state) => state.beads;
 const getBeadIndex = (state) => state.beadIndex;
@@ -22,11 +22,11 @@ export const getTool = createSelector(
 
 export const getZoomLevel = createSelector(
   getZoomIndex,
-  (zoomIndex) => zoomLevelsData[zoomIndex]
+  (zoomIndex) => config.controls.zoomLevels[zoomIndex]
 );
 export const canZoomIn = createSelector(
   getZoomIndex,
-  (zoomIndex) => zoomIndex < zoomLevelsData.length - 1
+  (zoomIndex) => zoomIndex < config.controls.zoomLevels.length - 1
 );
 export const canZoomOut = createSelector(
   getZoomIndex,

@@ -9,6 +9,7 @@ import * as selectors from 'selectors';
 
 import DragArea from 'components/shared/DragArea';
 
+import config from 'config.json';
 import layoutOptsData from 'data/layout-opts.json';
 
 class DesignView extends React.Component {
@@ -222,10 +223,15 @@ class DesignView extends React.Component {
   }
   getLayoutArea(layout) {
 
+    const {
+      zoomLevel,
+      panOffsetX,
+      panOffsetY
+    } = this.props;
+
     const opts    = layoutOptsData,
-          zoom    = this.props.zoomLevel,
-          colW    = zoom * opts.colW,
-          rowH    = zoom * opts.rowH;
+          colW    = zoomLevel * opts.colW,
+          rowH    = zoomLevel * opts.rowH;
 
     let minCol = NaN,
         maxCol = NaN,
@@ -239,10 +245,13 @@ class DesignView extends React.Component {
       if (isNaN(maxRow) || bead.row > maxRow) maxRow = bead.row;
     });
 
+    const offsetX = panOffsetX * config.controls.panDist * zoomLevel,
+          offsetY = panOffsetY * config.controls.panDist * zoomLevel;
+
     const w = (maxCol - minCol + 1) * colW,
           h = (maxRow - minRow + 1) * rowH,
-          x = (window.innerWidth - w) / 2,
-          y = (window.innerHeight - h) / 2;
+          x = offsetX + (window.innerWidth - w) / 2,
+          y = offsetY + (window.innerHeight - h) / 2;
 
     return { x, y, w, h };
 
@@ -313,6 +322,10 @@ class DesignView extends React.Component {
       this.resetView();
     }
 
+    if (propChanged('panOffsetX') || propChanged('panOffsetY')) {
+      this.resetView();
+    }
+
   }
 
   componentDidMount() {
@@ -377,5 +390,7 @@ export default connect((state) => ({
   tool: selectors.getTool(state),
   bead: selectors.getBead(state),
   beads: state.beads,
-  zoomLevel: selectors.getZoomLevel(state)
+  zoomLevel: selectors.getZoomLevel(state),
+  panOffsetX: state.panOffsetX,
+  panOffsetY: state.panOffsetY
 }))(DesignView);

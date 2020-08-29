@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import DesignView from './DesignView';
 import Toolbar from './Toolbar';
 import ZoomControls from './ZoomControls';
+import PanControls from './PanControls';
 
 class ProjectView extends React.Component {
 
@@ -35,6 +36,7 @@ class ProjectView extends React.Component {
         <Toolbar />
 
         <ZoomControls />
+        <PanControls />
 
       </section>
     );

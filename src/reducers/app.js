@@ -2,7 +2,7 @@
 import templatesData from 'data/templates.json';
 import projectsData from 'data/projects.json';
 import beadsData from 'data/beads.json';
-import zoomLevelsData from 'data/zoom-levels.json';
+import config from 'config.json';
 
 export const templates = (state = templatesData, action) => {
 
@@ -120,24 +120,71 @@ export const zoomIndex = (state = 1, action) => {
 
   let index;
 
+  const minIndex = 0,
+        maxIndex = config.controls.zoomLevels.length - 1;
+
   switch (action.type) {
 
     case 'setZoomIndex':
       return action.index;
 
     case 'zoomIn':
-      if (state < zoomLevelsData.length - 1) {
+      if (state < maxIndex) {
         return state + 1;
       } else {
         return state;
       }
 
     case 'zoomOut':
-      if (state > 0) {
+      if (state > minIndex) {
         return state - 1;
       } else {
         return state;
       }
+
+    default:
+      return state;
+
+  }
+
+}
+
+export const panOffsetX = (state = 0, action) => {
+
+  let index;
+
+  switch (action.type) {
+
+    case 'resetPan':
+      return 0;
+
+    case 'panLeft':
+      return state - 1;
+
+    case 'panRight':
+      return state + 1;
+
+    default:
+      return state;
+
+  }
+
+}
+
+export const panOffsetY = (state = 0, action) => {
+
+  let index;
+
+  switch (action.type) {
+
+    case 'resetPan':
+      return 0;
+
+    case 'panUp':
+      return state - 1;
+
+    case 'panDown':
+      return state + 1;
 
     default:
       return state;
