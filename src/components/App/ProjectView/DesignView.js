@@ -7,7 +7,7 @@ import { Stage, Layer, Rect } from 'react-konva';
 
 import * as selectors from 'selectors';
 
-import DragArea from './DragArea';
+import DragArea from 'components/shared/DragArea';
 
 import layoutOptsData from 'data/layout-opts.json';
 
