@@ -1,7 +1,5 @@
 
 import templatesData from 'data/templates.json';
-import projectsData from 'data/projects.json';
-import beadsData from 'data/beads.json';
 import config from 'config.json';
 
 export const templates = (state = templatesData, action) => {
@@ -18,7 +16,7 @@ export const templates = (state = templatesData, action) => {
 
 }
 
-export const projects = (state = projectsData, action) => {
+export const projects = (state = [], action) => {
 
   switch (action.type) {
 
@@ -53,7 +51,7 @@ export const projects = (state = projectsData, action) => {
 
 }
 
-export const beads = (state = beadsData, action) => {
+export const beads = (state = [], action) => {
 
   switch (action.type) {
 

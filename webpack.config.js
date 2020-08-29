@@ -5,7 +5,8 @@ const path    = require('path'),
 const CopyWebpackPlugin     = require('copy-webpack-plugin'),
       HtmlWebpackPlugin     = require('html-webpack-plugin'),
       MiniCssExtractPlugin  = require('mini-css-extract-plugin'),
-      HtmlWebpackTagsPlugin = require('html-webpack-tags-plugin');
+      HtmlWebpackTagsPlugin = require('html-webpack-tags-plugin'),
+      DotEnvPlugin          = require('dotenv-webpack');
 
 const isDev = (process.env.NODE_ENV !== 'production');
 
@@ -161,6 +162,7 @@ module.exports = {
   },
 
   plugins: [
+    new DotEnvPlugin(),
     new CopyWebpackPlugin([
       {
         from: 'src/static',
