@@ -1,7 +1,7 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { cloneDeep } from 'lodash';
+import { cloneDeep, find } from 'lodash';
 import { maths, geom } from 'varyd-utils';
 import { Stage, Layer, Rect } from 'react-konva';
 
@@ -169,7 +169,7 @@ class DesignView extends React.Component {
       projectId
     } = this.props;
 
-    const project = projects.find((p) => p.id === projectId);
+    const project = projects[projectId];
 
     if (!project) return;
 
@@ -186,7 +186,12 @@ class DesignView extends React.Component {
 
   resetWorkingLayout() {
 
-    const project       = this.getProject(),
+    const {
+      projects,
+      projectId
+    } = this.props;
+
+    const project       = projects[projectId],
           workingLayout = project ? cloneDeep(project.layout) : [];
 
     this.setState({ workingLayout });
@@ -194,7 +199,12 @@ class DesignView extends React.Component {
   }
   resetView() {
 
-    const project = this.getProject();
+    const {
+      projects,
+      projectId
+    } = this.props;
+
+    const project = projects[projectId];
 
     if (project?.layout) {
 
@@ -207,17 +217,6 @@ class DesignView extends React.Component {
       });
 
     }
-
-  }
-
-  getProject() {
-
-    const {
-      projects,
-      projectId
-    } = this.props;
-
-    return projects.find((p) => p.id === projectId);
 
   }
   getLayoutArea(layout) {
@@ -316,6 +315,14 @@ class DesignView extends React.Component {
 
     const propChanged  = (key) => this.props[key] !== prevProps[key],
           stateChanged = (key) => this.state[key] !== prevState[key];
+
+    const prevProject = prevProps.projects[prevProps.projectId],
+          project     = this.props.projects[this.props.projectId];
+
+    if (!prevProject && project) {
+      this.resetWorkingLayout();
+      this.resetView();
+    }
 
     if (propChanged('zoomLevel')) {
       this.resetView();

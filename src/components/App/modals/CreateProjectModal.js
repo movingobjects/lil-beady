@@ -1,9 +1,10 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
-import shortId from 'shortid';
+import firebase from 'firebase/app';
+import 'firebase/database';
 
-import { generateBlankDesign } from 'utils/utils';
+import { generateLayout } from 'utils/utils';
 import Modal from 'components/shared/Modal';
 
 class CreateProjectModal extends React.Component {
@@ -68,29 +69,23 @@ class CreateProjectModal extends React.Component {
   }
   onSave = () => {
 
-    const project = this.generateProject();
+    const {
+      name,
+      templateId
+    } = this.state;
 
-    this.props.dispatch({
-      type: 'createProject',
-      project
+    const template = this.props.templates.find((t) => t.id === templateId);
+    const project = {
+      name,
+      templateId: templateId,
+      layout: generateLayout(template, this.getUserOpts())
+    };
+
+    firebase.database().ref('projects').push(project, (err) => {
+      console.log(err);
     });
 
     window.location.hash = `#/project/${project.id}`;
-
-  }
-
-  generateProject() {
-
-    const projectId = shortId.generate(),
-          template  = this.props.templates.find((t) => t.id === this.state.templateId),
-          design    = generateBlankDesign(template, this.getUserOpts());
-
-    return {
-      id: projectId,
-      name: this.state.name,
-      template,
-      design
-    };
 
   }
 

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { map } from 'lodash';
 import { random } from 'varyd-utils';
 
 class Dashboard extends React.Component {
@@ -27,9 +28,9 @@ class Dashboard extends React.Component {
             </a>
           </li>
 
-          {projects.map((project, i) => (
-            <li key={project.id}>
-              <a href={`#/project/${project.id}`}>
+          {map(projects, (project, projectId) => (
+            <li key={projectId}>
+              <a href={`#/project/${projectId}`}>
                 {project.name}
               </a>
             </li>

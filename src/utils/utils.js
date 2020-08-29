@@ -1,7 +1,7 @@
 
 import { times } from 'lodash';
 
-export function generateBlankDesign(template, userOpts) {
+export function generateLayout(template, userOpts) {
 
   const getOpts = (templateOpts, userOpts) => {
 

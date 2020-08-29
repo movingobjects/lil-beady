@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { maths } from 'varyd-utils';
-import * as firebase from 'firebase/app';
+import firebase from 'firebase/app';
 import 'firebase/database';
 
 import ProjectView from './ProjectView';

@@ -16,13 +16,14 @@ export const templates = (state = templatesData, action) => {
 
 }
 
-export const projects = (state = [], action) => {
+export const projects = (state = { }, action) => {
 
   switch (action.type) {
 
     case 'setProjects':
       return action.projects;
 
+    /*
     case 'createProject':
       return [
         ...state,
@@ -43,6 +44,7 @@ export const projects = (state = [], action) => {
           return p;
         }
       });
+    */
 
     default:
       return state;
