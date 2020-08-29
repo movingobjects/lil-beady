@@ -8,144 +8,167 @@ export default class DragArea extends React.Component {
     super();
 
     this.elemRef = React.createRef();
-    this.touchId = null;
+    this.touch   = null;
 
   }
 
   onMouseStart = (e) => {
 
-    this.touchId = 0;
+    this.start(-1, e.clientX, e.clientY);
 
-    const {
-      onDragStart
-    } = this.props;
-
-    if (typeof onDragStart === 'function') {
-      const pt = this.toAreaPt(e.clientX, e.clientY);
-      onDragStart(pt.x, pt.y);
-    }
-
-    this.startMouseEvents();
-
-  }
-  onMouseMove = (e) => {
-
-    if (this.touchId !== null) {
-
-      const {
-        onDrag
-      } = this.props;
-
-      if (typeof onDrag === 'function') {
-        const pt = this.toAreaPt(e.clientX, e.clientY);
-        onDrag(pt.x, pt.y);
-      }
-
-    }
-
-  }
-  onMouseEnd = (e) => {
-
-    this.endMouseEvents();
-
-    const {
-      onDragEnd
-    } = this.props;
-
-    if (typeof onDragEnd === 'function') {
-      const pt = this.toAreaPt(e.clientX, e.clientY);
-      onDragEnd(pt.x, pt.y);
-    }
-
-    this.touchId = null;
-
-  }
-
-  startMouseEvents() {
     document.addEventListener('mousemove', this.onMouseMove);
     document.addEventListener('mouseup', this.onMouseEnd);
-  }
-  endMouseEvents() {
+
+  };
+  onMouseMove = (e) => {
+
+    this.move(-1, e.clientX, e.clientY);
+
+  };
+  onMouseEnd = (e) => {
+
+    this.end(-1, e.clientX, e.clientY);
+
     document.removeEventListener('mousemove', this.onMouseMove);
     document.removeEventListener('mouseup', this.onMouseEnd);
-  }
+
+  };
 
   onTouchStart = (e) => {
 
-    this.startTouchEvents();
+    const { identifier, clientX, clientY } = e.changedTouches[0];
 
-    const touch = e.changedTouches[0];
+    this.start(identifier, clientX, clientY);
 
-    this.touchId = touch.identifier;
-
-    const {
-      onDragStart
-    } = this.props;
-
-    if (typeof onDragStart === 'function') {
-      const pt = this.toAreaPt(touch.clientX, touch.clientY);
-      onDragStart(pt.x, pt.y);
-    }
-
-  }
-  onTouchMove = (e) => {
-
-    if (this.touchId !== null) {
-
-      const {
-        onDrag
-      } = this.props;
-
-      if (typeof onDrag === 'function') {
-
-        // TODO: should this check the touch for the same touchId?
-        const touch = e.changedTouches[0],
-              pt    = this.toAreaPt(touch.clientX, touch.clientY);
-
-        onDrag(pt.x, pt.y);
-
-      }
-
-    }
-
-  }
-  onTouchEnd = (e) => {
-
-    this.endTouchEvents();
-
-    const {
-      onDragEnd
-    } = this.props;
-
-    if (typeof onDragEnd === 'function') {
-
-      const touch = e.changedTouches[0],
-            pt    = this.toAreaPt(touch.clientX, touch.clientY);
-
-      onDragEnd(pt.x, pt.y);
-
-    }
-
-    this.touchId = null;
-
-  }
-
-  startTouchEvents() {
     document.addEventListener('touchmove', this.onTouchMove);
     document.addEventListener('touchend', this.onTouchEnd);
+
+  };
+  onTouchMove = (e) => {
+
+    const { identifier, clientX, clientY } = e.changedTouches[0];
+
+    if (this.touch && identifier === this.touch.id) {
+      this.move(identifier, clientX, clientY);
+    }
+
+  };
+  onTouchEnd = (e) => {
+
+    const { identifier, clientX, clientY } = e.changedTouches[0];
+
+    if (this.touch && identifier === this.touch.id) {
+      this.end(identifier, clientX, clientY);
+
+      document.removeEventListener('touchmove', this.onTouchMove);
+      document.removeEventListener('touchend', this.onTouchEnd);
+    }
+
+  };
+
+  start(id, clientX, clientY) {
+
+    const { x, y } = this.getPt(clientX, clientY);
+    const { onDragStart, minDragDist = 5 } = this.props;
+
+    this.touch = {
+      id,
+      dragged: minDragDist ? false : true,
+      startX: x,
+      startY: y,
+      x,
+      y,
+      dx: 0,
+      dy: 0,
+    };
+
+    if (!minDragDist) {
+      if (typeof onDragStart === 'function') {
+        onDragStart(this.touch);
+      }
+    }
+
   }
-  endTouchEvents() {
-    document.removeEventListener('touchmove', this.onTouchMove);
-    document.removeEventListener('touchend', this.onTouchEnd);
+  move(id, clientX, clientY) {
+
+    if (!this.touch) return;
+    if (id !== this.touch.id) return;
+
+    const { onDragStart, onDrag, minDragDist = 5 } = this.props;
+    const { dragged, startX, startY } = this.touch;
+
+    const { x, y } = this.getPt(clientX, clientY);
+
+    const dx = x - startX;
+    const dy = y - startY;
+    const draggedX = Math.abs(dx) > minDragDist;
+    const draggedY = Math.abs(dy) > minDragDist;
+
+    if (!dragged && (draggedX || draggedY)) {
+      this.touch = {
+        ...this.touch,
+        dragged: true,
+        startX: x,
+        startY: y,
+        x,
+        y,
+        dx: 0,
+        dy: 0,
+      };
+
+      if (typeof onDragStart === 'function') {
+        onDragStart(this.touch);
+      }
+    } else if (dragged) {
+      this.touch = {
+        ...this.touch,
+        x,
+        y,
+        dx,
+        dy,
+      };
+
+      if (typeof onDrag === 'function') {
+        onDrag(this.touch);
+      }
+    }
+
+  }
+  end(id, clientX, clientY) {
+
+    if (!this.touch) return;
+    if (id !== this.touch.id) return;
+
+    const { onDragEnd } = this.props;
+    const { dragged, startX, startY } = this.touch;
+
+    const { x, y } = this.getPt(clientX, clientY);
+
+    this.touch = {
+      ...this.touch,
+      x,
+      y,
+      dx: x - startX,
+      dy: y - startY,
+    };
+
+    if (dragged) {
+      if (typeof onDragEnd === 'function') {
+        onDragEnd(this.touch);
+      }
+    }
+
+    this.touch = null;
+
   }
 
-  toAreaPt(clientX, clientY) {
+  getPt(clientX, clientY) {
 
-    const areaRect = this.elemRef.current.getBoundingClientRect();
+    const rect = this.elemRef.current.getBoundingClientRect();
 
     return {
-      x: clientX - areaRect.x,
-      y: clientY - areaRect.y
+      x: clientX - rect.x,
+      y: clientY - rect.y
     };
 
   }

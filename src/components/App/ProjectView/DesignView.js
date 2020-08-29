@@ -49,7 +49,7 @@ class DesignView extends React.Component {
 
   }
 
-  onDragStart = (x, y) => {
+  onDragStart = ({ x, y }) => {
 
     const {
       tool
@@ -65,14 +65,14 @@ class DesignView extends React.Component {
     }
 
   }
-  onDrag = (x, y) => {
+  onDrag = ({ x, y }) => {
 
     if (this.currentDraw) {
       this.draw(x, y);
     }
 
   }
-  onDragEnd = (x, y) => {
+  onDragEnd = ({ x, y }) => {
 
     if (this.currentDraw) {
       this.endDraw();
@@ -343,6 +343,7 @@ class DesignView extends React.Component {
         y={layoutArea.y}
         w={layoutArea.w}
         h={layoutArea.h}
+        minDragDist={0}
         onDragStart={this.onDragStart}
         onDrag={this.onDrag}
         onDragEnd={this.onDragEnd}>
