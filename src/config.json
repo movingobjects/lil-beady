@@ -2,13 +2,32 @@
   "dev": {
     "reduxLoggerOn": false
   },
+  "layout": {
+    "blankColor": "#eeeeee",
+    "colW": 12,
+    "rowH": 10,
+    "beadW": 10,
+    "beadH": 8,
+    "beadRadius": 2
+  },
   "controls": {
+    "tools": [
+      {
+        "id": "draw",
+        "label": "Draw"
+      },
+      {
+        "id": "fill",
+        "label": "Fill"
+      }
+    ],
     "zoomLevels": [
       0.5,
       1,
-      2,
-      4
+      1.5,
+      2.5,
+      5
     ],
-    "panDist": -50
+    "panDist": -55
   }
 }

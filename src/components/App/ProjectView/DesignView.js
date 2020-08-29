@@ -10,7 +10,6 @@ import * as selectors from 'selectors';
 import DragArea from 'components/shared/DragArea';
 
 import config from 'config.json';
-import layoutOptsData from 'data/layout-opts.json';
 
 class DesignView extends React.Component {
 
@@ -229,9 +228,9 @@ class DesignView extends React.Component {
       panOffsetY
     } = this.props;
 
-    const opts    = layoutOptsData,
-          colW    = zoomLevel * opts.colW,
-          rowH    = zoomLevel * opts.rowH;
+    const opts = config.layout,
+          colW = zoomLevel * opts.colW,
+          rowH = zoomLevel * opts.rowH;
 
     let minCol = NaN,
         maxCol = NaN,
@@ -258,7 +257,7 @@ class DesignView extends React.Component {
   }
   getLayoutRects(layout, totalW) {
 
-    const opts = layoutOptsData,
+    const opts = config.layout,
           zoom = this.props.zoomLevel;
 
     const colW       = zoom * opts.colW,
@@ -305,7 +304,7 @@ class DesignView extends React.Component {
 
     const item   = workingLayout[index];
 
-    return beads.find((b) => b.id === item.beadId)?.color || layoutOptsData.blankColor;
+    return beads.find((b) => b.id === item.beadId)?.color || config.layout.blankColor;
 
   }
 

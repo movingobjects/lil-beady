@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import classNames from 'classnames';
 
-import toolsData from 'data/tools.json';
+import config from 'config.json';
 
 class Toolbar extends React.Component {
 
@@ -35,12 +35,16 @@ class Toolbar extends React.Component {
       beadIndex
     } = this.props;
 
+    const {
+      tools
+    } = config.controls;
+
     return (
       <section id='toolbar'>
 
         <div className='tools'>
           <ul>
-            {toolsData.map((tool, i) => (
+            {tools.map((tool, i) => (
               <li
                 key={`tool-${tool.id}`}
                 className={classNames({

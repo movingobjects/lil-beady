@@ -1,7 +1,6 @@
 
 import { createSelector } from 'reselect';
 
-import toolsData from 'data/tools.json';
 import config from 'config.json';
 
 const getBeads     = (state) => state.beads;
@@ -17,7 +16,7 @@ export const getBead = createSelector(
 
 export const getTool = createSelector(
   getToolIndex,
-  (toolIndex) => toolsData[toolIndex]
+  (toolIndex) => config.controls.tools[toolIndex]
 );
 
 export const getZoomLevel = createSelector(
