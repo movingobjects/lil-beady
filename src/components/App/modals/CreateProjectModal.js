@@ -81,11 +81,14 @@ class CreateProjectModal extends React.Component {
       layout: generateLayout(template, this.getUserOpts())
     };
 
-    firebase.database().ref('projects').push(project, (err) => {
-      console.log(err);
+    const projectsRef = firebase.database().ref('projects');
+    const newProjectRef = projectsRef.push(project, (error, ref) => {
+      if (error) {
+        console.log(error);
+      }
     });
 
-    window.location.hash = `#/project/${project.id}`;
+    window.location.hash = `#/project/${newProjectRef.key}`;
 
   }
 

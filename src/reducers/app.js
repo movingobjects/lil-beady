@@ -23,29 +23,6 @@ export const projects = (state = { }, action) => {
     case 'setProjects':
       return action.projects;
 
-    /*
-    case 'createProject':
-      return [
-        ...state,
-        action.project
-      ];
-
-    case 'deleteProject':
-      return state.filter((p) => p.id !== action.id);
-
-    case 'updateProject':
-      return state.map((p) => {
-        if (p.id === action.projectId) {
-          return {
-            ...p,
-            ...action.project
-          }
-        } else {
-          return p;
-        }
-      });
-    */
-
     default:
       return state;
 
