@@ -57,6 +57,11 @@ class App extends React.Component {
 
   initFirebase() {
 
+    if (!process.env.FIREBASE_API_KEY?.length) {
+      throw new Error('No Firebase API key specified in .env file');
+      return;
+    }
+
     this.firebase = firebase.initializeApp({
       apiKey: process.env.FIREBASE_API_KEY,
       authDomain: "lil-beady.firebaseapp.com",
@@ -76,13 +81,18 @@ class App extends React.Component {
      .on('value', (data) => this.onBeadsUpdate(data.val()));
 
   }
+  deleteFirebase() {
+    if (this.firebase) {
+      this.firebase.delete();
+    }
+  }
 
   componentDidMount() {
     this.initFirebase();
     document.addEventListener('keydown', this.onKeyDown);
   }
   componentWillUnmount() {
-    this.firebase.delete();
+    this.deleteFirebase();
     document.removeEventListener('keydown', this.onKeyDown);
   }
 
