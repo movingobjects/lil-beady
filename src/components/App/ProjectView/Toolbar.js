@@ -1,6 +1,7 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { map } from 'lodash';
 
 import classNames from 'classnames';
 
@@ -17,22 +18,21 @@ class Toolbar extends React.Component {
 
   }
 
-  onBeadSelect = (index) => {
+  onBeadSelect = (id) => {
 
     this.props.dispatch({
-      type: 'setBeadIndex',
-      index
+      type: 'setBeadId',
+      id
     });
 
   }
-
 
   render() {
 
     const {
       toolIndex,
       beads,
-      beadIndex
+      beadId
     } = this.props;
 
     const {
@@ -59,16 +59,16 @@ class Toolbar extends React.Component {
 
         <div className='beads'>
           <ul>
-            {beads.map((bead, i) => (
+            {map(beads, (bead, beadKey) => (
               <li
-                key={`${bead.id}`}
+                key={`${beadKey}`}
                 className={classNames({
-                  'selected': (i === beadIndex)
+                  'selected': (beadKey === beadId)
                 })}
                 style={{
                   '--color-bead': bead.color
                 }}
-                onClick={() => this.onBeadSelect(i)}>
+                onClick={() => this.onBeadSelect(beadKey)}>
                 {bead.name}
               </li>
             ))}
@@ -85,5 +85,5 @@ class Toolbar extends React.Component {
 export default connect((state) => ({
   toolIndex: state.toolIndex,
   beads: state.beads,
-  beadIndex: state.beadIndex
+  beadId: state.beadId
 }))(Toolbar)

@@ -1,8 +1,11 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
-
+import { find } from 'lodash';
 import iro from '@jaames/iro';
+import firebase from 'firebase/app';
+import 'firebase/database';
+
 import Modal from 'components/shared/Modal';
 
 class EditBeadModal extends React.Component {
@@ -16,7 +19,7 @@ class EditBeadModal extends React.Component {
       beadId
     } = props;
 
-    let bead = beads.find((b) => b.id === beadId);
+    let bead = beads[beadId];
 
     this.state = {
       name: bead ? bead.name : 'Untitled',
@@ -49,15 +52,9 @@ class EditBeadModal extends React.Component {
   }
   onDelete = () => {
 
-    const {
-      dispatch,
-      beadId
-    } = this.props;
-
-    dispatch({
-      type: 'deleteBead',
-      beadId
-    });
+    firebase.database()
+      .ref(`beads/${this.props.beadId}`)
+      .remove();
 
     window.location.hash = '#/dashboard';
 
@@ -65,20 +62,13 @@ class EditBeadModal extends React.Component {
   onSave = () => {
 
     const {
-      dispatch,
-      beadId
-    } = this.props;
-
-    const {
       name,
       color
     } = this.state;
 
-    dispatch({
-      type: 'updateBead',
-      beadId,
-      bead: { name, color }
-    });
+    firebase.database()
+      .ref(`beads/${this.props.beadId}`)
+      .set({ name, color });
 
     window.location.hash = '#/dashboard';
 

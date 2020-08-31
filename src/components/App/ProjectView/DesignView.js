@@ -1,7 +1,7 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { cloneDeep, find } from 'lodash';
+import { cloneDeep } from 'lodash';
 import { maths, geom } from 'varyd-utils';
 import { Stage, Layer, Rect } from 'react-konva';
 
@@ -83,14 +83,14 @@ class DesignView extends React.Component {
   startDraw() {
 
     const { workingLayout } = this.state;
-    const { bead } = this.props;
+    const { bead, beadId } = this.props;
 
     const hit   = [],
           unhit = [];
 
     // init unhit array with beads _not_ the current draw color
     workingLayout.forEach((item, index) => {
-      if (item.beadId !== bead.id) unhit.push(index)
+      if (item.beadId !== beadId) unhit.push(index)
     })
 
     this.currentDraw = { hit, unhit };
@@ -104,7 +104,7 @@ class DesignView extends React.Component {
     } = this.state;
 
     const {
-      bead
+      beadId
     } = this.props;
 
     const {
@@ -124,7 +124,7 @@ class DesignView extends React.Component {
         if (index === rectIndex) {
           return {
             ...item,
-            beadId: bead.id
+            beadId
           }
         } else {
           return item;
@@ -145,7 +145,7 @@ class DesignView extends React.Component {
     } = this.state;
 
     const {
-      bead
+      beadId
     } = this.props;
 
     const isAHit = layoutRects.some((rect) => this.hitRect(x, y, rect.hit));
@@ -154,7 +154,7 @@ class DesignView extends React.Component {
       this.setState({
         workingLayout: workingLayout.map((item, index) => ({
           ...item,
-          beadId: bead.id
+          beadId
         }))
       });
     }
@@ -303,7 +303,7 @@ class DesignView extends React.Component {
 
     const item   = workingLayout[index];
 
-    return beads.find((b) => b.id === item.beadId)?.color || config.layout.blankColor;
+    return beads[item.beadId]?.color || config.layout.blankColor;
 
   }
 
@@ -396,6 +396,7 @@ export default connect((state) => ({
   tool: selectors.getTool(state),
   bead: selectors.getBead(state),
   beads: state.beads,
+  beadId: state.beadId,
   zoomLevel: selectors.getZoomLevel(state),
   panOffsetX: state.panOffsetX,
   panOffsetY: state.panOffsetY

@@ -4,14 +4,14 @@ import { createSelector } from 'reselect';
 import config from 'config.json';
 
 const getBeads     = (state) => state.beads;
-const getBeadIndex = (state) => state.beadIndex;
+const getBeadId    = (state) => state.beadId;
 const getToolIndex = (state) => state.toolIndex;
 const getZoomIndex = (state) => state.zoomIndex;
 
 export const getBead = createSelector(
   getBeads,
-  getBeadIndex,
-  (beads, beadIndex) => beads[beadIndex]
+  getBeadId,
+  (beads, beadId) => beads[beadId]
 );
 
 export const getTool = createSelector(

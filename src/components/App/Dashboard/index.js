@@ -48,14 +48,13 @@ class Dashboard extends React.Component {
             </a>
           </li>
 
-          {beads.map((bead, i) => (
-            <li
-              key={bead.id}>
+          {map(beads, (bead, beadId) => (
+            <li key={beadId}>
               <a
                 style={{
                   backgroundColor: bead.color
                 }}
-                href={`#/dashboard/bead/edit/${bead.id}`}>
+                href={`#/dashboard/bead/edit/${beadId}`}>
                 {bead.name}
               </a>
 

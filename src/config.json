@@ -1,6 +1,6 @@
 {
   "dev": {
-    "reduxLoggerOn": false
+    "reduxLoggerOn": true
   },
   "layout": {
     "blankColor": "#eeeeee",

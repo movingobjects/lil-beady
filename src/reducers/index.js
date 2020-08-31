@@ -10,7 +10,7 @@ import {
   templates,
   beads,
   toolIndex,
-  beadIndex,
+  beadId,
   zoomIndex,
   panOffsetX,
   panOffsetY
@@ -22,7 +22,7 @@ const rootReducer = combineReducers({
   templates,
   beads,
   toolIndex,
-  beadIndex,
+  beadId,
   zoomIndex,
   panOffsetX,
   panOffsetY

@@ -1,7 +1,8 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
-import shortId from 'shortid';
+import firebase from 'firebase/app';
+import 'firebase/database';
 
 import iro from '@jaames/iro';
 import Modal from 'components/shared/Modal';
@@ -48,14 +49,13 @@ class CreateBeadModal extends React.Component {
       color
     } = this.state;
 
-    this.props.dispatch({
-      type: 'createBead',
-      bead: {
-        id: shortId.generate(),
-        name,
-        color
-      }
-    });
+    firebase.database()
+      .ref('beads')
+      .push({ name, color }, (error) => {
+        if (error) {
+          console.log(error);
+        }
+      });
 
     window.location.hash = '#/dashboard';
 

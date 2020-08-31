@@ -37,27 +37,6 @@ export const beads = (state = [], action) => {
     case 'setBeads':
       return action.beads;
 
-    case 'createBead':
-      return [
-        ...state,
-        action.bead
-      ];
-
-    case 'deleteBead':
-      return state.filter((b) => b.id !== action.beadId);
-
-    case 'updateBead':
-      return state.map((bead) => {
-        if (bead.id === action.beadId) {
-          return {
-            ...bead,
-            ...action.bead
-          }
-        } else {
-          return bead;
-        }
-      });
-
     default:
       return state;
 
@@ -65,12 +44,12 @@ export const beads = (state = [], action) => {
 
 }
 
-export const beadIndex = (state = 0, action) => {
+export const beadId = (state = null, action) => {
 
   switch (action.type) {
 
-    case 'setBeadIndex':
-      return action.index;
+    case 'setBeadId':
+      return action.id;
 
     default:
       return state;

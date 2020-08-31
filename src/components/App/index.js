@@ -34,10 +34,25 @@ class App extends React.Component {
     });
   }
   onBeadsUpdate = (beads) => {
-    this.props.dispatch({
+
+    const {
+      dispatch,
+      beadId,
+    } = this.props;
+
+    dispatch({
       type: 'setBeads',
       beads
     });
+
+    // If no bead id has been set, set it to the first bead's id
+    if (!beadId) {
+      dispatch({
+        type: 'setBeadId',
+        id: Object.keys(beads)[0]
+      });
+    }
+
   }
 
   initFirebase() {
@@ -53,12 +68,12 @@ class App extends React.Component {
     });
 
     firebase.database()
-      .ref('projects')
-      .on('value', (data) => this.onProjectsUpdate(data.val()));
+     .ref('projects')
+     .on('value', (data) => this.onProjectsUpdate(data.val()));
 
     firebase.database()
-      .ref('beads')
-      .on('value', (data) => this.onBeadsUpdate(data.val()));
+     .ref('beads')
+     .on('value', (data) => this.onBeadsUpdate(data.val()));
 
   }
 
@@ -92,5 +107,6 @@ class App extends React.Component {
 
 export default connect((state) => ({
   project: state.project,
-  beads: state.beads
+  beads: state.beads,
+  beadId: state.beadId
 }))(App);
