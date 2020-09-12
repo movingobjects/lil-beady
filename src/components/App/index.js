@@ -3,8 +3,8 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { maths } from 'varyd-utils';
 import firebase from 'firebase/app';
-import 'firebase/database';
 
+import LoginView from './LoginView';
 import ProjectView from './ProjectView';
 import Dashboard from './Dashboard';
 import EditBeadModal from './modals/EditBeadModal';
@@ -19,11 +19,9 @@ class App extends React.Component {
 
     super(props);
 
-  }
-
-  onKeyDown = (e) => {
-
-    switch (e.key) { }
+    this.state = {
+      user: null
+    }
 
   }
 
@@ -55,30 +53,28 @@ class App extends React.Component {
 
   }
 
+  onLoginClick = () => {
+
+    let provider = new firebase.auth.GoogleAuthProvider();
+
+    firebase.auth().signInWithRedirect(provider)
+
+  }
+
   initFirebase() {
 
-    if (!process.env.FIREBASE_API_KEY?.length) {
-      throw new Error('No Firebase API key specified in .env file');
-      return;
-    }
-
-    this.firebase = firebase.initializeApp({
-      apiKey: process.env.FIREBASE_API_KEY,
-      authDomain: "lil-beady.firebaseapp.com",
-      databaseURL: "https://lil-beady.firebaseio.com",
-      projectId: "lil-beady",
-      storageBucket: "lil-beady.appspot.com",
-      messagingSenderId: "85532380191",
-      appId: "1:85532380191:web:3894c8aebb670c1d9e592a"
-    });
+    firebase.auth()
+      .onAuthStateChanged((user) => {
+        this.setState({ user });
+      });
 
     firebase.database()
-     .ref('projects')
-     .on('value', (data) => this.onProjectsUpdate(data.val()));
+      .ref('projects')
+      .on('value', (data) => this.onProjectsUpdate(data.val()));
 
     firebase.database()
-     .ref('beads')
-     .on('value', (data) => this.onBeadsUpdate(data.val()));
+      .ref('beads')
+      .on('value', (data) => this.onBeadsUpdate(data.val()));
 
   }
   deleteFirebase() {
@@ -89,14 +85,21 @@ class App extends React.Component {
 
   componentDidMount() {
     this.initFirebase();
-    document.addEventListener('keydown', this.onKeyDown);
   }
   componentWillUnmount() {
     this.deleteFirebase();
-    document.removeEventListener('keydown', this.onKeyDown);
   }
 
   render() {
+
+    const { user } = this.state;
+
+    if (!user) {
+      return (
+        <LoginView
+          onLoginClick={this.onLoginClick} />
+      )
+    }
 
     return (
       <main>
