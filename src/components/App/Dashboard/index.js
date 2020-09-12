@@ -3,7 +3,18 @@ import { connect } from 'react-redux';
 import { map } from 'lodash';
 import { random } from 'varyd-utils';
 
+import firebase from 'firebase/app';
+
 class Dashboard extends React.Component {
+
+  onSignOutClick = (e) => {
+
+    e.preventDefault();
+
+    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
+    firebase.auth().signOut();
+
+  }
 
   render() {
 
@@ -17,6 +28,14 @@ class Dashboard extends React.Component {
       <section id='dashboard'>
 
         <h1>Lil Beady</h1>
+
+        <p>
+          <a
+            href='#'
+            onClick={this.onSignOutClick}>
+            Sign out
+          </a>
+        </p>
 
         <h2>Projects</h2>
         <ul
