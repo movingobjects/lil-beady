@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import firebase from 'firebase/app';
 import 'firebase/database';
 
-import { generateLayout } from 'utils/utils';
+import { generateLayout, encodeProject } from 'utils';
 import Modal from 'components/shared/Modal';
 
 class CreateProjectModal extends React.Component {
@@ -80,9 +80,10 @@ class CreateProjectModal extends React.Component {
       templateId: templateId,
       layout: generateLayout(template, this.getUserOpts())
     };
+    const projectEncoded = encodeProject(project);
 
     const projectsRef = firebase.database().ref('projects');
-    const newProjectRef = projectsRef.push(project, (error, ref) => {
+    const newProjectRef = projectsRef.push(projectEncoded, (error, ref) => {
       if (error) {
         console.log(error);
       }

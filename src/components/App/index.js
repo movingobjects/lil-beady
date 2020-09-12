@@ -11,6 +11,8 @@ import EditBeadModal from './modals/EditBeadModal';
 import CreateBeadModal from './modals/CreateBeadModal';
 import CreateProjectModal from './modals/CreateProjectModal';
 
+import { decodeProject } from 'utils';
+
 import Route from 'components/Router/Route';
 
 class App extends React.Component {
@@ -26,9 +28,16 @@ class App extends React.Component {
   }
 
   onProjectsUpdate = (projects) => {
+
+    const projectsDecoded = { };
+
+    Object.keys(projects).forEach((key) => {
+      projectsDecoded[key] = decodeProject(projects[key]);
+    })
+
     this.props.dispatch({
       type: 'setProjects',
-      projects
+      projects: projectsDecoded
     });
   }
   onBeadsUpdate = (beads) => {
@@ -57,7 +66,7 @@ class App extends React.Component {
 
     let provider = new firebase.auth.GoogleAuthProvider();
 
-    firebase.auth().signInWithRedirect(provider)
+    firebase.auth().signInWithRedirect(provider);
 
   }
 
@@ -69,12 +78,12 @@ class App extends React.Component {
       });
 
     firebase.database()
-      .ref('projects')
-      .on('value', (data) => this.onProjectsUpdate(data.val()));
-
-    firebase.database()
       .ref('beads')
       .on('value', (data) => this.onBeadsUpdate(data.val()));
+
+    firebase.database()
+      .ref('projects')
+      .on('value', (data) => this.onProjectsUpdate(data.val()));
 
   }
   deleteFirebase() {
@@ -98,7 +107,7 @@ class App extends React.Component {
       return (
         <LoginView
           onLoginClick={this.onLoginClick} />
-      )
+      );
     }
 
     return (
@@ -112,7 +121,7 @@ class App extends React.Component {
         <Route path='#/project/:projectId' component={ProjectView} />
 
       </main>
-    )
+    );
 
   }
 

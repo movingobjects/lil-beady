@@ -145,3 +145,87 @@ export function generateLayout(template, userOpts) {
   return design;
 
 }
+
+export function encodeProject(project) {
+
+  const encodeLayout = (layout) => {
+
+    const beads = { };
+
+    layout.forEach((b) => {
+
+      const id = b.beadId || '_';
+
+      if (!beads[id]?.length) {
+        beads[id] = '';
+      }
+
+      beads[id] += `${b.col},${b.row}`;
+
+      if (b.fCol !== undefined && b.fRow !== undefined) {
+        beads[id] += `|${b.fCol},${b.fRow}`;
+      }
+
+      beads[id] += ' ';
+
+    })
+
+    return beads;
+
+  }
+
+  return {
+    name: project.name,
+    templateId: project.templateId,
+    beads: encodeLayout(project.layout)
+  };
+
+}
+export function decodeProject(data) {
+
+  const decodeBeads = (beadGroups) => {
+
+    const layout = [];
+
+    const beadIds = Object.keys(beadGroups);
+
+    beadIds.forEach((id) => {
+      const group = beadGroups[id];
+      const beads = group.split(' ').filter((b) => !!b.length);
+
+      beads.forEach((b) => {
+
+        const beadSplit = b.split('|');
+        const colRow = beadSplit[0].split(',');
+
+        const obj = {
+          col: Number(colRow[0]),
+          row: Number(colRow[1])
+        };
+
+        if (beadSplit[1]?.length) {
+          const fColRow = beadSplit[1].split(',');
+          obj.fCol = Number(fColRow[0]);
+          obj.fRow = Number(fColRow[1]);
+        }
+
+        if (id !== '_') {
+          obj.beadId = id;
+        }
+
+        layout.push(obj);
+
+      });
+
+    });
+
+    return layout;
+
+  }
+
+  return {
+    name: data.name,
+    templateId: data.templateId,
+    layout: decodeBeads(data.beads)
+  }
+}
