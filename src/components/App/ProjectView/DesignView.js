@@ -8,7 +8,7 @@ import { Stage, Layer, Rect } from 'react-konva';
 import firebase from 'firebase/app';
 import 'firebase/database';
 
-import { encodeProject } from 'utils';
+import { encodeDesign } from 'utils';
 
 import * as selectors from 'selectors';
 
@@ -23,14 +23,14 @@ class DesignView extends React.Component {
     super();
 
     this.state = {
-      workingLayout: [ ],
-      layoutArea: {
+      workingDesign: [ ],
+      designArea: {
         x: 0,
         y: 0,
         w: 1,
         h: 1
       },
-      layoutRects: [ ],
+      designRects: [ ],
       isChanged: true
     }
 
@@ -42,14 +42,14 @@ class DesignView extends React.Component {
   onResize = (e) => {
 
     const {
-      layoutArea
+      designArea
     } = this.state;
 
     this.setState({
-      layoutArea: {
-        ...layoutArea,
-        x: (window.innerWidth - layoutArea.w) / 2,
-        y: (window.innerHeight - layoutArea.h) / 2
+      designArea: {
+        ...designArea,
+        x: (window.innerWidth - designArea.w) / 2,
+        y: (window.innerHeight - designArea.h) / 2
       }
     });
 
@@ -88,14 +88,14 @@ class DesignView extends React.Component {
 
   startDraw() {
 
-    const { workingLayout } = this.state;
+    const { workingDesign } = this.state;
     const { bead, beadId } = this.props;
 
     const hit   = [],
           unhit = [];
 
     // init unhit array with beads _not_ the current draw color
-    workingLayout.forEach((item, index) => {
+    workingDesign.forEach((item, index) => {
       if (item.beadId !== beadId) unhit.push(index)
     })
 
@@ -109,8 +109,8 @@ class DesignView extends React.Component {
   draw(x, y) {
 
     const {
-      workingLayout,
-      layoutRects
+      workingDesign,
+      designRects
     } = this.state;
 
     const {
@@ -122,7 +122,7 @@ class DesignView extends React.Component {
       unhit
     } = this.currentDraw;
 
-    const rectIndex = unhit.find((index) => this.hitRect(x, y, layoutRects[index].hit));
+    const rectIndex = unhit.find((index) => this.hitRect(x, y, designRects[index].hit));
 
     if (rectIndex === undefined) return;
 
@@ -130,7 +130,7 @@ class DesignView extends React.Component {
     hit.push(rectIndex);
 
     this.setState({
-      workingLayout: workingLayout.map((item, index) => {
+      workingDesign: workingDesign.map((item, index) => {
         if (index === rectIndex) {
           return {
             ...item,
@@ -150,19 +150,19 @@ class DesignView extends React.Component {
   fill(x, y) {
 
     const {
-      workingLayout,
-      layoutRects
+      workingDesign,
+      designRects
     } = this.state;
 
     const {
       beadId
     } = this.props;
 
-    const isAHit = layoutRects.some((rect) => this.hitRect(x, y, rect.hit));
+    const isAHit = designRects.some((rect) => this.hitRect(x, y, rect.hit));
 
     if (isAHit) {
       this.setState({
-        workingLayout: workingLayout.map((item, index) => ({
+        workingDesign: workingDesign.map((item, index) => ({
           ...item,
           beadId
         }))
@@ -179,17 +179,16 @@ class DesignView extends React.Component {
       projectId
     } = this.props;
 
-    if (!projects[projectId]) return;
+    const project = projects[projectId];
 
-    const project = {
-      ...projects[projectId],
-      layout: cloneDeep(this.state.workingLayout)
-    };
-    const projectEncoded = encodeProject(project);
+    if (!project) return;
 
     firebase.database()
       .ref(`projects/${projectId}`)
-      .set(projectEncoded);
+      .set({
+        ...project,
+        design: encodeDesign(this.state.workingDesign)
+      });
 
     this.setState({
       isChanged: false
@@ -197,7 +196,7 @@ class DesignView extends React.Component {
 
   }
 
-  resetWorkingLayout() {
+  resetWorkingDesign() {
 
     const {
       projects,
@@ -205,9 +204,9 @@ class DesignView extends React.Component {
     } = this.props;
 
     const project       = projects[projectId],
-          workingLayout = project ? cloneDeep(project.layout) : [];
+          workingDesign = project ? cloneDeep(project.design) : [];
 
-    this.setState({ workingLayout });
+    this.setState({ workingDesign });
 
   }
   resetView() {
@@ -219,20 +218,20 @@ class DesignView extends React.Component {
 
     const project = projects[projectId];
 
-    if (project?.layout) {
+    if (project?.design) {
 
-      const layoutArea  = this.getLayoutArea(project.layout),
-            layoutRects = this.getLayoutRects(project.layout, layoutArea.w);
+      const designArea  = this.getDesignArea(project.design),
+            designRects = this.getDesignRects(project.design, designArea.w);
 
       this.setState({
-        layoutArea,
-        layoutRects
+        designArea,
+        designRects
       });
 
     }
 
   }
-  getLayoutArea(layout) {
+  getDesignArea(design) {
 
     const {
       zoomLevel,
@@ -240,7 +239,7 @@ class DesignView extends React.Component {
       panOffsetY
     } = this.props;
 
-    const opts = config.layout,
+    const opts = config.design,
           colW = zoomLevel * opts.colW,
           rowH = zoomLevel * opts.rowH;
 
@@ -249,7 +248,7 @@ class DesignView extends React.Component {
         minRow = NaN,
         maxRow = NaN;
 
-    layout.forEach((bead) => {
+    design.forEach((bead) => {
       if (isNaN(minCol) || bead.col < minCol) minCol = bead.col;
       if (isNaN(maxCol) || bead.col > maxCol) maxCol = bead.col;
       if (isNaN(minRow) || bead.row < minRow) minRow = bead.row;
@@ -267,9 +266,9 @@ class DesignView extends React.Component {
     return { x, y, w, h };
 
   }
-  getLayoutRects(layout, totalW) {
+  getDesignRects(design, totalW) {
 
-    const opts = config.layout,
+    const opts = config.design,
           zoom = this.props.zoomLevel;
 
     const colW       = zoom * opts.colW,
@@ -281,7 +280,7 @@ class DesignView extends React.Component {
     const topY    = (rowH / 2),
           centerX = (totalW / 2);
 
-    return layout.map((bead, index) => {
+    return design.map((bead, index) => {
 
       const hitX = centerX + (bead.col * colW) - (colW / 2),
             hitY = topY + (bead.row * rowH) - (rowH / 2);
@@ -311,12 +310,12 @@ class DesignView extends React.Component {
     } = this.props;
 
     const {
-      workingLayout
+      workingDesign
     } = this.state;
 
-    const item   = workingLayout[index];
+    const item   = workingDesign[index];
 
-    return beads[item.beadId]?.color || config.layout.blankColor;
+    return beads[item.beadId]?.color || config.design.blankColor;
 
   }
 
@@ -333,7 +332,7 @@ class DesignView extends React.Component {
           project     = this.props.projects[this.props.projectId];
 
     if (!prevProject && project) {
-      this.resetWorkingLayout();
+      this.resetWorkingDesign();
       this.resetView();
     }
 
@@ -351,7 +350,7 @@ class DesignView extends React.Component {
 
     window.addEventListener('resize', this.onResize);
 
-    this.resetWorkingLayout();
+    this.resetWorkingDesign();
     this.resetView();
 
   }
@@ -364,18 +363,18 @@ class DesignView extends React.Component {
   render() {
 
     const {
-      layoutArea,
-      layoutRects,
+      designArea,
+      designRects,
       isChanged
     } = this.state;
 
     return (
       <DragArea
         className='wrap-beads'
-        x={layoutArea.x}
-        y={layoutArea.y}
-        w={layoutArea.w}
-        h={layoutArea.h}
+        x={designArea.x}
+        y={designArea.y}
+        w={designArea.w}
+        h={designArea.h}
         minDragDist={0}
         onDragStart={this.onDragStart}
         onDrag={this.onDrag}
@@ -389,10 +388,10 @@ class DesignView extends React.Component {
         </button>
 
         <Stage
-          width={layoutArea.w}
-          height={layoutArea.h}>
+          width={designArea.w}
+          height={designArea.h}>
           <Layer>
-            {layoutRects.map((r, i) => (
+            {designRects.map((r, i) => (
               <Rect
                 key={`bead-${i}`}
                 x={r.bead.x}

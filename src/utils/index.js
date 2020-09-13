@@ -1,7 +1,7 @@
 
 import { times } from 'lodash';
 
-export function generateLayout(template, userOpts) {
+export function generateDesign(template, userOpts) {
 
   const getOpts = (templateOpts, userOpts) => {
 
@@ -146,86 +146,76 @@ export function generateLayout(template, userOpts) {
 
 }
 
-export function encodeProject(project) {
+export function encodeDesign(design) {
 
-  const encodeLayout = (layout) => {
+  const encoded = { };
 
-    const beads = { };
+  design.forEach((bead, index) => {
 
-    layout.forEach((b) => {
+    const id = bead.beadId || '_';
 
-      const id = b.beadId || '_';
+    if (!encoded[id]?.length) {
+      encoded[id] = '';
+    }
 
-      if (!beads[id]?.length) {
-        beads[id] = '';
-      }
+    encoded[id] += `${bead.col},${bead.row}`;
 
-      beads[id] += `${b.col},${b.row}`;
+    if (bead.fCol !== undefined && bead.fRow !== undefined) {
+      encoded[id] += `|${bead.fCol},${bead.fRow}`;
+    }
 
-      if (b.fCol !== undefined && b.fRow !== undefined) {
-        beads[id] += `|${b.fCol},${b.fRow}`;
-      }
+    if (index < design.length - 1) {
+      encoded[id] += ' ';
+    }
 
-      beads[id] += ' ';
+  })
 
-    })
-
-    return beads;
-
-  }
-
-  return {
-    name: project.name,
-    templateId: project.templateId,
-    beads: encodeLayout(project.layout)
-  };
+  return encoded;
 
 }
-export function decodeProject(data) {
 
-  const decodeBeads = (beadGroups) => {
+export function decodeDesign(encoded) {
 
-    const layout = [];
+  const design = [];
 
-    const beadIds = Object.keys(beadGroups);
+  Object.keys(encoded).forEach((beadId) => {
 
-    beadIds.forEach((id) => {
-      const group = beadGroups[id];
-      const beads = group.split(' ').filter((b) => !!b.length);
+    const items = encoded[beadId]
+      .split(' ')
+      .filter((item) => !!item.length);
 
-      beads.forEach((b) => {
+    items.forEach((item) => {
 
-        const beadSplit = b.split('|');
-        const colRow = beadSplit[0].split(',');
+      const itemSplit = item.split('|'),
+            splitA    = itemSplit[0],
+            splitB    = itemSplit[1];
 
-        const obj = {
-          col: Number(colRow[0]),
-          row: Number(colRow[1])
-        };
+      const bead = { };
 
-        if (beadSplit[1]?.length) {
-          const fColRow = beadSplit[1].split(',');
-          obj.fCol = Number(fColRow[0]);
-          obj.fRow = Number(fColRow[1]);
-        }
+      if (beadId !== '_') {
+        bead.beadId = beadId;
+      }
 
-        if (id !== '_') {
-          obj.beadId = id;
-        }
+      if (splitB?.length) {
+        const fColRow = splitB.split(',');
+        bead.fCol = Number(fColRow[0]);
+        bead.fRow = Number(fColRow[1]);
+      }
 
-        layout.push(obj);
+      if (splitA?.length) {
+        const colRow = splitA.split(',');
+        bead.col = Number(colRow[0]);
+        bead.row = Number(colRow[1]);
+      }
 
-      });
+      if (bead.col !== undefined && bead.row !== undefined) {
+        design.push(bead);
+      }
 
     });
 
-    return layout;
+  });
 
-  }
+  return design;
 
-  return {
-    name: data.name,
-    templateId: data.templateId,
-    layout: decodeBeads(data.beads)
-  }
 }

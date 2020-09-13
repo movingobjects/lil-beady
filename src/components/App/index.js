@@ -2,6 +2,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { maths } from 'varyd-utils';
+import { map } from 'lodash';
 import firebase from 'firebase/app';
 
 import LoginView from './LoginView';
@@ -11,7 +12,7 @@ import EditBeadModal from './modals/EditBeadModal';
 import CreateBeadModal from './modals/CreateBeadModal';
 import CreateProjectModal from './modals/CreateProjectModal';
 
-import { decodeProject } from 'utils';
+import { decodeDesign } from 'utils';
 
 import Route from 'components/Router/Route';
 
@@ -31,14 +32,18 @@ class App extends React.Component {
 
     const projectsDecoded = { };
 
-    Object.keys(projects).forEach((key) => {
-      projectsDecoded[key] = decodeProject(projects[key]);
-    })
+    for (const projectId in projects) {
+      projectsDecoded[projectId] = {
+        ...projects[projectId],
+        design: decodeDesign(projects[projectId]?.design)
+      }
+    }
 
     this.props.dispatch({
       type: 'setProjects',
       projects: projectsDecoded
     });
+
   }
   onBeadsUpdate = (beads) => {
 

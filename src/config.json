@@ -2,7 +2,7 @@
   "dev": {
     "reduxLoggerOn": true
   },
-  "layout": {
+  "design": {
     "blankColor": "#eeeeee",
     "colW": 12,
     "rowH": 10,
