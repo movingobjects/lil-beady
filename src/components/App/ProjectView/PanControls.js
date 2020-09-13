@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import * as selectors from 'selectors';
+import * as selectors from '~/selectors';
 
 class PanControls extends React.Component {
 

@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import firebase from 'firebase/app';
 import 'firebase/database';
 
-import { generateDesign, encodeDesign } from 'utils';
-import Modal from 'components/shared/Modal';
+import { generateDesign, encodeDesign } from '~/utils';
+import Modal from '~/components/shared/Modal';
 
 class CreateProjectModal extends React.Component {
 

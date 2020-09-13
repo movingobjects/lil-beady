@@ -6,7 +6,7 @@ import iro from '@jaames/iro';
 import firebase from 'firebase/app';
 import 'firebase/database';
 
-import Modal from 'components/shared/Modal';
+import Modal from '~/components/shared/Modal';
 
 class EditBeadModal extends React.Component {
 

@@ -4,6 +4,9 @@ node_modules/
 # OS
 .DS_Store
 
+# Parcel
+dist/
+.cache/
+
 # Project-specific
-app/dist/
 .env

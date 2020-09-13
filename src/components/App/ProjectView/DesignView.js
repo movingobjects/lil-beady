@@ -8,13 +8,13 @@ import { Stage, Layer, Rect } from 'react-konva';
 import firebase from 'firebase/app';
 import 'firebase/database';
 
-import { encodeDesign } from 'utils';
+import { encodeDesign } from '~/utils';
 
-import * as selectors from 'selectors';
+import * as selectors from '~/selectors';
 
-import DragArea from 'components/shared/DragArea';
+import DragArea from '~/components/shared/DragArea';
 
-import config from 'config.json';
+import config from '~/config.json';
 
 class DesignView extends React.Component {
 

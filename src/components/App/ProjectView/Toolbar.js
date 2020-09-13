@@ -5,7 +5,7 @@ import { map } from 'lodash';
 
 import classNames from 'classnames';
 
-import config from 'config.json';
+import config from '~/config.json';
 
 class Toolbar extends React.Component {
 

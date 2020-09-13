@@ -11,10 +11,9 @@ import Dashboard from './Dashboard';
 import EditBeadModal from './modals/EditBeadModal';
 import CreateBeadModal from './modals/CreateBeadModal';
 import CreateProjectModal from './modals/CreateProjectModal';
+import Route from '~/components/Router/Route';
 
-import { decodeDesign } from 'utils';
-
-import Route from 'components/Router/Route';
+import { decodeDesign } from '~/utils';
 
 class App extends React.Component {
 
