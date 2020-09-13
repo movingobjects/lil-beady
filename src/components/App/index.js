@@ -8,9 +8,9 @@ import firebase from 'firebase/app';
 import LoginView from './LoginView';
 import ProjectView from './ProjectView';
 import Dashboard from './Dashboard';
-import EditBeadModal from './EditBeadModal';
-import CreateBeadModal from './CreateBeadModal';
-import CreateProjectModal from './CreateProjectModal';
+import EditBeadModal from './modals/EditBeadModal';
+import CreateBeadModal from './modals/CreateBeadModal';
+import CreateProjectModal from './modals/CreateProjectModal';
 import Route from '~/components/Router/Route';
 
 import styles from './index.module.scss';
