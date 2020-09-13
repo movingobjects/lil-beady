@@ -26,6 +26,34 @@ $btnSize: 40px;
     position: absolute;
     cursor: pointer;
 
+    button.save {
+      background-color: #f55;
+      position: fixed;
+      z-index: 200;
+      top: 25px;
+      left: 100px;
+      color: white;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-size: 11px;
+      padding: 10px;
+      border-radius: 4px;
+
+      cursor: pointer;
+
+      &:hover {
+        background-color: #c33;
+      }
+
+      &[disabled],
+      &:disabled {
+        pointer-events: none;
+        background-color: #ccc;
+      }
+
+    }
+
     canvas {
       pointer-events: none;
     }

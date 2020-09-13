@@ -5,6 +5,11 @@ import { cloneDeep } from 'lodash';
 import { maths, geom } from 'varyd-utils';
 import { Stage, Layer, Rect } from 'react-konva';
 
+import firebase from 'firebase/app';
+import 'firebase/database';
+
+import { encodeProject } from 'utils';
+
 import * as selectors from 'selectors';
 
 import DragArea from 'components/shared/DragArea';
@@ -25,7 +30,8 @@ class DesignView extends React.Component {
         w: 1,
         h: 1
       },
-      layoutRects: [ ]
+      layoutRects: [ ],
+      isChanged: true
     }
 
     this.touchId     = null;
@@ -94,6 +100,10 @@ class DesignView extends React.Component {
     })
 
     this.currentDraw = { hit, unhit };
+
+    this.setState({
+      isChanged: true
+    })
 
   }
   draw(x, y) {
@@ -169,18 +179,21 @@ class DesignView extends React.Component {
       projectId
     } = this.props;
 
-    const project = projects[projectId];
+    if (!projects[projectId]) return;
 
-    if (!project) return;
+    const project = {
+      ...projects[projectId],
+      layout: cloneDeep(this.state.workingLayout)
+    };
+    const projectEncoded = encodeProject(project);
 
-    dispatch({
-      type: 'updateProject',
-      projectId,
-      project: {
-        ...project,
-        layout: cloneDeep(this.state.workingLayout)
-      }
-    });
+    firebase.database()
+      .ref(`projects/${projectId}`)
+      .set(projectEncoded);
+
+    this.setState({
+      isChanged: false
+    })
 
   }
 
@@ -352,7 +365,8 @@ class DesignView extends React.Component {
 
     const {
       layoutArea,
-      layoutRects
+      layoutRects,
+      isChanged
     } = this.state;
 
     return (
@@ -366,6 +380,13 @@ class DesignView extends React.Component {
         onDragStart={this.onDragStart}
         onDrag={this.onDrag}
         onDragEnd={this.onDragEnd}>
+
+        <button
+          className='save'
+          disabled={!isChanged}
+          onClick={() => this.save()}>
+          Save
+        </button>
 
         <Stage
           width={layoutArea.w}
