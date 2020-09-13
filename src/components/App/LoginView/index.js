@@ -2,6 +2,8 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
+import styles from './index.module.scss';
+
 class LoginView extends React.Component {
 
   onLoginClick = () => {
@@ -19,14 +21,14 @@ class LoginView extends React.Component {
   render() {
 
     return (
-      <section id='login-view'>
+      <div className={styles.wrap}>
 
         <button
           onClick={this.onLoginClick}>
           Login
         </button>
 
-      </section>
+      </div>
     );
 
   }

@@ -6,6 +6,7 @@ import 'firebase/database';
 
 import { generateDesign, encodeDesign } from '~/utils';
 import Modal from '~/components/shared/Modal';
+import styles from './index.module.scss';
 
 class CreateProjectModal extends React.Component {
 
@@ -145,81 +146,83 @@ class CreateProjectModal extends React.Component {
     return (
 
       <Modal
-        id='edit-project-modal'
-        onTapOutside={this.onCancel}>
+        onTapOff={this.onCancel}>
 
-        <h2>Create New Project</h2>
+        <div className={styles.wrap}>
 
-        <div
-          className='field'>
+          <h2>Create New Project</h2>
 
-          <label
-            htmlFor='input-name'>
-            Project name
-          </label>
+          <div
+            className={styles.field}>
 
-          <input
-            ref={this.nameInputRef}
-            type='text'
-            name='input-name'
-            value={name}
-            onChange={this.onNameChange} />
+            <label
+              htmlFor='input-name'>
+              Project name
+            </label>
 
-        </div>
+            <input
+              ref={this.nameInputRef}
+              type='text'
+              name='input-name'
+              value={name}
+              onChange={this.onNameChange} />
 
-        <div
-          className='field'>
+          </div>
 
-          <label
-            htmlFor='select-template'>
-            Template
-          </label>
+          <div
+            className={styles.field}>
 
-          <select
-            name='select-template'
-            value={templateId}
-            onChange={this.onTemplateSelect}>
-            <option value='triangle'>Triangle</option>
-            <option value='square'>Square</option>
-            <option value='diamond'>Diamond</option>
-          </select>
+            <label
+              htmlFor='select-template'>
+              Template
+            </label>
 
-        </div>
+            <select
+              name='select-template'
+              value={templateId}
+              onChange={this.onTemplateSelect}>
+              <option value='triangle'>Triangle</option>
+              <option value='square'>Square</option>
+              <option value='diamond'>Diamond</option>
+            </select>
 
-        {templateOpts.map((opt) => {
+          </div>
 
-          if (!values.hasOwnProperty(opt.id)) return null;
+          {templateOpts.map((opt) => {
 
-          return (
-            <div
-              key={`opt-${opt.id}`}
-              className='field'>
+            if (!values.hasOwnProperty(opt.id)) return null;
 
-              <label
-                htmlFor={`opt-${opt.id}`}>
-                {opt.label} ({opt.min} - {opt.max})
-              </label>
+            return (
+              <div
+                key={`opt-${opt.id}`}
+                className={styles.field}>
 
-              <input
-                type='text'
-                name={`opt-${opt.id}`}
-                value={values[opt.id]}
-                onChange={(e) => this.onTemplateOptChange(opt.id, e.target.value)} />
+                <label
+                  htmlFor={`opt-${opt.id}`}>
+                  {opt.label} ({opt.min} - {opt.max})
+                </label>
 
-            </div>
-          );
-        })}
+                <input
+                  type='text'
+                  name={`opt-${opt.id}`}
+                  value={values[opt.id]}
+                  onChange={(e) => this.onTemplateOptChange(opt.id, e.target.value)} />
 
-        <div className='buttons'>
-          <button
-            onClick={this.onCancel}>
-            Cancel
-          </button>
-          <button
-            onClick={this.onSave}
-            className='default'>
-            Save
-          </button>
+              </div>
+            );
+          })}
+
+          <div className={styles.buttons}>
+            <button
+              onClick={this.onCancel}>
+              Cancel
+            </button>
+            <button
+              onClick={this.onSave}
+              className={styles.default}>
+              Save
+            </button>
+          </div>
         </div>
 
       </Modal>

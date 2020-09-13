@@ -8,10 +8,12 @@ import firebase from 'firebase/app';
 import LoginView from './LoginView';
 import ProjectView from './ProjectView';
 import Dashboard from './Dashboard';
-import EditBeadModal from './modals/EditBeadModal';
-import CreateBeadModal from './modals/CreateBeadModal';
-import CreateProjectModal from './modals/CreateProjectModal';
+import EditBeadModal from './EditBeadModal';
+import CreateBeadModal from './CreateBeadModal';
+import CreateProjectModal from './CreateProjectModal';
 import Route from '~/components/Router/Route';
+
+import styles from './index.module.scss';
 
 import { decodeDesign } from '~/utils';
 
@@ -115,7 +117,8 @@ class App extends React.Component {
     }
 
     return (
-      <main>
+      <div
+        className={styles.wrap}>
 
         <Route path='#/dashboard' component={Dashboard} />
         <Route path='#/dashboard/bead/create' component={CreateBeadModal} />
@@ -124,7 +127,7 @@ class App extends React.Component {
 
         <Route path='#/project/:projectId' component={ProjectView} />
 
-      </main>
+      </div>
     );
 
   }

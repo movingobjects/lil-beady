@@ -15,6 +15,7 @@ import * as selectors from '~/selectors';
 import DragArea from '~/components/shared/DragArea';
 
 import config from '~/config.json';
+import styles from './index.module.scss';
 
 class DesignView extends React.Component {
 
@@ -370,7 +371,7 @@ class DesignView extends React.Component {
 
     return (
       <DragArea
-        className='wrap-beads'
+        className={styles.wrap}
         x={designArea.x}
         y={designArea.y}
         w={designArea.w}
@@ -381,7 +382,7 @@ class DesignView extends React.Component {
         onDragEnd={this.onDragEnd}>
 
         <button
-          className='save'
+          className={styles.save}
           disabled={!isChanged}
           onClick={() => this.save()}>
           Save

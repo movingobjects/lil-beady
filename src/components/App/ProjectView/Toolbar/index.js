@@ -6,6 +6,7 @@ import { map } from 'lodash';
 import classNames from 'classnames';
 
 import config from '~/config.json';
+import styles from './index.module.scss';
 
 class Toolbar extends React.Component {
 
@@ -40,15 +41,15 @@ class Toolbar extends React.Component {
     } = config.controls;
 
     return (
-      <section id='toolbar'>
+      <div className={styles.wrap}>
 
-        <div className='tools'>
+        <div className={styles.tools}>
           <ul>
             {tools.map((tool, i) => (
               <li
                 key={`tool-${tool.id}`}
                 className={classNames({
-                  'selected': i === toolIndex
+                  [styles.selected]: i === toolIndex
                 })}
                 onClick={() => this.onToolSelect(i)}>
                 {tool.label}
@@ -57,13 +58,13 @@ class Toolbar extends React.Component {
           </ul>
         </div>
 
-        <div className='beads'>
+        <div className={styles.beads}>
           <ul>
             {map(beads, (bead, beadKey) => (
               <li
                 key={`${beadKey}`}
                 className={classNames({
-                  'selected': (beadKey === beadId)
+                  [styles.selected]: (beadKey === beadId)
                 })}
                 style={{
                   '--color-bead': bead.color
@@ -75,7 +76,7 @@ class Toolbar extends React.Component {
           </ul>
         </div>
 
-      </section>
+      </div>
     )
 
   }

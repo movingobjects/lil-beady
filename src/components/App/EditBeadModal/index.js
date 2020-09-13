@@ -7,6 +7,7 @@ import firebase from 'firebase/app';
 import 'firebase/database';
 
 import Modal from '~/components/shared/Modal';
+import styles from './index.module.scss';
 
 class EditBeadModal extends React.Component {
 
@@ -130,60 +131,63 @@ class EditBeadModal extends React.Component {
     return (
 
       <Modal
-        id='edit-bead-modal'
-        onTapOutside={this.onCancel}>
+        onTapOff={this.onCancel}>
 
-        <h2>Edit Bead</h2>
+        <div className={styles.wrap}>
 
-        <div
-          className='field'>
-
-          <label
-            htmlFor='input-name'>
-            Bead name
-          </label>
-
-          <input
-            ref={this.nameInputRef}
-            type='text'
-            id='input-name'
-            defaultValue={name}
-            onChange={this.onNameChange} />
-
-        </div>
-
-        <div
-          className='field'>
-
-          <label>Color</label>
+          <h2>Edit Bead</h2>
 
           <div
-            className='wrap-color-preview'>
-            <div
-              className='color-preview'
-              style={{
-                backgroundColor: this.state.color
-              }}/>
+            className={styles.field}>
+
+            <label
+              htmlFor='input-name'>
+              Bead name
+            </label>
+
+            <input
+              ref={this.nameInputRef}
+              type='text'
+              id='input-name'
+              defaultValue={name}
+              onChange={this.onNameChange} />
+
           </div>
 
-          <div id='color-picker'></div>
+          <div
+            className={styles.field}>
 
-        </div>
+            <label>Color</label>
 
-        <div className='buttons'>
-          <button
-            onClick={this.onCancel}>
-            Cancel
-          </button>
-          <button
-            onClick={this.onDelete}>
-            Delete
-          </button>
-          <button
-            onClick={this.onSave}
-            className='default'>
-            Save
-          </button>
+            <div
+              className={styles.wrapColorPreview}>
+              <div
+                className={styles.colorPreview}
+                style={{
+                  backgroundColor: this.state.color
+                }}/>
+            </div>
+
+            <div id='color-picker'></div>
+
+          </div>
+
+          <div className={styles.buttons}>
+            <button
+              onClick={this.onCancel}>
+              Cancel
+            </button>
+            <button
+              onClick={this.onDelete}>
+              Delete
+            </button>
+            <button
+              onClick={this.onSave}
+              className={styles.default}>
+              Save
+            </button>
+          </div>
+
         </div>
 
       </Modal>

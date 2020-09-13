@@ -1,0 +1,9 @@
+
+@import '~/styles/vars';
+@import '~/styles/utils';
+
+div.wrap {
+  position: absolute;
+  bottom: $toolbarH + 150px;
+  right: 25px;
+}

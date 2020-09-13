@@ -7,6 +7,8 @@ import Toolbar from './Toolbar';
 import ZoomControls from './ZoomControls';
 import PanControls from './PanControls';
 
+import styles from './index.module.scss';
+
 class ProjectView extends React.Component {
 
   onBack = () => {
@@ -30,12 +32,14 @@ class ProjectView extends React.Component {
     } = this.props;
 
     return (
-      <section id='project-view'>
+      <div className={styles.wrap}>
 
-        <div className='menu'>
+        <div className={styles.menu}>
           <button
-            className='back'
-            onClick={this.onBack} />
+            className={styles.back}
+            onClick={this.onBack}>
+            Back
+          </button>
         </div>
 
         <DesignView
@@ -46,7 +50,7 @@ class ProjectView extends React.Component {
         <ZoomControls />
         <PanControls />
 
-      </section>
+      </div>
     );
 
   }

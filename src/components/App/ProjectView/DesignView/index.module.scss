@@ -1,0 +1,20 @@
+
+@import '~/styles/vars';
+@import '~/styles/utils';
+
+div.wrap {
+  position: absolute;
+  cursor: pointer;
+
+  button.save {
+    position: fixed;
+    z-index: 200;
+    top: 30px;
+    left: 90px;
+  }
+
+  canvas {
+    pointer-events: none;
+  }
+
+}

@@ -3,6 +3,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 
 import * as selectors from '~/selectors';
+import styles from './index.module.scss';
 
 class ZoomControls extends React.Component {
 
@@ -29,24 +30,24 @@ class ZoomControls extends React.Component {
     } = this.props;
 
     return (
-      <section id='zoom-controls'>
+      <div className={styles.wrap}>
 
-        <div className='wrap-btns'>
+        <div className={styles.wrapBtns}>
           <button
             disabled={!canZoomIn}
-            className='zoom-in'
+            className={styles.zoomIn}
             onClick={this.onZoomInClick}>
             +
           </button>
           <button
             disabled={!canZoomOut}
-            className='zoom-out'
+            className={styles.zoomOut}
             onClick={this.onZoomOuClick}>
             -
           </button>
         </div>
 
-      </section>
+      </div>
     )
 
   }
