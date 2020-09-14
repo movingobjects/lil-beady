@@ -16,4 +16,14 @@ div.wrap {
 
   }
 
+  div.wrapDesign {
+    position: absolute;
+    cursor: pointer;
+
+    canvas {
+      pointer-events: none;
+    }
+
+  }
+
 }
