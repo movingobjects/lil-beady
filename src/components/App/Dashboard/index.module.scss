@@ -3,5 +3,100 @@
 @import '~/styles/utils';
 
 div.wrap {
+  padding: 50px;
+
+  h1 {
+    font-size: 50px;
+    text-transform: lowercase;
+    color: #f66;
+    text-align: center;
+  }
+
+  div.topNav {
+    text-align: right;
+  }
+
+  section {
+    margin: 50px 0;
+
+    h2 {
+      text-transform: uppercase;
+      font-size: 13px;
+      color: #f66;
+      letter-spacing: 0.02em;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    &.projects {
+
+      li {
+
+        a {
+          display: block;
+          width: 200px;
+          height: 200px;
+          margin: 0 15px 15px 0;
+          background-color: white;
+          border-radius: 8px;
+          box-shadow:
+            3px 8px 15px rgba(255, 0, 0, 0.05),
+            0px 0px 2px rgba(0, 0, 255, 0.05);
+          transition:
+            box-shadow 0.4s;
+
+          @include hideText();
+
+          &:hover {
+            box-shadow:
+              3px 8px 25px rgba(255, 0, 0, 0.15),
+              0px 0px 2px rgba(0, 0, 255, 0.15);
+          }
+
+        }
+
+      }
+
+    }
+
+    &.beads {
+
+      li {
+
+        a {
+          display: block;
+          width: 75px;
+          height: 75px;
+          margin: 0 15px 15px 0;
+          background-color: white;
+          border-radius: 8px;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.075);
+          border-right: 1px solid rgba(0, 0, 0, 0.075);
+          box-shadow:
+            3px 8px 15px rgba(255, 0, 0, 0.05),
+            0px 0px 2px rgba(0, 0, 255, 0.05);
+          transition:
+            box-shadow 0.4s;
+
+          @include hideText();
+
+          &:hover {
+            box-shadow:
+              3px 8px 25px rgba(255, 0, 0, 0.15),
+              0px 0px 2px rgba(0, 0, 255, 0.15);
+          }
+
+        }
+
+      }
+
+    }
+  }
 
 }

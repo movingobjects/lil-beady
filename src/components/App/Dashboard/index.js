@@ -2,14 +2,15 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { map } from 'lodash';
 import { random } from 'varyd-utils';
-
 import firebase from 'firebase/app';
+
+import TextButton from '~/components/shared/TextButton';
 
 import styles from './index.module.scss';
 
 class Dashboard extends React.Component {
 
-  onSignOutClick = (e) => {
+  onLogOutClick = (e) => {
 
     e.preventDefault();
 
@@ -29,59 +30,64 @@ class Dashboard extends React.Component {
     return (
       <div className={styles.wrap}>
 
+        <div className={styles.topNav}>
+          <TextButton
+            label='Log out'
+            small={true}
+            outline={true}
+            onClick={this.onLogOutClick} />
+        </div>
+
         <h1>Lil Beady</h1>
 
-        <p>
-          <a
-            href='#'
-            onClick={this.onSignOutClick}>
-            Sign out
-          </a>
-        </p>
+        <section className={styles.projects}>
+          <h2>Projects</h2>
+          <ul>
 
-        <h2>Projects</h2>
-        <ul
-          className={styles.projects}>
-
-          <li>
-            <a href={`#/dashboard/create`}>
-              Create project
-            </a>
-          </li>
-
-          {map(projects, (project, projectId) => (
-            <li key={projectId}>
-              <a href={`#/project/${projectId}`}>
-                {project.name}
+            <li>
+              <a href={`#/dashboard/create`}>
+                Create project
               </a>
             </li>
-          ))}
 
-        </ul>
+            {map(projects, (project, projectId) => (
+              <li key={projectId}>
+                <a href={`#/project/${projectId}`}>
+                  {project.name}
+                </a>
+              </li>
+            ))}
 
-        <h2>Beads Library</h2>
-        <ul
-          className={styles.beads}>
+          </ul>
+        </section>
 
-          <li>
-            <a href={`#/dashboard/bead/create`}>
-              Add Bead
-            </a>
-          </li>
+        <section className={styles.beads}>
 
-          {map(beads, (bead, beadId) => (
-            <li key={beadId}>
-              <a
-                style={{
-                  backgroundColor: bead.color
-                }}
-                href={`#/dashboard/bead/edit/${beadId}`}>
-                {bead.name}
+          <h2>Beads Library</h2>
+          <ul
+            className={styles.beads}>
+
+            <li>
+              <a href={`#/dashboard/bead/create`}>
+                Add Bead
               </a>
-
             </li>
-          ))}
-        </ul>
+
+            {map(beads, (bead, beadId) => (
+              <li key={beadId}>
+                <a
+                  style={{
+                    backgroundColor: bead.color
+                  }}
+                  href={`#/dashboard/bead/edit/${beadId}`}>
+                  {bead.name}
+                </a>
+
+              </li>
+            ))}
+          </ul>
+
+        </section>
 
       </div>
     );

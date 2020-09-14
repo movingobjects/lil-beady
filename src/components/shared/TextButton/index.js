@@ -7,14 +7,14 @@ import styles from './index.module.scss';
 
 export default class TextButton extends React.Component {
 
-  onClick = () => {
+  onClick = (e) => {
 
     const {
       onClick
     } = this.props;
 
     if (typeof onClick === 'function') {
-      onClick();
+      onClick(e);
     }
 
   }
@@ -24,13 +24,15 @@ export default class TextButton extends React.Component {
     const {
       className,
       label,
-      outline = false
+      outline = false,
+      small = false
     } = this.props;
 
     return (
       <button
         className={classNames({
           [styles.wrap]: true,
+          [styles.small]: small,
           [styles.outline]: outline,
           [className]: className?.length
         })}

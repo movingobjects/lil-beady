@@ -24,6 +24,12 @@ button.wrap {
 
   }
 
+  &.small {
+    font-size: 14px;
+    border-width: 2px;
+    padding: 10px 20px;
+  }
+
   &:active {
     background-color: #f99;
   }
