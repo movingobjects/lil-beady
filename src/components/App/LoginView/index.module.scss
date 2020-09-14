@@ -3,5 +3,23 @@
 @import '~/styles/utils';
 
 div.wrap {
+  text-align: center;
+  position: relative;
+  height: 100%;
+
+  div.wrapContent {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  h1 {
+    margin: 0 0 50px 0;
+    font-size: 75px;
+    text-transform: lowercase;
+    margin-bottom: 50px;
+    color: #f66;
+  }
 
 }

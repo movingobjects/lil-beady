@@ -1,0 +1,31 @@
+@import '~/styles/vars';
+@import '~/styles/utils';
+
+button.wrap {
+
+  @include removeAppearance();
+  background-color: #f66;
+  color: white;
+  padding: 20px 45px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 100px;
+  cursor: pointer;
+
+  &.outline {
+    background-color: transparent;
+    border: 3px solid #f66;
+    color: #f66;
+
+    &:active {
+      background-color: #f66;
+      color: white;
+    }
+
+  }
+
+  &:active {
+    background-color: #f99;
+  }
+
+}

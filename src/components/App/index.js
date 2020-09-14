@@ -109,23 +109,23 @@ class App extends React.Component {
 
     const { user } = this.state;
 
-    if (!user) {
-      return (
-        <LoginView
-          onLoginClick={this.onLoginClick} />
-      );
-    }
-
     return (
       <div
         className={styles.wrap}>
 
-        <Route path='#/dashboard' component={Dashboard} />
-        <Route path='#/dashboard/bead/create' component={CreateBeadModal} />
-        <Route path='#/dashboard/bead/edit/:beadId' component={EditBeadModal} />
-        <Route path='#/dashboard/create' component={CreateProjectModal} />
+        {user ? (
+          <>
+            <Route path='#/dashboard' component={Dashboard} />
+            <Route path='#/dashboard/bead/create' component={CreateBeadModal} />
+            <Route path='#/dashboard/bead/edit/:beadId' component={EditBeadModal} />
+            <Route path='#/dashboard/create' component={CreateProjectModal} />
 
-        <Route path='#/project/:projectId' component={ProjectView} />
+            <Route path='#/project/:projectId' component={ProjectView} />
+          </>
+        ) : (
+          <LoginView
+            onLoginClick={this.onLoginClick} />
+        )}
 
       </div>
     );
