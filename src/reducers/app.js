@@ -1,6 +1,6 @@
 
-import templatesData from 'data/templates.json';
-import config from 'config.json';
+import templatesData from '~/data/templates.json';
+import config from '~/config.json';
 
 export const templates = (state = templatesData, action) => {
 

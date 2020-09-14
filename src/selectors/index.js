@@ -1,7 +1,7 @@
 
 import { createSelector } from 'reselect';
 
-import config from 'config.json';
+import config from '~/config.json';
 
 const getBeads     = (state) => state.beads;
 const getBeadId    = (state) => state.beadId;

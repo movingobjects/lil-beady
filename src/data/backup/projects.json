@@ -3,7 +3,7 @@
     "id": "blank-triangle",
     "name": "Blank Triangle",
     "template": "triangle",
-    "layout": [
+    "design": [
       { "beadId": null, "col": -0.5, "row": 0 },
       { "beadId": null, "col": 0.5, "row": 0 },
       { "beadId": null, "col": -1, "row": 1 },
@@ -1036,7 +1036,7 @@
     "id": "blank-square",
     "name": "Blank Square",
     "template": "square",
-    "layout": [
+    "design": [
       { "beadId": null, "col": -0.5, "row": 0 },
       { "beadId": null, "col": 0.5, "row": 0 },
       { "beadId": null, "col": -1, "row": 1 },
@@ -1874,7 +1874,7 @@
     "id": "blank-diamond",
     "name": "Blank Diamond",
     "template": "diamond",
-    "layout": [
+    "design": [
       { "beadId": null, "col": -0.5, "row": 0 },
       { "beadId": null, "col": 0.5, "row": 0 },
       { "beadId": null, "col": -1, "row": 1 },

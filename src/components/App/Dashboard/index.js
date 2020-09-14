@@ -5,6 +5,8 @@ import { random } from 'varyd-utils';
 
 import firebase from 'firebase/app';
 
+import styles from './index.module.scss';
+
 class Dashboard extends React.Component {
 
   onSignOutClick = (e) => {
@@ -25,7 +27,7 @@ class Dashboard extends React.Component {
     } = this.props;
 
     return (
-      <section id='dashboard'>
+      <div className={styles.wrap}>
 
         <h1>Lil Beady</h1>
 
@@ -39,7 +41,7 @@ class Dashboard extends React.Component {
 
         <h2>Projects</h2>
         <ul
-          className='projects'>
+          className={styles.projects}>
 
           <li>
             <a href={`#/dashboard/create`}>
@@ -59,7 +61,7 @@ class Dashboard extends React.Component {
 
         <h2>Beads Library</h2>
         <ul
-          className='beads'>
+          className={styles.beads}>
 
           <li>
             <a href={`#/dashboard/bead/create`}>
@@ -81,7 +83,7 @@ class Dashboard extends React.Component {
           ))}
         </ul>
 
-      </section>
+      </div>
     );
 
   }

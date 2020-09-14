@@ -1,11 +1,20 @@
 
-@import "_reset";
-@import "_utils";
+@import "utils";
+@import "vars";
 
-@import "_app";
-@import "_dashboard";
-@import "_project-view";
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
 
-@import "_modal";
-@import "_edit-bead-modal";
-@import "_edit-project-modal";
+  font-family: $font-sans;
+  font-size: 14px;
+
+  touch-action: none;
+
+}
+
+* {
+  box-sizing: border-box;
+}

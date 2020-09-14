@@ -2,7 +2,8 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import * as selectors from 'selectors';
+import * as selectors from '~/selectors';
+import styles from './index.module.scss';
 
 class PanControls extends React.Component {
 
@@ -37,37 +38,37 @@ class PanControls extends React.Component {
   render() {
 
     return (
-      <section id='pan-controls'>
+      <div className={styles.wrap}>
 
-        <div className='wrap-btns'>
+        <div className={styles.wrapBtns}>
           <button
-            className='pan-up'
+            className={styles.panUp}
             onClick={this.onPanUpClick}>
             &uarr;
           </button>
           <button
-            className='pan-right'
+            className={styles.panRight}
             onClick={this.onPanRightClick}>
             &rarr;
           </button>
           <button
-            className='pan-down'
+            className={styles.panDown}
             onClick={this.onPanDownClick}>
             &darr;
           </button>
           <button
-            className='pan-left'
+            className={styles.panLeft}
             onClick={this.onPanLeftClick}>
             &larr;
           </button>
           <button
-            className='reset-pan'
+            className={styles.resetPan}
             onClick={this.onPanResetClick}>
             &#8982;
           </button>
         </div>
 
-      </section>
+      </div>
     )
 
   }

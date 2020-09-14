@@ -2,6 +2,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { maths } from 'varyd-utils';
+import { map } from 'lodash';
 import firebase from 'firebase/app';
 
 import LoginView from './LoginView';
@@ -10,10 +11,11 @@ import Dashboard from './Dashboard';
 import EditBeadModal from './modals/EditBeadModal';
 import CreateBeadModal from './modals/CreateBeadModal';
 import CreateProjectModal from './modals/CreateProjectModal';
+import Route from '~/components/Router/Route';
 
-import { decodeProject } from 'utils';
+import styles from './index.module.scss';
 
-import Route from 'components/Router/Route';
+import { decodeDesign } from '~/utils';
 
 class App extends React.Component {
 
@@ -31,14 +33,18 @@ class App extends React.Component {
 
     const projectsDecoded = { };
 
-    Object.keys(projects).forEach((key) => {
-      projectsDecoded[key] = decodeProject(projects[key]);
-    })
+    for (const projectId in projects) {
+      projectsDecoded[projectId] = {
+        ...projects[projectId],
+        design: decodeDesign(projects[projectId]?.design)
+      }
+    }
 
     this.props.dispatch({
       type: 'setProjects',
       projects: projectsDecoded
     });
+
   }
   onBeadsUpdate = (beads) => {
 
@@ -111,7 +117,8 @@ class App extends React.Component {
     }
 
     return (
-      <main>
+      <div
+        className={styles.wrap}>
 
         <Route path='#/dashboard' component={Dashboard} />
         <Route path='#/dashboard/bead/create' component={CreateBeadModal} />
@@ -120,7 +127,7 @@ class App extends React.Component {
 
         <Route path='#/project/:projectId' component={ProjectView} />
 
-      </main>
+      </div>
     );
 
   }
