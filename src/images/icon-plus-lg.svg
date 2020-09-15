@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+  version="1.1"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="205px"
+  height="205px"
+  viewBox="0 0 205 205">
+  <g stroke="none" fill="#ffffff" fill-rule="evenodd">
+    <rect x="98" y="53" width="10" height="100" rx="3" />
+    <rect x="98" y="53" width="10" height="100" rx="3" transform="translate(103.000000, 103.000000) rotate(-270.000000) translate(-103.000000, -103.000000)" />
+  </g>
+</svg>

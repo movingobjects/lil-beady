@@ -38,10 +38,17 @@ div.wrap {
 
       li {
 
+        &.create a {
+          background-color: $colorA;
+          background-image: url('~/images/icon-plus-lg.svg');
+          background-repeat: no-repeat;
+          background-position: center;
+        }
+
         a {
           display: block;
-          width: 200px;
-          height: 200px;
+          width: 205px;
+          height: 205px;
           margin: 0 15px 15px 0;
           background-color: white;
           border-radius: 8px;
@@ -69,13 +76,20 @@ div.wrap {
 
       li {
 
+        &.create a {
+          background-color: $colorA;
+          background-image: url('~/images/icon-plus-sm.svg');
+          background-repeat: no-repeat;
+          background-position: center;
+        }
+
         a {
           display: block;
-          width: 75px;
-          height: 75px;
+          width: 80px;
+          height: 80px;
           margin: 0 15px 15px 0;
           background-color: white;
-          border-radius: 8px;
+          border-radius: 100%;
           border-bottom: 1px solid rgba(0, 0, 0, 0.075);
           border-right: 1px solid rgba(0, 0, 0, 0.075);
           box-shadow:
@@ -97,6 +111,7 @@ div.wrap {
       }
 
     }
+
   }
 
 }

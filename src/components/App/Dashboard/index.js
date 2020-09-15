@@ -44,7 +44,7 @@ class Dashboard extends React.Component {
           <h2>Projects</h2>
           <ul>
 
-            <li>
+            <li className={styles.create}>
               <a href={`#/dashboard/create`}>
                 Create project
               </a>
@@ -67,9 +67,9 @@ class Dashboard extends React.Component {
           <ul
             className={styles.beads}>
 
-            <li>
+            <li className={styles.create}>
               <a href={`#/dashboard/bead/create`}>
-                Add Bead
+                Create Bead
               </a>
             </li>
 
