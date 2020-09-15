@@ -4,7 +4,7 @@
 button.wrap {
 
   @include removeAppearance();
-  background-color: #f66;
+  background-color: $colorA;
   color: white;
   padding: 20px 45px;
   font-size: 18px;
@@ -14,11 +14,11 @@ button.wrap {
 
   &.outline {
     background-color: transparent;
-    border: 3px solid #f66;
-    color: #f66;
+    border: 3px solid $colorA;
+    color: $colorA;
 
     &:active {
-      background-color: #f66;
+      background-color: $colorA;
       color: white;
     }
 
