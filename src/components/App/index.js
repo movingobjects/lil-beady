@@ -11,6 +11,7 @@ import Dashboard from './Dashboard';
 import EditBeadModal from './modals/EditBeadModal';
 import CreateBeadModal from './modals/CreateBeadModal';
 import CreateProjectModal from './modals/CreateProjectModal';
+import EditProjectModal from './modals/EditProjectModal';
 import Route from '~/components/Router/Route';
 
 import styles from './index.module.scss';
@@ -128,6 +129,7 @@ class App extends React.Component {
             <Route path='#/dashboard/create' component={CreateProjectModal} />
 
             <Route path='#/project/:projectId' component={ProjectView} />
+            <Route path='#/project/:projectId/edit' component={EditProjectModal} />
           </>
         ) : (
           <LoginView

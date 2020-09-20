@@ -3,9 +3,9 @@ import * as React from 'react';
 
 export default class DragArea extends React.Component {
 
-  constructor() {
+  constructor(props) {
 
-    super();
+    super(props);
 
     this.elemRef = React.createRef();
     this.touch   = null;

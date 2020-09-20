@@ -13,21 +13,19 @@ class EditBeadModal extends React.Component {
 
   constructor(props) {
 
-    super();
+    super(props);
 
     const {
       beads,
       beadId
     } = props;
 
-    let bead = beads[beadId];
+    const bead = beads[beadId];
 
     this.state = {
-      name: bead ? bead.name : 'Untitled',
-      color: bead ? bead.color : '#fff'
-    }
-
-    this.nameInputRef = React.createRef();
+      name: bead?.name || 'Untitled',
+      color: bead?.color || '#fff'
+    };
 
   }
 
@@ -69,7 +67,7 @@ class EditBeadModal extends React.Component {
 
     firebase.database()
       .ref(`beads/${this.props.beadId}`)
-      .set({ name, color });
+      .update({ name, color });
 
     window.location.hash = '#/dashboard';
 
@@ -146,7 +144,6 @@ class EditBeadModal extends React.Component {
             </label>
 
             <input
-              ref={this.nameInputRef}
               type='text'
               id='input-name'
               defaultValue={name}

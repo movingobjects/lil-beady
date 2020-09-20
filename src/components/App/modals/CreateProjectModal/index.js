@@ -12,15 +12,13 @@ class CreateProjectModal extends React.Component {
 
   constructor(props) {
 
-    super();
+    super(props);
 
     this.state = {
       name: 'Project name',
       templateId: 'triangle',
       values: { }
-    }
-
-    this.nameInputRef = React.createRef();
+    };
 
   }
 
@@ -111,13 +109,7 @@ class CreateProjectModal extends React.Component {
   }
 
   componentDidMount() {
-
-    const nameInput = this.nameInputRef.current;
-    nameInput.focus();
-    nameInput.setSelectionRange(0, nameInput.value.length)
-
     this.updateTemplateOpts();
-
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -161,7 +153,6 @@ class CreateProjectModal extends React.Component {
             </label>
 
             <input
-              ref={this.nameInputRef}
               type='text'
               name='input-name'
               value={name}

@@ -1,0 +1,23 @@
+
+@import '~/styles/vars';
+@import '~/styles/utils';
+
+div.wrap {
+
+  div.field {
+    margin-top: 10px;
+  }
+
+  label {
+    display: block;
+  }
+
+  input[type='text'] {
+    padding: 5px;
+  }
+
+  div.buttons {
+    margin-top: 25px;
+  }
+
+}

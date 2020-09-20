@@ -12,14 +12,12 @@ class CreateBeadModal extends React.Component {
 
   constructor(props) {
 
-    super();
+    super(props);
 
     this.state = {
       name: 'Bead name',
       color: '#fff'
-    }
-
-    this.nameInputRef = React.createRef();
+    };
 
   }
 
@@ -105,13 +103,7 @@ class CreateBeadModal extends React.Component {
   }
 
   componentDidMount() {
-
     this.setupColorPicker();
-
-    const nameInput = this.nameInputRef.current;
-    nameInput.focus();
-    nameInput.setSelectionRange(0, nameInput.value.length)
-
   }
 
   render() {
@@ -139,7 +131,6 @@ class CreateBeadModal extends React.Component {
             </label>
 
             <input
-              ref={this.nameInputRef}
               type='text'
               id='input-name'
               defaultValue={name}

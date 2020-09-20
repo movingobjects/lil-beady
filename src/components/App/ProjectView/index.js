@@ -20,9 +20,9 @@ import styles from './index.module.scss';
 
 class ProjectView extends React.Component {
 
-  constructor() {
+  constructor(props) {
 
-    super();
+    super(props);
 
     this.state = {
       workingDesign: [ ],
@@ -59,6 +59,12 @@ class ProjectView extends React.Component {
 
   onBackClick = () => {
     window.location.hash = `#/dashboard`;
+  }
+  onEditClick = () => {
+    const {
+      projectId
+    } = this.props;
+    window.location.hash = `#/project/${projectId}/edit`;
   }
   onSaveClick = () => {
     this.saveProject();
@@ -394,6 +400,11 @@ class ProjectView extends React.Component {
             className={styles.back}
             onClick={this.onBackClick}>
             Back
+          </button>
+          <button
+            className={styles.edit}
+            onClick={this.onEditClick}>
+            Edit Project
           </button>
           <button
             className={styles.save}
