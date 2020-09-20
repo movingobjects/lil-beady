@@ -33,7 +33,7 @@ class ProjectView extends React.Component {
         h: 1
       },
       designRects: [ ],
-      isChanged: true
+      isChanged: false
     }
 
     this.touchId     = null;
