@@ -4,6 +4,7 @@ import { map } from 'lodash';
 import { random } from 'varyd-utils';
 import firebase from 'firebase/app';
 
+import ProjectCard from './ProjectCard';
 import TextButton from '~/components/shared/TextButton';
 
 import styles from './index.module.scss';
@@ -51,11 +52,11 @@ class Dashboard extends React.Component {
             </li>
 
             {map(projects, (project, projectId) => (
-              <li key={projectId}>
-                <a href={`#/project/${projectId}`}>
-                  {project.name}
-                </a>
-              </li>
+              <ProjectCard
+                key={projectId}
+                id={projectId}
+                project={project}
+                beads={beads} />
             ))}
 
           </ul>
