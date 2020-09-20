@@ -14,12 +14,7 @@ class EditProjectModal extends React.Component {
 
     super(props);
 
-    const {
-      projects,
-      projectId
-    } = this.props;
-
-    const project = projects[projectId];
+    const project = props.projects?.[props.projectId];
 
     this.state = {
       name: project?.name || 'Untitled',
@@ -36,6 +31,12 @@ class EditProjectModal extends React.Component {
 
     return projects[projectId];
 
+  }
+
+  onNameChange = (e) => {
+    this.setState({
+      name: e.target.value
+    });
   }
 
   onCancel = () => {
@@ -76,10 +77,16 @@ class EditProjectModal extends React.Component {
 
   }
 
-  onNameChange = (e) => {
-    this.setState({
-      name: e.target.value
-    });
+  componentDidUpdate(prevProps, prevState) {
+
+    const projectPrev = prevProps.projects?.[prevProps.projectId];
+
+    if (!projectPrev && !!this.project) {
+      this.setState({
+        name: this.project.name
+      });
+    }
+
   }
 
   render() {

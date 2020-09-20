@@ -15,15 +15,10 @@ class EditBeadModal extends React.Component {
 
     super(props);
 
-    const {
-      beads,
-      beadId
-    } = props;
-
-    const bead = beads[beadId];
+    const bead = props.beads?.[props.beadId];
 
     this.state = {
-      name: bead?.name || 'Untitled',
+      name: bead?.name || '',
       color: bead?.color || '#fff'
     };
 
@@ -126,8 +121,25 @@ class EditBeadModal extends React.Component {
 
   }
 
+  resetFields(name = 'Untitled', color = '#fff') {
+
+    this.setState({ name, color });
+
+    this.colorPicker.color.hexString = color;
+
+  }
+
   componentDidMount() {
     this.setupColorPicker();
+  }
+  componentDidUpdate(prevProps, prevState) {
+
+    const beadPrev = prevProps.beads?.[prevProps.beadId];
+
+    if (!beadPrev && !!this.bead) {
+      this.resetFields(this.bead?.name, this.bead?.color);
+    }
+
   }
 
   render() {
@@ -168,7 +180,7 @@ class EditBeadModal extends React.Component {
             <input
               type='text'
               id='input-name'
-              defaultValue={name}
+              value={name}
               onChange={this.onNameChange} />
 
           </div>
