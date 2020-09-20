@@ -27,6 +27,17 @@ class EditProjectModal extends React.Component {
 
   }
 
+  get project() {
+
+    const {
+      projects,
+      projectId
+    } = this.props;
+
+    return projects[projectId];
+
+  }
+
   onCancel = () => {
 
     const {
@@ -77,6 +88,15 @@ class EditProjectModal extends React.Component {
       name
     } = this.state;
 
+    const hasChanged = (
+      name !== this.project?.name
+    );
+
+    const canSave = (
+      hasChanged &&
+      !!name.length
+    );
+
     return (
       <Modal
         onTapOff={this.onCancel}>
@@ -111,8 +131,9 @@ class EditProjectModal extends React.Component {
               Delete Project
             </button>
             <button
-              onClick={this.onSave}
-              className={styles.default}>
+              className={styles.default}
+              disabled={!canSave}
+              onClick={this.onSave}>
               Save
             </button>
           </div>

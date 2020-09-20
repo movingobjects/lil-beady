@@ -15,7 +15,7 @@ class CreateBeadModal extends React.Component {
     super(props);
 
     this.state = {
-      name: 'Bead name',
+      name: '',
       color: '#fff'
     };
 
@@ -113,6 +113,10 @@ class CreateBeadModal extends React.Component {
       color
     } = this.state;
 
+    const canSave = (
+      !!name.length
+    );
+
     return (
 
       <Modal
@@ -133,7 +137,8 @@ class CreateBeadModal extends React.Component {
             <input
               type='text'
               id='input-name'
-              defaultValue={name}
+              value={name}
+              placeholder='Bead name'
               onChange={this.onNameChange} />
 
           </div>
@@ -162,8 +167,9 @@ class CreateBeadModal extends React.Component {
               Cancel
             </button>
             <button
-              onClick={this.onSave}
-              className={styles.default}>
+              className={styles.default}
+              disabled={!canSave}
+              onClick={this.onSave}>
               Save
             </button>
           </div>

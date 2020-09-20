@@ -15,7 +15,7 @@ class CreateProjectModal extends React.Component {
     super(props);
 
     this.state = {
-      name: 'Project name',
+      name: '',
       templateId: 'triangle',
       values: { }
     };
@@ -135,6 +135,10 @@ class CreateProjectModal extends React.Component {
     const template     = templates.find((t) => t.id === templateId),
           templateOpts = template ? template.opts : [];
 
+    const canSave = (
+      !!name.length
+    );
+
     return (
 
       <Modal
@@ -155,6 +159,7 @@ class CreateProjectModal extends React.Component {
             <input
               type='text'
               name='input-name'
+              placeholder='Project name'
               value={name}
               onChange={this.onNameChange} />
 
@@ -210,6 +215,7 @@ class CreateProjectModal extends React.Component {
             </button>
             <button
               onClick={this.onSave}
+              disabled={!canSave}
               className={styles.default}>
               Save
             </button>

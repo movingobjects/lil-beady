@@ -29,6 +29,17 @@ class EditBeadModal extends React.Component {
 
   }
 
+  get bead() {
+
+    const {
+      beads,
+      beadId
+    } = this.props;
+
+    return beads[beadId];
+
+  }
+
   onNameChange = (e) => {
 
     this.setState({
@@ -126,6 +137,17 @@ class EditBeadModal extends React.Component {
       color
     } = this.state;
 
+    const hasChanged = (
+      name !== this.bead?.name ||
+      color !== this.bead?.color
+    );
+
+    const canSave = (
+      hasChanged &&
+      !!name.length &&
+      !!color.length
+    );
+
     return (
 
       <Modal
@@ -179,8 +201,9 @@ class EditBeadModal extends React.Component {
               Delete
             </button>
             <button
-              onClick={this.onSave}
-              className={styles.default}>
+              className={styles.default}
+              disabled={!canSave}
+              onClick={this.onSave}>
               Save
             </button>
           </div>
