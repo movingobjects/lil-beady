@@ -3,6 +3,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 
 import TextButton from '~/components/shared/TextButton';
+import LoadAnimation from '~/components/shared/LoadAnimation';
 
 import styles from './index.module.scss';
 
@@ -22,6 +23,10 @@ class LoginView extends React.Component {
 
   render() {
 
+    const {
+      ready
+    } = this.props;
+
     return (
       <div className={styles.wrap}>
 
@@ -29,10 +34,14 @@ class LoginView extends React.Component {
 
           <h1>Lil Beady</h1>
 
-          <TextButton
-            label='Login'
-            outline={true}
-            onClick={this.onLoginClick} />
+          {ready ? (
+            <TextButton
+              label='Login'
+              outline={true}
+              onClick={this.onLoginClick} />
+          ) : (
+            <LoadAnimation />
+          )}
 
         </div>
 

@@ -1,0 +1,28 @@
+@import '~/styles/vars';
+@import '~/styles/utils';
+
+.wrap {
+  width: 150px;
+  height: 5px;
+
+  background: linear-gradient(to right, $colorA, $colorA);
+  background-color: transparentize($colorA, 0.85);
+
+  margin: 0 auto;
+
+  border-radius: 10px;
+  background-size: 5%;
+
+  background-repeat: repeat-y;
+  background-position: -25% 0;
+  animation: loadAnim 1.5s ease-in-out infinite;
+}
+
+@keyframes loadAnim {
+  50% {
+    background-size: 80%;
+  }
+  100% {
+    background-position: 125% 0;
+  }
+}

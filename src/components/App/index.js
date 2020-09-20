@@ -24,7 +24,8 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      user: null
+      user: null,
+      authReady: false
     }
 
   }
@@ -80,7 +81,10 @@ class App extends React.Component {
 
     firebase.auth()
       .onAuthStateChanged((user) => {
-        this.setState({ user });
+        this.setState({
+          authReady: true,
+          user
+        });
       });
 
     firebase.database()
@@ -107,7 +111,10 @@ class App extends React.Component {
 
   render() {
 
-    const { user } = this.state;
+    const {
+      user,
+      authReady
+    } = this.state;
 
     return (
       <div
@@ -124,6 +131,7 @@ class App extends React.Component {
           </>
         ) : (
           <LoginView
+            ready={authReady}
             onLoginClick={this.onLoginClick} />
         )}
 
