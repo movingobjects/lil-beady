@@ -33,7 +33,7 @@ class ProjectView extends React.Component {
         h: 1
       },
       designRects: [ ],
-      isChanged: false
+      hasChanges: false
     }
 
     this.touchId     = null;
@@ -57,7 +57,23 @@ class ProjectView extends React.Component {
 
   }
 
-  onBackClick = () => {
+  onCloseClick = () => {
+
+    if (this.state.hasChanges) {
+      this.props.dispatch({
+        type: 'confirmAction',
+        message: 'You have unsaved changes',
+        description: 'By closing this project, you will lose all unsaved changes',
+        labelConfirm: `Close project & lose changes`,
+        onConfirm: this.onCloseConfirm
+      });
+
+    } else {
+      this.onCloseConfirm();
+    }
+
+  }
+  onCloseConfirm = () => {
     window.location.hash = `#/dashboard`;
   }
   onEditClick = () => {
@@ -117,7 +133,7 @@ class ProjectView extends React.Component {
     this.currentDraw = { hit, unhit };
 
     this.setState({
-      isChanged: true
+      hasChanges: true
     })
 
   }
@@ -206,7 +222,7 @@ class ProjectView extends React.Component {
       });
 
     this.setState({
-      isChanged: false
+      hasChanges: false
     })
 
   }
@@ -388,7 +404,7 @@ class ProjectView extends React.Component {
     const {
       designArea,
       designRects,
-      isChanged
+      hasChanges
     } = this.state;
 
     return (
@@ -397,9 +413,9 @@ class ProjectView extends React.Component {
 
         <div className={styles.menu}>
           <button
-            className={styles.back}
-            onClick={this.onBackClick}>
-            Back
+            className={styles.close}
+            onClick={this.onCloseClick}>
+            Close
           </button>
           <button
             className={styles.edit}
@@ -408,7 +424,7 @@ class ProjectView extends React.Component {
           </button>
           <button
             className={styles.save}
-            disabled={!isChanged}
+            disabled={!hasChanges}
             onClick={this.onSaveClick}>
             Save
           </button>
