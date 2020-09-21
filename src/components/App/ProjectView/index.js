@@ -6,6 +6,7 @@ import { maths, geom } from 'varyd-utils';
 import { Stage, Layer, Rect } from 'react-konva';
 import firebase from 'firebase/app';
 import 'firebase/database';
+import equal from 'fast-deep-equal';
 
 import { encodeDesign } from '~/utils';
 import * as selectors from '~/selectors';
@@ -25,7 +26,6 @@ class ProjectView extends React.Component {
     super(props);
 
     this.state = {
-      workingDesign: [ ],
       designArea: {
         x: 0,
         y: 0,
@@ -33,11 +33,24 @@ class ProjectView extends React.Component {
         h: 1
       },
       designRects: [ ],
+      workingDesign: [ ],
+      workingDesignPrev: null,
       hasChanges: false
     }
 
     this.touchId     = null;
     this.currentDraw = null;
+
+  }
+
+  get project() {
+
+    const {
+      projects,
+      projectId
+    } = this.props;
+
+    return projects[projectId];
 
   }
 
@@ -81,6 +94,13 @@ class ProjectView extends React.Component {
       projectId
     } = this.props;
     window.location.hash = `#/project/${projectId}/edit`;
+  }
+  onUndoClick = () => {
+    this.setState((state, props) => ({
+      hasChanges: !equal(state.workingDesignPrev, this.project?.design),
+      workingDesign: state.workingDesignPrev,
+      workingDesignPrev: null
+    }));
   }
   onSaveClick = () => {
     this.saveProject();
@@ -133,7 +153,7 @@ class ProjectView extends React.Component {
     this.currentDraw = { hit, unhit };
 
     this.setState({
-      hasChanges: true
+      workingDesignPrev: cloneDeep(workingDesign)
     })
 
   }
@@ -175,13 +195,18 @@ class ProjectView extends React.Component {
 
   }
   endDraw() {
+
+    this.setState((state, props) => ({
+      hasChanges: !equal(state.workingDesign, this.project?.design)
+    }));
+
     this.currentDraw = null;
+
   }
 
   fill(x, y) {
 
     const {
-      workingDesign,
       designRects
     } = this.state;
 
@@ -192,12 +217,14 @@ class ProjectView extends React.Component {
     const isAHit = designRects.some((rect) => this.hitRect(x, y, rect.hit));
 
     if (isAHit) {
-      this.setState({
-        workingDesign: workingDesign.map((item, index) => ({
+      this.setState((state, props) => ({
+        hasChanges: !equal(state.workingDesign, this.project?.design),
+        workingDesignPrev: cloneDeep(state.workingDesign),
+        workingDesign: state.workingDesign.map((item, index) => ({
           ...item,
           beadId
         }))
-      });
+      }));
     }
 
   }
@@ -206,60 +233,46 @@ class ProjectView extends React.Component {
 
     const {
       dispatch,
-      projects,
       projectId
     } = this.props;
 
-    const project = projects[projectId];
-
-    if (!project) return;
+    if (!this.project) return;
 
     firebase.database()
       .ref(`projects/${projectId}`)
       .set({
-        ...project,
+        ...this.project,
         design: encodeDesign(this.state.workingDesign)
       });
 
     this.setState({
       hasChanges: false
-    })
+    });
 
   }
 
   resetWorkingDesign() {
 
-    const {
-      projects,
-      projectId
-    } = this.props;
+    const { design } = this.project || { };
 
-    const project       = projects[projectId],
-          workingDesign = project ? cloneDeep(project.design) : [];
+    const workingDesign = design ? cloneDeep(design) : [];
 
     this.setState({ workingDesign });
 
   }
   resetView() {
 
-    const {
-      projects,
-      projectId
-    } = this.props;
+    const { design } = this.project || { };
 
-    const project = projects[projectId];
+    if (!design) return;
 
-    if (project?.design) {
+    const designArea  = this.getDesignArea(design),
+          designRects = this.getDesignRects(design, designArea.w);
 
-      const designArea  = this.getDesignArea(project.design),
-            designRects = this.getDesignRects(project.design, designArea.w);
-
-      this.setState({
-        designArea,
-        designRects
-      });
-
-    }
+    this.setState({
+      designArea,
+      designRects
+    });
 
   }
   getDesignArea(design) {
@@ -404,8 +417,11 @@ class ProjectView extends React.Component {
     const {
       designArea,
       designRects,
-      hasChanges
+      hasChanges,
+      workingDesignPrev
     } = this.state;
+
+    const canUndo = !!workingDesignPrev;
 
     return (
 
@@ -421,6 +437,12 @@ class ProjectView extends React.Component {
             className={styles.edit}
             onClick={this.onEditClick}>
             Edit Project
+          </button>
+          <button
+            className={styles.undo}
+            disabled={!canUndo}
+            onClick={this.onUndoClick}>
+            Undo
           </button>
           <button
             className={styles.save}
