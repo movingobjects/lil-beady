@@ -1,0 +1,31 @@
+
+@import '~/styles/vars';
+@import '~/styles/utils';
+
+div.wrap {
+
+  p {
+    margin: 10px 0;
+
+    &.message {
+      font-weight: bold;
+    }
+    &.description {
+      margin-top: 15px;
+      font-size: 14px;
+      line-height: 1.45em;
+    }
+
+  }
+
+  div.wrapBtns {
+    margin-top: 30px;
+    text-align: right;
+
+    button + button {
+      margin-left: 10px;
+    }
+
+  }
+
+}

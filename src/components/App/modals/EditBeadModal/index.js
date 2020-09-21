@@ -50,12 +50,22 @@ class EditBeadModal extends React.Component {
 
   }
 
-  onCancel = () => {
+  onCancelClick = () => {
 
     window.location.hash = '#/dashboard';
 
   }
-  onDelete = () => {
+  onDeleteClick = () => {
+
+    this.props.dispatch({
+      type: 'confirmAction',
+      message: 'Are you sure you want to permanently delete this bead?',
+      labelConfirm: 'Yes, delete it',
+      onConfirm: this.onDeleteConfirm
+    });
+
+  }
+  onDeleteConfirm = () => {
 
     firebase.database()
       .ref(`beads/${this.props.beadId}`)
@@ -64,7 +74,7 @@ class EditBeadModal extends React.Component {
     window.location.hash = '#/dashboard';
 
   }
-  onSave = () => {
+  onSaveClick = () => {
 
     const {
       name,
@@ -163,7 +173,7 @@ class EditBeadModal extends React.Component {
     return (
 
       <Modal
-        onTapOff={this.onCancel}>
+        onTapOff={this.onCancelClick}>
 
         <div className={styles.wrap}>
 
@@ -205,17 +215,17 @@ class EditBeadModal extends React.Component {
 
           <div className={styles.buttons}>
             <button
-              onClick={this.onCancel}>
+              onClick={this.onCancelClick}>
               Cancel
             </button>
             <button
-              onClick={this.onDelete}>
+              onClick={this.onDeleteClick}>
               Delete
             </button>
             <button
               className={styles.default}
               disabled={!canSave}
-              onClick={this.onSave}>
+              onClick={this.onSaveClick}>
               Save
             </button>
           </div>

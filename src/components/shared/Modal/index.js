@@ -25,7 +25,8 @@ export default class Modal extends React.Component {
   render() {
 
     const {
-      className
+      className,
+      w = 600
     } = this.props;
 
     return (
@@ -40,7 +41,10 @@ export default class Modal extends React.Component {
           onClick={this.onTapOff} />
 
         <div
-          className={styles.panel}>
+          className={styles.panel}
+          style={{
+            width: w
+          }}>
 
           {this.props.children}
 

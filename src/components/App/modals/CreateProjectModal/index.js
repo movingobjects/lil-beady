@@ -31,7 +31,6 @@ class CreateProjectModal extends React.Component {
     this.setState({
       templateId: e.target.value
     });
-
   }
 
   updateTemplateOpts() {

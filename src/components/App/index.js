@@ -8,6 +8,7 @@ import firebase from 'firebase/app';
 import LoginView from './LoginView';
 import ProjectView from './ProjectView';
 import Dashboard from './Dashboard';
+import ConfirmModal from './modals/ConfirmModal';
 import EditBeadModal from './modals/EditBeadModal';
 import CreateBeadModal from './modals/CreateBeadModal';
 import CreateProjectModal from './modals/CreateProjectModal';
@@ -117,24 +118,35 @@ class App extends React.Component {
       authReady
     } = this.state;
 
+    const {
+      confirm
+    } = this.props;
+
+    if (!user) {
+      return (
+        <div
+          className={styles.wrap}>
+          <LoginView
+            ready={authReady}
+            onLoginClick={this.onLoginClick} />
+        </div>
+      );
+    }
+
     return (
       <div
         className={styles.wrap}>
 
-        {user ? (
-          <>
-            <Route path='#/dashboard' component={Dashboard} />
-            <Route path='#/dashboard/bead/create' component={CreateBeadModal} />
-            <Route path='#/dashboard/bead/edit/:beadId' component={EditBeadModal} />
-            <Route path='#/dashboard/create' component={CreateProjectModal} />
+        <Route path='#/dashboard' component={Dashboard} />
+        <Route path='#/dashboard/bead/create' component={CreateBeadModal} />
+        <Route path='#/dashboard/bead/edit/:beadId' component={EditBeadModal} />
+        <Route path='#/dashboard/create' component={CreateProjectModal} />
 
-            <Route path='#/project/:projectId' component={ProjectView} />
-            <Route path='#/project/:projectId/edit' component={EditProjectModal} />
-          </>
-        ) : (
-          <LoginView
-            ready={authReady}
-            onLoginClick={this.onLoginClick} />
+        <Route path='#/project/:projectId' component={ProjectView} />
+        <Route path='#/project/:projectId/edit' component={EditProjectModal} />
+
+        {confirm && (
+          <ConfirmModal {...confirm} />
         )}
 
       </div>
@@ -147,5 +159,6 @@ class App extends React.Component {
 export default connect((state) => ({
   project: state.project,
   beads: state.beads,
-  beadId: state.beadId
+  beadId: state.beadId,
+  confirm: state.confirm
 }))(App);

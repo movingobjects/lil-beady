@@ -6,6 +6,7 @@ import {
 } from './router';
 
 import {
+  confirm,
   projects,
   templates,
   beads,
@@ -18,6 +19,7 @@ import {
 
 const rootReducer = combineReducers({
   route,
+  confirm,
   projects,
   templates,
   beads,

@@ -39,7 +39,7 @@ class EditProjectModal extends React.Component {
     });
   }
 
-  onCancel = () => {
+  onCancelClick = () => {
 
     const {
       projectId
@@ -48,7 +48,20 @@ class EditProjectModal extends React.Component {
     window.location.hash = `#/project/${projectId}`;
 
   }
-  onDelete = () => {
+  onDeleteClick = () => {
+
+    const projectName = this.project?.name?.length ? `'${this.project.name}'` : 'this project';
+
+    this.props.dispatch({
+      type: 'confirmAction',
+      message: `Are you sure you want to permanently delete ${projectName}?`,
+      description: 'Your project will be lost forever.',
+      labelConfirm: 'Yes, delete it',
+      onConfirm: this.onDeleteConfirm
+    });
+
+  }
+  onDeleteConfirm = () => {
 
     const {
       projectId
@@ -61,7 +74,7 @@ class EditProjectModal extends React.Component {
     window.location.hash = `#/dashboard`;
 
   }
-  onSave = () => {
+  onSaveClick = () => {
 
     const {
       projectId
@@ -106,7 +119,7 @@ class EditProjectModal extends React.Component {
 
     return (
       <Modal
-        onTapOff={this.onCancel}>
+        onTapOff={this.onCancelClick}>
 
         <div className={styles.wrap}>
 
@@ -130,17 +143,17 @@ class EditProjectModal extends React.Component {
 
           <div className={styles.buttons}>
             <button
-              onClick={this.onCancel}>
+              onClick={this.onCancelClick}>
               Cancel
             </button>
             <button
-              onClick={this.onDelete}>
+              onClick={this.onDeleteClick}>
               Delete Project
             </button>
             <button
               className={styles.default}
               disabled={!canSave}
-              onClick={this.onSave}>
+              onClick={this.onSaveClick}>
               Save
             </button>
           </div>

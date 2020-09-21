@@ -43,7 +43,6 @@ export const beads = (state = [], action) => {
   }
 
 }
-
 export const beadId = (state = null, action) => {
 
   switch (action.type) {
@@ -132,7 +131,6 @@ export const panOffsetX = (state = 0, action) => {
   }
 
 }
-
 export const panOffsetY = (state = 0, action) => {
 
   let index;
@@ -150,6 +148,23 @@ export const panOffsetY = (state = 0, action) => {
 
     case 'panDown':
       return state + 1;
+
+    default:
+      return state;
+
+  }
+
+}
+
+export const confirm = (state = null, action) => {
+
+  switch (action.type) {
+
+    case 'confirmAction':
+      return action;
+
+    case 'closeConfirm':
+      return null;
 
     default:
       return state;
