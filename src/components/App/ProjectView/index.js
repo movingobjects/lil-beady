@@ -12,8 +12,7 @@ import { encodeDesign } from '~/utils';
 import * as selectors from '~/selectors';
 
 import Palette from './Palette';
-import ZoomControls from './ZoomControls';
-import PanControls from './PanControls';
+import ZoomPanControls from './ZoomPanControls';
 import DragArea from '~/components/shared/DragArea';
 
 import config from '~/config.json';
@@ -462,8 +461,7 @@ class ProjectView extends React.Component {
 
         <Palette />
 
-        <ZoomControls />
-        <PanControls />
+        <ZoomPanControls />
 
       </div>
     );

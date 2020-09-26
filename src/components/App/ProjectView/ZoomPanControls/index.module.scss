@@ -1,0 +1,73 @@
+
+@import '~/styles/vars';
+@import '~/styles/utils';
+
+div.wrap {
+
+  $btnSize: 30px;
+
+  button {
+
+    @include removeAppearance();
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+
+  }
+
+  div.wrapZoom {
+    position: absolute;
+    bottom: #{75 + ($btnSize + 5px) * 2};
+    right: 45px;
+
+    width: ($btnSize + 5px) * 2;
+    height: ($btnSize + 5px) * 1.25;
+
+    button {
+      top: 50%;
+
+      &.zoomIn {
+        left: 15%;
+      }
+      &.zoomOut {
+        left: 85%;
+      }
+    }
+
+  }
+
+  div.wrapPan {
+    position: absolute;
+    bottom: 45px;
+    right: 45px;
+    width: ($btnSize + 5px) * 2;
+    height: ($btnSize + 5px) * 2;
+
+    button {
+
+      &.panUp,
+      &.panDown,
+      &.resetPan {
+        left: 50%;
+      }
+
+      &.panRight {
+        left: 100%;
+      }
+
+      &.panLeft,
+      &.panRight,
+      &.resetPan {
+        top: 50%;
+      }
+
+      &.panDown {
+        top: 100%;
+      }
+    }
+
+  }
+
+}

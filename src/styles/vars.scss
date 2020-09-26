@@ -12,14 +12,16 @@ $fontSans:
   "Segoe UI Emoji",
   "Segoe UI Symbol";
 
-
 // Colors
 
 $colorBg: #fff3ef;
 $colorA: #f66;
 $colorB: #00f;
+$colorBtnLight: #baa;
 
-
-// Sizes
-
-$zoomBtnSize: 30px;
+:export {
+  colorBg: $colorBg;
+  colorA: $colorA;
+  colorB: $colorB;
+  colorBtnLight: $colorBtnLight;
+}
