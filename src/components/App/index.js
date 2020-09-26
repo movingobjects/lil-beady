@@ -62,10 +62,11 @@ class App extends React.Component {
     });
 
     // If no bead id has been set, set it to the first bead's id
+    // TODO (maybe this should go in the ProjectView?)
     if (!beadId) {
       dispatch({
         type: 'setBeadId',
-        id: Object.keys(beads)[0]
+        id: beads?.length ? Object.keys(beads)[0] : null
       });
     }
 
@@ -82,7 +83,7 @@ class App extends React.Component {
   onUserLogin = (user) => {
 
     firebase.database()
-      .ref(`users/${user.uid}`)
+      .ref(`users/${user.uid}/profile`)
       .update({
         name: user.displayName,
         email: user.email,
@@ -91,7 +92,7 @@ class App extends React.Component {
       });
 
     firebase.database()
-      .ref('beads')
+      .ref(`users/${user.uid}/beads`)
       .on('value', (data) => this.onBeadsUpdate(data.val()));
 
     firebase.database()

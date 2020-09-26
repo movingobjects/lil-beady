@@ -38,7 +38,7 @@ export default class ProjectCard extends React.Component {
 
     let bgColors = weightedBeads
       .sort((a, b) => b.count - a.count)
-      .map((b) => beads[b.id]?.color)
+      .map((b) => beads?.[b.id]?.color)
       .filter((c) => !!c);
 
     if (!bgColors.length) {

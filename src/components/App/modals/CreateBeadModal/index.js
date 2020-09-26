@@ -48,13 +48,13 @@ class CreateBeadModal extends React.Component {
       color
     } = this.state;
 
-    firebase.database()
-      .ref('beads')
-      .push({ name, color }, (error) => {
-        if (error) {
-          console.log(error);
-        }
-      });
+    const user = firebase.auth().currentUser;
+
+    if (user) {
+      firebase.database()
+        .ref(`users/${user.uid}/beads`)
+        .push({ name, color });
+    }
 
     window.location.hash = '#/dashboard';
 

@@ -81,9 +81,14 @@ class EditBeadModal extends React.Component {
       color
     } = this.state;
 
-    firebase.database()
-      .ref(`beads/${this.props.beadId}`)
-      .update({ name, color });
+    const user   = firebase.auth().currentUser,
+          beadId = this.props.beadId;
+
+    if (user) {
+      firebase.database()
+        .ref(`users/${user.uid}/beads/${beadId}`)
+        .update({ name, color });
+    }
 
     window.location.hash = '#/dashboard';
 
