@@ -2,6 +2,7 @@
 // Fonts
 
 $fontSans:
+  'Roboto',
   -apple-system,
   BlinkMacSystemFont,
   "Segoe UI",
@@ -17,11 +18,13 @@ $fontSans:
 $colorBg: #fff3ef;
 $colorA: #f66;
 $colorB: #00f;
-$colorBtnLight: #baa;
+$colorUiLight: #b99;
+$colorUiDisabled: mix($colorBg, $colorUiLight, 75%);
 
 :export {
   colorBg: $colorBg;
   colorA: $colorA;
   colorB: $colorB;
-  colorBtnLight: $colorBtnLight;
+  colorUiLight: $colorUiLight;
+  colorUiDisabled: $colorUiDisabled;
 }

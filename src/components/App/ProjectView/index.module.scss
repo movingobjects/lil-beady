@@ -9,10 +9,41 @@ div.wrap {
   overflow: hidden;
   @include preventSelect();
 
+  button {
+    @include removeAppearance();
+  }
+
   div.menu {
-    position: relative;
-    z-index: 100;
-    padding: 25px;
+    position: absolute;
+    top: 35px;
+    left: 35px;
+
+    button {
+      margin-right: 25px;
+    }
+
+  }
+
+  div.wrapProjectInfo {
+
+    position: absolute;
+    bottom: 35px;
+    left: 35px;
+
+    display: flex;
+    justify-content: flex-start;
+
+    button {
+      margin-right: 25px;
+    }
+
+    h2 {
+      font-size: 28px;
+      font-weight: normal;
+      line-height: 35px;
+      margin: 0;
+      color: $colorUiLight;
+    }
 
   }
 

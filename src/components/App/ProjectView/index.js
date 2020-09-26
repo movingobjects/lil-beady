@@ -18,6 +18,11 @@ import DragArea from '~/components/shared/DragArea';
 import config from '~/config.json';
 import styles from './index.module.scss';
 
+import IconSettings from '~/components/shared/icons/IconSettings';
+import IconArrowLeft from '~/components/shared/icons/IconArrowLeft';
+import IconSave from '~/components/shared/icons/IconSave';
+import IconUndo from '~/components/shared/icons/IconUndo';
+
 class ProjectView extends React.Component {
 
   constructor(props) {
@@ -408,25 +413,34 @@ class ProjectView extends React.Component {
           <button
             className={styles.close}
             onClick={this.onCloseClick}>
-            Close
+            <IconArrowLeft size={30} color={styles.colorUiLight} />
           </button>
-          <button
-            className={styles.edit}
-            onClick={this.onEditClick}>
-            Edit Project
-          </button>
-          <button
-            className={styles.undo}
-            disabled={!canUndo}
-            onClick={this.onUndoClick}>
-            Undo
-          </button>
+
           <button
             className={styles.save}
             disabled={!hasChanges}
             onClick={this.onSaveClick}>
-            Save
+            <IconSave size={30} color={hasChanges ? styles.colorUiLight : styles.colorUiDisabled} />
           </button>
+
+          <button
+            className={styles.undo}
+            disabled={!canUndo}
+            onClick={this.onUndoClick}>
+            <IconUndo size={30} color={canUndo ? styles.colorUiLight : styles.colorUiDisabled} />
+          </button>
+
+        </div>
+
+        <div className={styles.wrapProjectInfo}>
+          <button
+            className={styles.edit}
+            onClick={this.onEditClick}>
+            <IconSettings size={30} color={styles.colorUiLight} />
+          </button>
+
+          <h2>{this.project?.name || ''}</h2>
+
         </div>
 
         <DragArea

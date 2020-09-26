@@ -11,8 +11,8 @@ div.wrap {
   height: 100%;
 
   background-image: linear-gradient(
-    $colorBg,
-    lighten($colorBg, 2%)
+    lighten($colorBg, 2%),
+    $colorBg
   );
 
   font-family: $fontSans;

@@ -74,13 +74,13 @@ class ZoomPanControls extends React.Component {
             disabled={!canZoomIn}
             className={styles.zoomIn}
             onClick={this.onZoomInClick}>
-            <IconZoomIn size={30} color={styles.colorBtnLight} />
+            <IconZoomIn size={30} color={styles.colorUiLight} />
           </button>
           <button
             disabled={!canZoomOut}
             className={styles.zoomOut}
             onClick={this.onZoomOuClick}>
-            <IconZoomOut size={30} color={styles.colorBtnLight} />
+            <IconZoomOut size={30} color={styles.colorUiLight} />
           </button>
         </div>
 
@@ -88,27 +88,27 @@ class ZoomPanControls extends React.Component {
           <button
             className={styles.panUp}
             onClick={this.onPanUpClick}>
-            <IconArrowUp size={30} color={styles.colorBtnLight} />
+            <IconArrowUp size={30} color={styles.colorUiLight} />
           </button>
           <button
             className={styles.panRight}
             onClick={this.onPanRightClick}>
-            <IconArrowRight size={30} color={styles.colorBtnLight} />
+            <IconArrowRight size={30} color={styles.colorUiLight} />
           </button>
           <button
             className={styles.panDown}
             onClick={this.onPanDownClick}>
-            <IconArrowDown size={30} color={styles.colorBtnLight} />
+            <IconArrowDown size={30} color={styles.colorUiLight} />
           </button>
           <button
             className={styles.panLeft}
             onClick={this.onPanLeftClick}>
-            <IconArrowLeft size={30} color={styles.colorBtnLight} />
+            <IconArrowLeft size={30} color={styles.colorUiLight} />
           </button>
           <button
             className={styles.resetPan}
             onClick={this.onPanResetClick}>
-            <IconCircle size={30} color={styles.colorBtnLight} />
+            <IconCircle size={30} color={styles.colorUiLight} />
           </button>
         </div>
 
