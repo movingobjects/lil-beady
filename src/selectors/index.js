@@ -13,6 +13,11 @@ export const getBead = createSelector(
   getBeadId,
   (beads, beadId) => beads.find((b) => b.id === beadId)
 );
+export const getBeadColor = createSelector(
+  getBeads,
+  getBeadId,
+  (beads, beadId) => beads.find((b) => b.id === beadId)?.color
+);
 
 export const getTool = createSelector(
   getToolIndex,

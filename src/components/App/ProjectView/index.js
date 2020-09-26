@@ -140,14 +140,14 @@ class ProjectView extends React.Component {
   startDraw() {
 
     const { workingDesign } = this.state;
-    const { beadId } = this.props;
+    const { beadColor } = this.props;
 
     const hit   = [],
           unhit = [];
 
     // init unhit array with beads _not_ the current draw color
     workingDesign.forEach((item, index) => {
-      if (item.beadId !== beadId) unhit.push(index)
+      if (item.color !== beadColor) unhit.push(index)
     })
 
     this.currentDraw = { hit, unhit };
@@ -165,7 +165,7 @@ class ProjectView extends React.Component {
     } = this.state;
 
     const {
-      beadId
+      beadColor
     } = this.props;
 
     const {
@@ -185,7 +185,7 @@ class ProjectView extends React.Component {
         if (index === rectIndex) {
           return {
             ...item,
-            beadId
+            color: beadColor
           }
         } else {
           return item;
@@ -211,7 +211,7 @@ class ProjectView extends React.Component {
     } = this.state;
 
     const {
-      beadId
+      beadColor
     } = this.props;
 
     const isAHit = designRects.some((rect) => this.hitRect(x, y, rect.hit));
@@ -222,7 +222,7 @@ class ProjectView extends React.Component {
         workingDesignPrev: cloneDeep(state.workingDesign),
         workingDesign: state.workingDesign.map((item, index) => ({
           ...item,
-          beadId
+          color: beadColor
         }))
       }));
     }
@@ -255,7 +255,7 @@ class ProjectView extends React.Component {
 
     const { design } = this.project || { };
 
-    const workingDesign = design ? cloneDeep(design) : [];
+    let workingDesign = design ? cloneDeep(design) : [];
 
     this.setState({ workingDesign });
 
@@ -350,17 +350,10 @@ class ProjectView extends React.Component {
   getBeadColor(index) {
 
     const {
-      beads
-    } = this.props;
-
-    const {
       workingDesign
     } = this.state;
 
-    const item = workingDesign[index],
-          bead = beads.find((b) => b.id === item.beadId);
-
-    return bead?.color || config.design.blankColor;
+    return workingDesign[index]?.color || config.design.blankColor;
 
   }
 
@@ -493,9 +486,8 @@ class ProjectView extends React.Component {
 export default connect((state) => ({
   projects: state.projects,
   tool: selectors.getTool(state),
-  bead: selectors.getBead(state),
   beads: state.beads,
-  beadId: state.beadId,
+  beadColor: selectors.getBeadColor(state),
   zoomLevel: selectors.getZoomLevel(state),
   panOffsetX: state.panOffsetX,
   panOffsetY: state.panOffsetY

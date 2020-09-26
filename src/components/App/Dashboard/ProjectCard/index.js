@@ -20,25 +20,25 @@ export default class ProjectCard extends React.Component {
       project
     } = this.props;
 
-    const weightedBeads = [];
+    const weightedColors = [];
 
-    project.design.forEach(({ beadId }) => {
-      if (!!beadId?.length) {
-        const wBead = weightedBeads.find((b) => b.id === beadId);
-        if (wBead) {
-          wBead.count++;
+    project.design.forEach(({ color }) => {
+      if (!!color?.length) {
+        const wColor = weightedColors.find((c) => c.color === color);
+        if (wColor) {
+          wColor.count++;
         } else {
-          weightedBeads.push({
-            id: beadId,
+          weightedColors.push({
+            color,
             count: 1
           })
         }
       }
     });
 
-    let bgColors = weightedBeads
+    let bgColors = weightedColors
       .sort((a, b) => b.count - a.count)
-      .map((b) => beads?.find((bead) => bead.id === b.id)?.color)
+      .map((wc) => wc.color)
       .filter((c) => !!c);
 
     if (!bgColors.length) {

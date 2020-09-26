@@ -1,5 +1,6 @@
 
 import { times } from 'lodash';
+import config from '~/config.json';
 
 export function generateDesign(template, userOpts) {
 
@@ -26,13 +27,13 @@ export function generateDesign(template, userOpts) {
   times(opts.loopRows, (row) => {
     if (row === 0) {
       design.push(
-        { beadId: null, col: -0.5, row: row },
-        { beadId: null, col:  0.5, row: row }
+        { color: config.design.defaultColor, col: -0.5, row: row },
+        { color: config.design.defaultColor, col:  0.5, row: row }
       );
     } else {
       design.push(
-        { beadId: null, col: -1, row: row },
-        { beadId: null, col:  1, row: row }
+        { color: config.design.defaultColor, col: -1, row: row },
+        { color: config.design.defaultColor, col:  1, row: row }
       );
     }
   });
@@ -46,7 +47,7 @@ export function generateDesign(template, userOpts) {
         const rowY = opts.loopRows + (row * opts.bodyRowRepeat) + rowOffset;
         times(cols, (col) => {
           design.push({
-            beadId: null,
+            color: config.design.defaultColor,
             col: rowX + col,
             row: rowY
           })
@@ -61,7 +62,7 @@ export function generateDesign(template, userOpts) {
       times(opts.fringeRows, (row) => {
         const rowY = opts.loopRows + (opts.bodyRows * opts.bodyRowRepeat) + row;
         design.push({
-          beadId: null,
+          color: config.design.defaultColor,
           fCol: col,
           fRow: row,
           col: rowX + col,
@@ -78,7 +79,7 @@ export function generateDesign(template, userOpts) {
             rowY = opts.loopRows + row;
       times(cols, (col) => {
         design.push({
-          beadId: null,
+          color: config.design.defaultColor,
           col: rowX + col,
           row: rowY
         });
@@ -91,7 +92,7 @@ export function generateDesign(template, userOpts) {
       times(opts.fringeRows, (row) => {
         const rowY = opts.loopRows + opts.bodyRows + row;
         design.push({
-          beadId: null,
+          color: config.design.defaultColor,
           fCol: col,
           fRow: row,
           col: rowX + col,
@@ -111,7 +112,7 @@ export function generateDesign(template, userOpts) {
         const rowY = opts.loopRows + (row * opts.bodyRowRepeat) + rowOffset;
         times(cols, (col) => {
           design.push({
-            beadId: null,
+            color: config.design.defaultColor,
             col: rowX + col,
             row: rowY
           })
@@ -126,7 +127,7 @@ export function generateDesign(template, userOpts) {
         const rowY = opts.loopRows + (topRows * opts.bodyRowRepeat) + (row * opts.bodyRowRepeat) + rowOffset;
         times(cols, (col) => {
           design.push({
-            beadId: null,
+            color: config.design.defaultColor,
             col: rowX + col,
             row: rowY
           })
@@ -135,7 +136,7 @@ export function generateDesign(template, userOpts) {
     });
 
     design.push({
-      beadId: null,
+      color: config.design.defaultColor,
       col: 0,
       row: opts.loopRows + ((topRows + btmRows) * opts.bodyRowRepeat)
     })
@@ -152,7 +153,7 @@ export function encodeDesign(design) {
 
   design.forEach((bead, index) => {
 
-    const id = bead.beadId || '_';
+    const id = `_${bead.color.slice(1)}`;
 
     if (!encoded[id]?.length) {
       encoded[id] = '';
@@ -178,11 +179,13 @@ export function decodeDesign(encoded) {
 
   const design = [];
 
-  Object.keys(encoded).forEach((beadId) => {
+  for (let id in encoded) {
 
-    const items = encoded[beadId]
+    const items = encoded[id]
       .split(' ')
       .filter((item) => !!item.length);
+
+    const color = `#${id.slice(1)}`;
 
     items.forEach((item) => {
 
@@ -190,11 +193,7 @@ export function decodeDesign(encoded) {
             splitA    = itemSplit[0],
             splitB    = itemSplit[1];
 
-      const bead = { };
-
-      if (beadId !== '_') {
-        bead.beadId = beadId;
-      }
+      const bead = { color };
 
       if (splitB?.length) {
         const fColRow = splitB.split(',');
@@ -213,6 +212,12 @@ export function decodeDesign(encoded) {
       }
 
     });
+
+
+  }
+
+  Object.keys(encoded).forEach((color) => {
+
 
   });
 

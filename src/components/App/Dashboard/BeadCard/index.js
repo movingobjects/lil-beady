@@ -19,7 +19,6 @@ export default class BeadCard extends React.Component {
 
     return (
       <li
-        className={styles.wrap}
         onClick={this.onClick}
         style={{
           backgroundColor: bead.color

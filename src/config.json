@@ -3,7 +3,7 @@
     "reduxLoggerOn": true
   },
   "design": {
-    "blankColor": "#eeeeee",
+    "defaultColor": "#ffffff",
     "colW": 12,
     "rowH": 10,
     "beadW": 10,
