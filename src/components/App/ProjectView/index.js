@@ -231,20 +231,18 @@ class ProjectView extends React.Component {
 
   saveDesign() {
 
-    const {
-      dispatch,
-      projectId
-    } = this.props;
-
     if (!this.project) return;
 
-    const user   = firebase.auth().currentUser,
-          design = encodeDesign(this.state.workingDesign);
+    const userId    = firebase.auth().currentUser?.uid,
+          projectId = this.props.projectId;
 
-    if (user) {
+    if (userId) {
       firebase.database()
-        .ref(`users/${user.uid}/projects/${projectId}`)
-        .update({ design });
+        .ref(`users/${userId}/projects/${projectId}`)
+        .update({
+          design: encodeDesign(this.state.workingDesign),
+          dateLastUpdated: (new Date()).toISOString()
+        });
 
       this.setState({
         hasChanges: false

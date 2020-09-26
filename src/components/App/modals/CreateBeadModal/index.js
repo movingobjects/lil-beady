@@ -48,12 +48,20 @@ class CreateBeadModal extends React.Component {
       color
     } = this.state;
 
-    const user = firebase.auth().currentUser;
+    const userId = firebase.auth().currentUser?.uid;
 
-    if (user) {
+    if (userId) {
+
+      const timestamp = (new Date()).toISOString();
+
       firebase.database()
-        .ref(`users/${user.uid}/beads`)
-        .push({ name, color });
+        .ref(`users/${userId}/beads`)
+        .push({
+          name,
+          color,
+          dateCreated: timestamp,
+          dateLastUpdated: timestamp
+        });
     }
 
     window.location.hash = '#/dashboard';

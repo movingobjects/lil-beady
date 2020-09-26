@@ -75,15 +75,19 @@ class CreateProjectModal extends React.Component {
     const template = this.props.templates.find((t) => t.id === templateId);
     const design = generateDesign(template, this.getUserOpts());
 
-    const user = firebase.auth().currentUser;
+    const userId = firebase.auth().currentUser?.uid;
 
-    if (user) {
+    if (userId) {
+
+      const timestamp = (new Date()).toISOString();
 
       const newProjectKey = firebase.database()
-        .ref(`users/${user.uid}/projects`).push({
+        .ref(`users/${userId}/projects`).push({
           name,
           templateId,
-          design: encodeDesign(design)
+          design: encodeDesign(design),
+          dateCreated: timestamp,
+          dateLastUpdated: timestamp
         })
         .key;
 

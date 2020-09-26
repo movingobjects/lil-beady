@@ -63,15 +63,12 @@ class EditProjectModal extends React.Component {
   }
   onDeleteConfirm = () => {
 
-    const {
-      projectId
-    } = this.props;
+    const userId    = firebase.auth().currentUser?.uid,
+          projectId = this.props.projectId;
 
-    const user = firebase.auth().currentUser;
-
-    if (user) {
+    if (userId) {
       firebase.database()
-        .ref(`users/${user.uid}/projects/${projectId}`)
+        .ref(`users/${userId}/projects/${projectId}`)
         .remove();
     }
 
@@ -80,17 +77,15 @@ class EditProjectModal extends React.Component {
   }
   onSaveClick = () => {
 
-    const {
-      projectId
-    } = this.props;
+    const userId    = firebase.auth().currentUser?.uid,
+          projectId = this.props.projectId;
 
-    const user = firebase.auth().currentUser;
-
-    if (user) {
+    if (userId) {
       firebase.database()
-        .ref(`users/${user.uid}/projects/${projectId}`)
+        .ref(`users/${userId}/projects/${projectId}`)
         .update({
-          name: this.state.name
+          name: this.state.name,
+          dateLastUpdated: (new Date()).toISOString()
         });
 
       window.location.hash = `#/project/${projectId}`;

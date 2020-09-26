@@ -67,9 +67,14 @@ class EditBeadModal extends React.Component {
   }
   onDeleteConfirm = () => {
 
-    firebase.database()
-      .ref(`beads/${this.props.beadId}`)
-      .remove();
+    const userId = firebase.auth().currentUser?.uid,
+          beadId = this.props.beadId;
+
+    if (userId) {
+      firebase.database()
+        .ref(`users/${userId}/beads/${beadId}`)
+        .remove();
+    }
 
     window.location.hash = '#/dashboard';
 
@@ -81,13 +86,17 @@ class EditBeadModal extends React.Component {
       color
     } = this.state;
 
-    const user   = firebase.auth().currentUser,
+    const userId = firebase.auth().currentUser?.uid,
           beadId = this.props.beadId;
 
-    if (user) {
+    if (userId) {
       firebase.database()
-        .ref(`users/${user.uid}/beads/${beadId}`)
-        .update({ name, color });
+        .ref(`users/${userId}/beads/${beadId}`)
+        .update({
+          name,
+          color,
+          dateLastUpdated: (new Date()).toISOString()
+        });
     }
 
     window.location.hash = '#/dashboard';

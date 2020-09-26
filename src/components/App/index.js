@@ -82,21 +82,23 @@ class App extends React.Component {
   }
   onUserLogin = (user) => {
 
+    const userId = user?.uid;
+
     firebase.database()
-      .ref(`users/${user.uid}/profile`)
+      .ref(`users/${userId}/profile`)
       .update({
         name: user.displayName,
         email: user.email,
         photoUrl: user.photoURL,
-        lastLogin: Date.now()
+        dateLastLogin: Date.now()
       });
 
     firebase.database()
-      .ref(`users/${user.uid}/beads`)
+      .ref(`users/${userId}/beads`)
       .on('value', (data) => this.onBeadsUpdate(data.val()));
 
     firebase.database()
-      .ref(`users/${user.uid}/projects`)
+      .ref(`users/${userId}/projects`)
       .on('value', (data) => this.onProjectsUpdate(data.val()));
 
     this.setState({
