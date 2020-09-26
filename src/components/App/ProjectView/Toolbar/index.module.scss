@@ -55,27 +55,6 @@ div.wrap {
 
   }
 
-  div.tools {
-    flex-basis: 165px;
-    border-right: 1px solid #ddd;
-
-    ul {
-
-      li {
-        background: #eee;
-        color: #aaa;
-
-        &.selected {
-          background-color: #333;
-          color: white;
-        }
-
-      }
-
-    }
-
-  }
-
   div.beads {
     flex: 1;
 

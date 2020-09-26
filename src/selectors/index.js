@@ -5,7 +5,6 @@ import config from '~/config.json';
 
 const getBeads     = (state) => state.beads;
 const getBeadId    = (state) => state.beadId;
-const getToolIndex = (state) => state.toolIndex;
 const getZoomIndex = (state) => state.zoomIndex;
 
 export const getBead = createSelector(
@@ -17,11 +16,6 @@ export const getBeadColor = createSelector(
   getBeads,
   getBeadId,
   (beads, beadId) => beads.find((b) => b.id === beadId)?.color
-);
-
-export const getTool = createSelector(
-  getToolIndex,
-  (toolIndex) => config.controls.tools[toolIndex]
 );
 
 export const getZoomLevel = createSelector(

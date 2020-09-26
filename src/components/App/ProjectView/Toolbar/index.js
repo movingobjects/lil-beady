@@ -10,15 +10,6 @@ import styles from './index.module.scss';
 
 class Toolbar extends React.Component {
 
-  onToolSelect = (index) => {
-
-    this.props.dispatch({
-      type: 'setToolIndex',
-      index
-    });
-
-  }
-
   onBeadSelect = (id) => {
 
     this.props.dispatch({
@@ -31,32 +22,12 @@ class Toolbar extends React.Component {
   render() {
 
     const {
-      toolIndex,
       beads,
       beadId
     } = this.props;
 
-    const {
-      tools
-    } = config.controls;
-
     return (
       <div className={styles.wrap}>
-
-        <div className={styles.tools}>
-          <ul>
-            {tools.map((tool, i) => (
-              <li
-                key={`tool-${tool.id}`}
-                className={classNames({
-                  [styles.selected]: i === toolIndex
-                })}
-                onClick={() => this.onToolSelect(i)}>
-                {tool.label}
-              </li>
-            ))}
-          </ul>
-        </div>
 
         <div className={styles.beads}>
           <ul>
@@ -84,7 +55,6 @@ class Toolbar extends React.Component {
 }
 
 export default connect((state) => ({
-  toolIndex: state.toolIndex,
   beads: state.beads,
   beadId: state.beadId
 }))(Toolbar)

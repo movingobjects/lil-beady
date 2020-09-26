@@ -11,16 +11,6 @@
     "beadRadius": 2
   },
   "controls": {
-    "tools": [
-      {
-        "id": "draw",
-        "label": "Draw"
-      },
-      {
-        "id": "fill",
-        "label": "Fill"
-      }
-    ],
     "zoomLevels": [
       0.5,
       1,

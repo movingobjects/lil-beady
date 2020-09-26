@@ -107,20 +107,8 @@ class ProjectView extends React.Component {
   }
 
   onDragStart = ({ x, y }) => {
-
-    const {
-      tool
-    } = this.props;
-
-    if (tool.id === 'fill') {
-      this.fill(x, y);
-      return;
-
-    } else if (tool.id === 'draw') {
-      this.startDraw();
-      this.draw(x, y);
-    }
-
+    this.startDraw();
+    this.draw(x, y);
   }
   onDrag = ({ x, y }) => {
 
@@ -486,7 +474,6 @@ class ProjectView extends React.Component {
 
 export default connect((state) => ({
   projects: state.projects,
-  tool: selectors.getTool(state),
   beads: state.beads,
   beadColor: selectors.getBeadColor(state),
   zoomLevel: selectors.getZoomLevel(state),

@@ -57,20 +57,6 @@ export const beadId = (state = null, action) => {
 
 }
 
-export const toolIndex = (state = 0, action) => {
-
-  switch (action.type) {
-
-    case 'setToolIndex':
-      return action.index;
-
-    default:
-      return state;
-
-  }
-
-}
-
 export const zoomIndex = (state = 1, action) => {
 
   let index;
