@@ -75,35 +75,37 @@ div.wrap {
     &.beads {
 
       > ul > li {
+        width: 80px;
+        height: 80px;
+        margin: 0 15px 15px 0;
+        background-color: white;
+        border-radius: 100%;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.075);
+        border-right: 1px solid rgba(0, 0, 0, 0.075);
+        box-shadow:
+          3px 8px 15px rgba(255, 0, 0, 0.05),
+          0px 0px 2px rgba(0, 0, 255, 0.05);
+        transition:
+          box-shadow 0.4s;
 
-        &.create a {
+        @include hideText();
+
+        &:active {
+          box-shadow:
+            2px 4px 8px rgba(255, 0, 0, 0.1),
+            0px 0px 2px rgba(0, 0, 255, 0.1);
+        }
+
+        &.create {
           background-color: $colorA;
           background-image: url('~/images/icon-plus.svg');
           background-repeat: no-repeat;
           background-position: center;
-        }
 
-        a {
-          display: block;
-          width: 80px;
-          height: 80px;
-          margin: 0 15px 15px 0;
-          background-color: white;
-          border-radius: 100%;
-          border-bottom: 1px solid rgba(0, 0, 0, 0.075);
-          border-right: 1px solid rgba(0, 0, 0, 0.075);
-          box-shadow:
-            3px 8px 15px rgba(255, 0, 0, 0.05),
-            0px 0px 2px rgba(0, 0, 255, 0.05);
-          transition:
-            box-shadow 0.4s;
-
-          @include hideText();
-
-          &:active {
-            box-shadow:
-              2px 4px 8px rgba(255, 0, 0, 0.1),
-              0px 0px 2px rgba(0, 0, 255, 0.1);
+          a {
+            display: block;
+            width: 100%;
+            height: 100%;
           }
 
         }

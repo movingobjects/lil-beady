@@ -5,6 +5,7 @@ import { random } from 'varyd-utils';
 import firebase from 'firebase/app';
 
 import ProjectCard from './ProjectCard';
+import BeadCard from './BeadCard';
 import TextButton from '~/components/shared/TextButton';
 
 import styles from './index.module.scss';
@@ -73,16 +74,9 @@ class Dashboard extends React.Component {
             </li>
 
             {beads.map((bead) => (
-              <li key={bead.id}>
-                <a
-                  style={{
-                    backgroundColor: bead.color
-                  }}
-                  href={`#/dashboard/bead/edit/${bead.id}`}>
-                  {bead.name}
-                </a>
-
-              </li>
+              <BeadCard
+                key={bead.id}
+                bead={bead} />
             ))}
           </ul>
 
