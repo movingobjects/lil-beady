@@ -74,13 +74,13 @@ class ZoomPanControls extends React.Component {
             disabled={!canZoomIn}
             className={styles.zoomIn}
             onClick={this.onZoomInClick}>
-            <IconZoomIn size={30} color={styles.colorUiLight} />
+            <IconZoomIn size={30} color={canZoomIn ? styles.colorUiLight : styles.colorUiDisabled} />
           </button>
           <button
             disabled={!canZoomOut}
             className={styles.zoomOut}
             onClick={this.onZoomOuClick}>
-            <IconZoomOut size={30} color={styles.colorUiLight} />
+            <IconZoomOut size={30} color={canZoomOut ? styles.colorUiLight : styles.colorUiDisabled} />
           </button>
         </div>
 
