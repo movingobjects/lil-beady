@@ -14,7 +14,7 @@ class EditProjectModal extends React.Component {
 
     super(props);
 
-    const project = props.projects?.[props.projectId];
+    const project = props.projects.find((p) => p.id === props.projectId);
 
     this.state = {
       name: project?.name || 'Untitled',
@@ -29,7 +29,7 @@ class EditProjectModal extends React.Component {
       projectId
     } = this.props;
 
-    return projects[projectId];
+    return projects.find((p) => p.id === projectId);
 
   }
 
@@ -98,7 +98,7 @@ class EditProjectModal extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
 
-    const projectPrev = prevProps.projects?.[prevProps.projectId];
+    const projectPrev = prevProps.projects.find((p) => p.id === prevProps.projectId);
 
     if (!projectPrev && !!this.project) {
       this.setState({

@@ -23,9 +23,9 @@ class Dashboard extends React.Component {
   render() {
 
     const {
-      templates,
-      projects,
-      beads
+      templates = [],
+      projects = [],
+      beads = []
     } = this.props;
 
     return (
@@ -51,14 +51,12 @@ class Dashboard extends React.Component {
               </a>
             </li>
 
-            {map(projects, (project, projectId) => (
+            {projects.map((project) => (
               <ProjectCard
-                key={projectId}
-                id={projectId}
+                key={project.id}
                 project={project}
                 beads={beads} />
             ))}
-
           </ul>
         </section>
 
@@ -74,13 +72,13 @@ class Dashboard extends React.Component {
               </a>
             </li>
 
-            {map(beads, (bead, beadId) => (
-              <li key={beadId}>
+            {beads.map((bead) => (
+              <li key={bead.id}>
                 <a
                   style={{
                     backgroundColor: bead.color
                   }}
-                  href={`#/dashboard/bead/edit/${beadId}`}>
+                  href={`#/dashboard/bead/edit/${bead.id}`}>
                   {bead.name}
                 </a>
 

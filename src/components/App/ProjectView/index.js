@@ -50,7 +50,7 @@ class ProjectView extends React.Component {
       projectId
     } = this.props;
 
-    return projects[projectId];
+    return projects.find((p) => p.id === projectId);
 
   }
 
@@ -140,7 +140,7 @@ class ProjectView extends React.Component {
   startDraw() {
 
     const { workingDesign } = this.state;
-    const { bead, beadId } = this.props;
+    const { beadId } = this.props;
 
     const hit   = [],
           unhit = [];
@@ -357,9 +357,10 @@ class ProjectView extends React.Component {
       workingDesign
     } = this.state;
 
-    const item   = workingDesign[index];
+    const item = workingDesign[index],
+          bead = beads.find((b) => b.id === item.beadId);
 
-    return beads[item.beadId]?.color || config.design.blankColor;
+    return bead?.color || config.design.blankColor;
 
   }
 
@@ -372,10 +373,9 @@ class ProjectView extends React.Component {
     const propChanged  = (key) => this.props[key] !== prevProps[key],
           stateChanged = (key) => this.state[key] !== prevState[key];
 
-    const prevProject = prevProps.projects[prevProps.projectId],
-          project     = this.props.projects[this.props.projectId];
+    const prevProject = prevProps.projects.find((p) => p.id === prevProps.projectId);
 
-    if (!prevProject && project) {
+    if (!prevProject && this.project) {
       this.resetWorkingDesign();
       this.resetView();
     }
@@ -409,10 +409,6 @@ class ProjectView extends React.Component {
   }
 
   render() {
-
-    const {
-      projectId
-    } = this.props;
 
     const {
       designArea,

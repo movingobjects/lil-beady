@@ -16,7 +16,7 @@ export const templates = (state = templatesData, action) => {
 
 }
 
-export const projects = (state = { }, action) => {
+export const projects = (state = [], action) => {
 
   switch (action.type) {
 

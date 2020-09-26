@@ -15,7 +15,7 @@ class EditBeadModal extends React.Component {
 
     super(props);
 
-    const bead = props.beads?.[props.beadId];
+    const bead = props.beads?.find((b) => b.id === props.beadId);
 
     this.state = {
       name: bead?.name || '',
@@ -31,7 +31,7 @@ class EditBeadModal extends React.Component {
       beadId
     } = this.props;
 
-    return beads[beadId];
+    return beads?.find((b) => b.id === beadId);
 
   }
 
@@ -158,7 +158,7 @@ class EditBeadModal extends React.Component {
   }
   componentDidUpdate(prevProps, prevState) {
 
-    const beadPrev = prevProps.beads?.[prevProps.beadId];
+    const beadPrev = prevProps.beads?.find((b) => b.id === prevProps.beadId);
 
     if (!beadPrev && !!this.bead) {
       this.resetFields(this.bead?.name, this.bead?.color);

@@ -11,7 +11,7 @@ const getZoomIndex = (state) => state.zoomIndex;
 export const getBead = createSelector(
   getBeads,
   getBeadId,
-  (beads, beadId) => beads[beadId]
+  (beads, beadId) => beads.find((b) => b.id === beadId)
 );
 
 export const getTool = createSelector(

@@ -7,9 +7,9 @@ export default class ProjectCard extends React.Component {
 
   onClick = (e) => {
 
-    const { id } = this.props;
+    const { project } = this.props;
 
-    window.location.hash = `#/project/${id}`;
+    window.location.hash = `#/project/${project.id}`;
 
   }
 
@@ -38,7 +38,7 @@ export default class ProjectCard extends React.Component {
 
     let bgColors = weightedBeads
       .sort((a, b) => b.count - a.count)
-      .map((b) => beads?.[b.id]?.color)
+      .map((b) => beads?.find((bead) => bead.id === b.id)?.color)
       .filter((c) => !!c);
 
     if (!bgColors.length) {

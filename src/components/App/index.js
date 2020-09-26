@@ -32,41 +32,42 @@ class App extends React.Component {
 
   }
 
-  onProjectsUpdate = (projects) => {
+  onProjectsDataUpdate = (data) => {
 
-    const projectsDecoded = { };
-
-    for (const projectId in projects) {
-      projectsDecoded[projectId] = {
-        ...projects[projectId],
-        design: decodeDesign(projects[projectId]?.design)
-      }
-    }
+    const projects = map(data, (project, projectId) => ({
+      ...project,
+      id: projectId,
+      design: decodeDesign(project?.design),
+      dateCreated: new Date(project.dateCreated),
+      dateLastUpdated: new Date(project.dateLastUpdated)
+    })).sort((a, b) => b.dateLastUpdated - a.dateLastUpdated);
 
     this.props.dispatch({
       type: 'setProjects',
-      projects: projectsDecoded
+      projects
     });
 
   }
-  onBeadsUpdate = (beads) => {
+  onBeadsDataUpdate = (data) => {
 
-    const {
-      dispatch,
-      beadId,
-    } = this.props;
+    const beads = map(data, (bead, beadId) => ({
+      ...bead,
+      id: beadId,
+      dateCreated: new Date(bead.dateCreated),
+      dateLastUpdated: new Date(bead.dateLastUpdated)
+    })).sort((a, b) => b.dateCreated - a.dateCreated);
 
-    dispatch({
+    this.props.dispatch({
       type: 'setBeads',
       beads
     });
 
     // If no bead id has been set, set it to the first bead's id
     // TODO (maybe this should go in the ProjectView?)
-    if (!beadId) {
-      dispatch({
+    if (!this.props.beadId) {
+      this.props.dispatch({
         type: 'setBeadId',
-        id: beads?.length ? Object.keys(beads)[0] : null
+        id: beads[0]?.id || null
       });
     }
 
@@ -95,11 +96,11 @@ class App extends React.Component {
 
     firebase.database()
       .ref(`users/${userId}/beads`)
-      .on('value', (data) => this.onBeadsUpdate(data.val()));
+      .on('value', (data) => this.onBeadsDataUpdate(data.val()));
 
     firebase.database()
       .ref(`users/${userId}/projects`)
-      .on('value', (data) => this.onProjectsUpdate(data.val()));
+      .on('value', (data) => this.onProjectsDataUpdate(data.val()));
 
     this.setState({
       authReady: true,

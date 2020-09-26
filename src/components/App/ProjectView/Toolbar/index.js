@@ -60,16 +60,16 @@ class Toolbar extends React.Component {
 
         <div className={styles.beads}>
           <ul>
-            {map(beads, (bead, beadKey) => (
+            {beads.map((bead) => (
               <li
-                key={`${beadKey}`}
+                key={`${bead.id}`}
                 className={classNames({
-                  [styles.selected]: (beadKey === beadId)
+                  [styles.selected]: (bead.id === beadId)
                 })}
                 style={{
                   '--color-bead': bead.color
                 }}
-                onClick={() => this.onBeadSelect(beadKey)}>
+                onClick={() => this.onBeadSelect(bead.id)}>
                 {bead.name}
               </li>
             ))}
