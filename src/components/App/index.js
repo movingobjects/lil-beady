@@ -90,7 +90,7 @@ class App extends React.Component {
         name: user.displayName,
         email: user.email,
         photoUrl: user.photoURL,
-        dateLastLogin: Date.now()
+        dateLastLogin: (new Date()).toISOString()
       });
 
     firebase.database()
