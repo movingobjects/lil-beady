@@ -4,7 +4,7 @@
 
 div.wrap {
   position: absolute;
-  bottom: $toolbarH + $zoomBtnSize;
+  bottom: 100px + $zoomBtnSize;
   right: $zoomBtnSize;
   width: ($zoomBtnSize + 5px) * 2;
   height: ($zoomBtnSize + 5px) * 2;

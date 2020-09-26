@@ -1,0 +1,83 @@
+
+@import '~/styles/vars';
+@import '~/styles/utils';
+
+div.wrap {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translate(0, -50%);
+
+  width: 135px;
+  padding: 25px 10px;
+
+  background-color: white;
+  border-radius: 0 10px 10px 0;
+  box-shadow:
+    3px 8px 15px rgba(255, 0, 0, 0.05),
+    0px 0px 2px rgba(0, 0, 255, 0.1);
+
+  @include preventSelect();
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  div.beads {
+
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-around;
+    }
+
+    li {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      width: 50px;
+      height: 50px;
+      margin: 3px 0;
+
+      border-radius: 50%;
+
+      &.selected {
+        div.swatch {
+          width: 100%;
+          height: 100%;
+
+          box-shadow:
+            2px 4px 8px rgba(200, 0, 0, 0.1),
+            0px 0px 2px rgba(0, 0, 200, 0.1);
+
+        }
+      }
+
+      div.swatch {
+        @include hideText();
+        border-radius: 50%;
+        width: 60%;
+        height: 60%;
+
+        border-bottom: 1px solid rgba(0, 0, 0, 0.075);
+        border-right: 1px solid rgba(0, 0, 0, 0.075);
+        box-shadow:
+          3px 8px 15px rgba(255, 0, 0, 0.05),
+          0px 0px 2px rgba(0, 0, 255, 0.05);
+
+        transition:
+          box-shadow 0.15s ease-out,
+          width 0.15s ease-out,
+          height 0.15s ease-out;
+
+      }
+
+
+    }
+  }
+
+}

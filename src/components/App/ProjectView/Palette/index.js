@@ -8,7 +8,7 @@ import classNames from 'classnames';
 import config from '~/config.json';
 import styles from './index.module.scss';
 
-class Toolbar extends React.Component {
+class Palette extends React.Component {
 
   onBeadSelect = (id) => {
 
@@ -26,6 +26,8 @@ class Toolbar extends React.Component {
       beadId
     } = this.props;
 
+    console.log(styles);
+
     return (
       <div className={styles.wrap}>
 
@@ -37,11 +39,16 @@ class Toolbar extends React.Component {
                 className={classNames({
                   [styles.selected]: (bead.id === beadId)
                 })}
-                style={{
-                  '--color-bead': bead.color
-                }}
                 onClick={() => this.onBeadSelect(bead.id)}>
-                {bead.name}
+
+                <div
+                  className={styles.swatch}
+                  style={{
+                    backgroundColor: bead.color
+                  }}>
+                  {bead.name}
+                </div>
+
               </li>
             ))}
           </ul>
@@ -57,4 +64,4 @@ class Toolbar extends React.Component {
 export default connect((state) => ({
   beads: state.beads,
   beadId: state.beadId
-}))(Toolbar)
+}))(Palette)

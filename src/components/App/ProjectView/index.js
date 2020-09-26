@@ -11,7 +11,7 @@ import equal from 'fast-deep-equal';
 import { encodeDesign } from '~/utils';
 import * as selectors from '~/selectors';
 
-import Toolbar from './Toolbar';
+import Palette from './Palette';
 import ZoomControls from './ZoomControls';
 import PanControls from './PanControls';
 import DragArea from '~/components/shared/DragArea';
@@ -460,7 +460,7 @@ class ProjectView extends React.Component {
 
         </DragArea>
 
-        <Toolbar />
+        <Palette />
 
         <ZoomControls />
         <PanControls />
