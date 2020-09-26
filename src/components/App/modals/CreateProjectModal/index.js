@@ -75,18 +75,24 @@ class CreateProjectModal extends React.Component {
     const template = this.props.templates.find((t) => t.id === templateId);
     const design = generateDesign(template, this.getUserOpts());
 
-    const projectsRef = firebase.database().ref('projects');
-    const newProjectRef = projectsRef.push({
-      name,
-      templateId,
-      design: encodeDesign(design)
-    }, (error, ref) => {
-      if (error) {
-        console.log(error);
-      }
-    });
+    const user = firebase.auth().currentUser;
 
-    window.location.hash = `#/project/${newProjectRef.key}`;
+    if (user) {
+
+      const newProjectKey = firebase.database()
+        .ref(`users/${user.uid}/projects`).push({
+          name,
+          templateId,
+          design: encodeDesign(design)
+        })
+        .key;
+
+      window.location.hash = `#/project/${newProjectKey}`;
+
+    } else {
+      window.location.hash = `#/dashboard`;
+
+    }
 
   }
 

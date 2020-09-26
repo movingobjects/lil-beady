@@ -75,18 +75,19 @@ class App extends React.Component {
 
     let provider = new firebase.auth.GoogleAuthProvider();
 
-    firebase.auth().signInWithRedirect(provider);
+    firebase.auth()
+      .signInWithRedirect(provider);
 
   }
+  onUserLogin = (user) => {
 
-  initFirebase() {
-
-    firebase.auth()
-      .onAuthStateChanged((user) => {
-        this.setState({
-          authReady: true,
-          user
-        });
+    firebase.database()
+      .ref(`users/${user.uid}`)
+      .update({
+        name: user.displayName,
+        email: user.email,
+        photoUrl: user.photoURL,
+        lastLogin: Date.now()
       });
 
     firebase.database()
@@ -94,8 +95,24 @@ class App extends React.Component {
       .on('value', (data) => this.onBeadsUpdate(data.val()));
 
     firebase.database()
-      .ref('projects')
+      .ref(`users/${user.uid}/projects`)
       .on('value', (data) => this.onProjectsUpdate(data.val()));
+
+    this.setState({
+      authReady: true,
+      user
+    });
+
+  }
+
+  initFirebase() {
+
+    firebase.auth()
+      .onAuthStateChanged((user) => {
+        if (user) {
+          this.onUserLogin(user);
+        }
+      });
 
   }
   deleteFirebase() {

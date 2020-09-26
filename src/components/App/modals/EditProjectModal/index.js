@@ -67,9 +67,13 @@ class EditProjectModal extends React.Component {
       projectId
     } = this.props;
 
-    firebase.database()
-      .ref(`projects/${projectId}`)
-      .remove();
+    const user = firebase.auth().currentUser;
+
+    if (user) {
+      firebase.database()
+        .ref(`users/${user.uid}/projects/${projectId}`)
+        .remove();
+    }
 
     window.location.hash = `#/dashboard`;
 
@@ -80,13 +84,20 @@ class EditProjectModal extends React.Component {
       projectId
     } = this.props;
 
-    firebase.database()
-      .ref(`projects/${projectId}`)
-      .update({
-        name: this.state.name
-      });
+    const user = firebase.auth().currentUser;
 
-    window.location.hash = `#/project/${projectId}`;
+    if (user) {
+      firebase.database()
+        .ref(`users/${user.uid}/projects/${projectId}`)
+        .update({
+          name: this.state.name
+        });
+
+      window.location.hash = `#/project/${projectId}`;
+
+    } else {
+      window.location.hash = `#/dashboard`;
+    }
 
   }
 

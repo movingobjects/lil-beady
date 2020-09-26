@@ -103,7 +103,7 @@ class ProjectView extends React.Component {
     }));
   }
   onSaveClick = () => {
-    this.saveProject();
+    this.saveDesign();
   }
 
   onDragStart = ({ x, y }) => {
@@ -229,7 +229,7 @@ class ProjectView extends React.Component {
 
   }
 
-  saveProject() {
+  saveDesign() {
 
     const {
       dispatch,
@@ -238,16 +238,18 @@ class ProjectView extends React.Component {
 
     if (!this.project) return;
 
-    firebase.database()
-      .ref(`projects/${projectId}`)
-      .set({
-        ...this.project,
-        design: encodeDesign(this.state.workingDesign)
-      });
+    const user   = firebase.auth().currentUser,
+          design = encodeDesign(this.state.workingDesign);
 
-    this.setState({
-      hasChanges: false
-    });
+    if (user) {
+      firebase.database()
+        .ref(`users/${user.uid}/projects/${projectId}`)
+        .update({ design });
+
+      this.setState({
+        hasChanges: false
+      });
+    }
 
   }
 
