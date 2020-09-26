@@ -386,6 +386,7 @@ class ProjectView extends React.Component {
   componentDidMount() {
 
     window.addEventListener('resize', this.onResize);
+    this.onResize();
 
     this.resetWorkingDesign();
     this.resetView();

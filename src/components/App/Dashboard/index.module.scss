@@ -3,6 +3,8 @@
 @import '~/styles/utils';
 
 div.wrap {
+  overflow: scroll;
+  height: 100%;
   padding: 50px;
 
   h1 {
