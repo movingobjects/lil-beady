@@ -82,7 +82,6 @@ class App extends React.Component {
 
   }
   onUserLogin = (user) => {
-
     const userId = user?.uid;
 
     firebase.database()
@@ -102,20 +101,22 @@ class App extends React.Component {
       .ref(`users/${userId}/projects`)
       .on('value', (data) => this.onProjectsDataUpdate(data.val()));
 
-    this.setState({
-      authReady: true,
-      user
-    });
-
   }
 
   initFirebase() {
 
     firebase.auth()
       .onAuthStateChanged((user) => {
+
         if (user) {
           this.onUserLogin(user);
         }
+
+        this.setState({
+          authReady: true,
+          user
+        });
+
       });
 
   }
@@ -138,6 +139,11 @@ class App extends React.Component {
       user,
       authReady
     } = this.state;
+
+    console.log({
+      user,
+      authReady
+    });
 
     const {
       confirm
