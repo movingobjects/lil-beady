@@ -10,7 +10,7 @@ button.wrap {
   height: 45px;
 
   color: white;
-  background-color: $colorA;
+  background-color: $colorPrimary;
   font-size: 16px;
   font-weight: bold;
   border-radius: 100px;
@@ -30,11 +30,11 @@ button.wrap {
 
   &.outline {
     background-color: transparent;
-    border: 2px solid $colorA;
-    color: $colorA;
+    border: 2px solid $colorPrimary;
+    color: $colorPrimary;
 
     &:active {
-      background-color: $colorA;
+      background-color: $colorPrimary;
       color: white;
     }
 

@@ -231,7 +231,7 @@ class CreateProjectModal extends React.Component {
               onClick={this.onCancel} />
 
             <TextButton
-              label='Create'
+              label='Create Project'
               disabled={!canSave}
               onClick={this.onSave} />
 

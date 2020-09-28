@@ -9,7 +9,7 @@ div.wrap {
 
   h1 {
     font-size: 50px;
-    color: $colorA;
+    color: $colorPrimary;
     text-align: center;
   }
 
@@ -23,7 +23,7 @@ div.wrap {
     h2 {
       text-transform: uppercase;
       font-size: 13px;
-      color: $colorA;
+      color: $colorPrimary;
       letter-spacing: 0.02em;
     }
 
@@ -52,7 +52,7 @@ div.wrap {
         }
 
         &.create {
-          background-color: $colorA;
+          background-color: $colorPrimary;
           background-image: url('~/images/icon-plus.svg');
           background-repeat: no-repeat;
           background-position: center;
@@ -94,7 +94,7 @@ div.wrap {
         }
 
         &.create {
-          background-color: $colorA;
+          background-color: $colorPrimary;
           background-image: url('~/images/icon-plus.svg');
           background-repeat: no-repeat;
           background-position: center;

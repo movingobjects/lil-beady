@@ -6,6 +6,7 @@ import 'firebase/database';
 
 import { generateDesign, encodeDesign } from '~/utils';
 import Modal from '~/components/shared/Modal';
+import TextButton from '~/components/shared/TextButton';
 import styles from './index.module.scss';
 
 class EditProjectModal extends React.Component {
@@ -147,22 +148,25 @@ class EditProjectModal extends React.Component {
 
           </div>
 
-          <div className={styles.buttons}>
-            <button
-              onClick={this.onCancelClick}>
-              Cancel
-            </button>
-            <button
-              onClick={this.onDeleteClick}>
-              Delete Project
-            </button>
-            <button
-              className={styles.default}
+          <footer>
+
+            <TextButton
+              label='Delete'
+              outline={true}
+              className={styles.deleteBtn}
+              onClick={this.onDeleteClick} />
+
+            <TextButton
+              label='Cancel'
+              outline={true}
+              onClick={this.onCancelClick} />
+
+            <TextButton
+              label='Save Project'
               disabled={!canSave}
-              onClick={this.onSaveClick}>
-              Save
-            </button>
-          </div>
+              onClick={this.onSaveClick} />
+
+          </footer>
 
         </div>
 

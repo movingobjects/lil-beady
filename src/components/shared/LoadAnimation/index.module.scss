@@ -5,8 +5,8 @@
   width: 150px;
   height: 5px;
 
-  background: linear-gradient(to right, $colorA, $colorA);
-  background-color: transparentize($colorA, 0.85);
+  background: linear-gradient(to right, $colorPrimary, $colorPrimary);
+  background-color: transparentize($colorPrimary, 0.85);
 
   margin: 0 auto;
 

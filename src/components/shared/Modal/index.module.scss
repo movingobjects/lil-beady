@@ -32,8 +32,8 @@ div.wrap {
       0px 0px 5px rgba(0, 0, 255, 0.05);
 
     h2 {
-      color: black;
-      font-size: 24px;
+      color: $colorPrimary;
+      font-size: 26px;
       margin: 5px 0 35px 0;
     }
 
@@ -42,7 +42,7 @@ div.wrap {
       text-transform: uppercase;
       font-size: 13px;
       font-weight: bold;
-      color: $colorA;
+      color: $colorUiDark;
       letter-spacing: 0.02em;
       margin-bottom: 5px;
     }

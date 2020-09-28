@@ -20,15 +20,14 @@ $uiBtnSize: 45px;
 // Colors
 
 $colorBg: #fff3ef;
-$colorA: #f66;
-$colorB: #00f;
+$colorPrimary: #f66;
 $colorUi: #b99;
-$colorUiLight: mix($colorBg, $colorUi, 75%);
+$colorUiLight: #efe3e3;//mix($colorBg, $colorUi, 75%);
+$colorUiDark: #966;
 
 :export {
   colorBg: $colorBg;
-  colorA: $colorA;
-  colorB: $colorB;
+  colorA: $colorPrimary;
   colorUiLight: $colorUi;
   colorUiDisabled: $colorUiLight;
 }

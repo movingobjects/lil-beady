@@ -7,6 +7,7 @@ import firebase from 'firebase/app';
 import 'firebase/database';
 
 import Modal from '~/components/shared/Modal';
+import TextButton from '~/components/shared/TextButton';
 import styles from './index.module.scss';
 
 class EditBeadModal extends React.Component {
@@ -227,22 +228,25 @@ class EditBeadModal extends React.Component {
 
           </div>
 
-          <div className={styles.buttons}>
-            <button
-              onClick={this.onCancelClick}>
-              Cancel
-            </button>
-            <button
-              onClick={this.onDeleteClick}>
-              Delete
-            </button>
-            <button
-              className={styles.default}
+          <footer>
+
+            <TextButton
+              label='Delete'
+              outline={true}
+              className={styles.deleteBtn}
+              onClick={this.onDeleteClick} />
+
+            <TextButton
+              label='Cancel'
+              outline={true}
+              onClick={this.onCancelClick} />
+
+            <TextButton
+              label='Save Bead'
               disabled={!canSave}
-              onClick={this.onSaveClick}>
-              Save
-            </button>
-          </div>
+              onClick={this.onSaveClick} />
+
+          </footer>
 
         </div>
 

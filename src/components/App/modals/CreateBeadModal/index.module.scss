@@ -5,7 +5,7 @@
 div.wrap {
 
   div.wrapColorPreview {
-    border: 1px solid #ccc;
+    border: 1px solid $colorUiLight;
     border-radius: 8px;
     padding: 5px;
     margin-bottom: 25px;
@@ -20,18 +20,6 @@ div.wrap {
 
   div.field {
     margin-top: 10px;
-  }
-
-  label {
-    display: block;
-  }
-
-  input[type='text'] {
-    padding: 5px;
-  }
-
-  div.buttons {
-    margin-top: 25px;
   }
 
 }
