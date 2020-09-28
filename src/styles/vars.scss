@@ -13,18 +13,22 @@ $fontSans:
   "Segoe UI Emoji",
   "Segoe UI Symbol";
 
+// Sizes
+$uiBtnSize: 45px;
+
+
 // Colors
 
 $colorBg: #fff3ef;
 $colorA: #f66;
 $colorB: #00f;
-$colorUiLight: #b99;
-$colorUiDisabled: mix($colorBg, $colorUiLight, 75%);
+$colorUi: #b99;
+$colorUiLight: mix($colorBg, $colorUi, 75%);
 
 :export {
   colorBg: $colorBg;
   colorA: $colorA;
   colorB: $colorB;
-  colorUiLight: $colorUiLight;
-  colorUiDisabled: $colorUiDisabled;
+  colorUiLight: $colorUi;
+  colorUiDisabled: $colorUiLight;
 }

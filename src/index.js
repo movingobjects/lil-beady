@@ -10,7 +10,7 @@ import App from '~/components/App';
 import Router from '~/components/Router';
 import store from '~/store'
 
-import '~/styles/style.scss'
+import '~/styles/reset.scss'
 
 if (!process.env.FIREBASE_API_KEY?.length) {
   throw new Error('No Firebase API key specified in .env file');

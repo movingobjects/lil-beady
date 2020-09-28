@@ -14,14 +14,10 @@ import * as selectors from '~/selectors';
 import Palette from './Palette';
 import ZoomPanControls from './ZoomPanControls';
 import DragArea from '~/components/shared/DragArea';
+import IconBtn from '~/components/shared/IconBtn';
 
 import config from '~/config.json';
 import styles from './index.module.scss';
-
-import IconSettings from '~/components/shared/icons/IconSettings';
-import IconArrowLeft from '~/components/shared/icons/IconArrowLeft';
-import IconSave from '~/components/shared/icons/IconSave';
-import IconUndo from '~/components/shared/icons/IconUndo';
 
 class ProjectView extends React.Component {
 
@@ -410,35 +406,30 @@ class ProjectView extends React.Component {
       <div className={styles.wrap}>
 
         <div className={styles.menu}>
-          <button
+          <IconBtn
+            icon='arrow-left'
             className={styles.close}
-            onClick={this.onCloseClick}>
-            <IconArrowLeft size={30} color={styles.colorUiLight} />
-          </button>
+            onClick={this.onCloseClick} />
 
-          <button
-            className={styles.save}
+          <IconBtn
+            icon='save'
+            className={styles.close}
             disabled={!hasChanges}
-            onClick={this.onSaveClick}>
-            <IconSave size={30} color={hasChanges ? styles.colorUiLight : styles.colorUiDisabled} />
-          </button>
+            onClick={this.onCloseClick} />
 
-          <button
+          <IconBtn
+            icon='rotate-ccw'
             className={styles.undo}
             disabled={!canUndo}
-            onClick={this.onUndoClick}>
-            <IconUndo size={30} color={canUndo ? styles.colorUiLight : styles.colorUiDisabled} />
-          </button>
+            onClick={this.onUndoClick} />
 
         </div>
 
         <div className={styles.wrapProjectInfo}>
-          <button
+          <IconBtn
+            icon='sliders'
             className={styles.edit}
-            onClick={this.onEditClick}>
-            <IconSettings size={30} color={styles.colorUiLight} />
-          </button>
-
+            onClick={this.onEditClick} />
           <h2>{this.project?.name || ''}</h2>
 
         </div>

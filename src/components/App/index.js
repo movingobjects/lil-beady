@@ -140,11 +140,6 @@ class App extends React.Component {
       authReady
     } = this.state;
 
-    console.log({
-      user,
-      authReady
-    });
-
     const {
       confirm
     } = this.props;

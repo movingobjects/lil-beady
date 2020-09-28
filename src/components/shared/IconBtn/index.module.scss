@@ -1,0 +1,30 @@
+
+@import '~/styles/vars';
+@import '~/styles/utils';
+
+  button.wrap {
+
+    @include removeAppearance();
+
+    width: $uiBtnSize;
+    height: $uiBtnSize;
+
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    border: 2px solid $colorUiLight;
+    border-radius: 7px;
+
+    i {
+      color: $colorUi;
+      font-size: #{$uiBtnSize - 12px};
+      line-height: #{$uiBtnSize - 12px};
+    }
+
+    &:active i,
+    &:disabled i {
+      color: $colorUiLight;
+    }
+
+  }

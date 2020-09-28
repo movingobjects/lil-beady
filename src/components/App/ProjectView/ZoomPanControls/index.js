@@ -2,18 +2,10 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
+import IconBtn from '~/components/shared/IconBtn';
+
 import * as selectors from '~/selectors';
 import styles from './index.module.scss';
-
-import IconZoomIn from '~/components/shared/icons/IconZoomIn';
-import IconZoomOut from '~/components/shared/icons/IconZoomOut';
-
-import IconArrowDown from '~/components/shared/icons/IconArrowDown';
-import IconArrowLeft from '~/components/shared/icons/IconArrowLeft';
-import IconArrowRight from '~/components/shared/icons/IconArrowRight';
-import IconArrowUp from '~/components/shared/icons/IconArrowUp';
-
-import IconCircle from '~/components/shared/icons/IconCircle';
 
 class ZoomPanControls extends React.Component {
 
@@ -70,46 +62,44 @@ class ZoomPanControls extends React.Component {
       <div className={styles.wrap}>
 
         <div className={styles.wrapZoom}>
-          <button
-            disabled={!canZoomIn}
+
+          <IconBtn
+            icon='zoom-in'
             className={styles.zoomIn}
-            onClick={this.onZoomInClick}>
-            <IconZoomIn size={30} color={canZoomIn ? styles.colorUiLight : styles.colorUiDisabled} />
-          </button>
-          <button
-            disabled={!canZoomOut}
+            disabled={!canZoomIn}
+            onClick={this.onZoomInClick} />
+
+          <IconBtn
+            icon='zoom-out'
             className={styles.zoomOut}
-            onClick={this.onZoomOuClick}>
-            <IconZoomOut size={30} color={canZoomOut ? styles.colorUiLight : styles.colorUiDisabled} />
-          </button>
+            disabled={!canZoomOut}
+            onClick={this.onZoomOuClick} />
+
         </div>
 
         <div className={styles.wrapPan}>
-          <button
+          <IconBtn
+            icon='arrow-up'
             className={styles.panUp}
-            onClick={this.onPanUpClick}>
-            <IconArrowUp size={30} color={styles.colorUiLight} />
-          </button>
-          <button
+            onClick={this.onPanUpClick} />
+          <IconBtn
+            icon='arrow-right'
             className={styles.panRight}
-            onClick={this.onPanRightClick}>
-            <IconArrowRight size={30} color={styles.colorUiLight} />
-          </button>
-          <button
+            onClick={this.onPanRightClick} />
+          <IconBtn
+            icon='arrow-down'
             className={styles.panDown}
-            onClick={this.onPanDownClick}>
-            <IconArrowDown size={30} color={styles.colorUiLight} />
-          </button>
-          <button
+            onClick={this.onPanDownClick} />
+          <IconBtn
+            icon='arrow-left'
             className={styles.panLeft}
-            onClick={this.onPanLeftClick}>
-            <IconArrowLeft size={30} color={styles.colorUiLight} />
-          </button>
-          <button
+            onClick={this.onPanLeftClick} />
+
+          <IconBtn
+            icon='disc'
             className={styles.resetPan}
-            onClick={this.onPanResetClick}>
-            <IconCircle size={30} color={styles.colorUiLight} />
-          </button>
+            onClick={this.onPanResetClick} />
+
         </div>
 
       </div>

@@ -26,8 +26,6 @@ class Palette extends React.Component {
       beadId
     } = this.props;
 
-    console.log(styles);
-
     return (
       <div className={styles.wrap}>
 

@@ -2,37 +2,31 @@
 @import '~/styles/vars';
 @import '~/styles/utils';
 
-div.wrap {
+$btnPad: 5px;
 
-  $btnSize: 30px;
+div.wrap {
+  position: absolute;
+  bottom: #{$uiBtnSize / 2};
+  right: #{$uiBtnSize / 2};
 
   button {
-
-    @include removeAppearance();
-
     position: absolute;
     top: 0;
     left: 0;
     transform: translate(-50%, -50%);
-
   }
 
   div.wrapZoom {
     position: absolute;
-    bottom: #{75 + ($btnSize + 5px) * 2};
-    right: 45px;
+    right: #{$uiBtnSize * 3 / 2};
+    bottom: #{$uiBtnSize * 4};
 
-    width: ($btnSize + 5px) * 2;
-    height: ($btnSize + 5px) * 1.25;
-
-    button {
-      top: 50%;
-
+    > button {
       &.zoomIn {
-        left: 15%;
+        left: #{-($uiBtnSize + $btnPad) / 2};
       }
       &.zoomOut {
-        left: 85%;
+        left: #{($uiBtnSize + $btnPad) / 2};
       }
     }
 
@@ -40,31 +34,23 @@ div.wrap {
 
   div.wrapPan {
     position: absolute;
-    bottom: 45px;
-    right: 45px;
-    width: ($btnSize + 5px) * 2;
-    height: ($btnSize + 5px) * 2;
+    right: #{$uiBtnSize * 3 / 2};
+    bottom: #{$uiBtnSize * 3 / 2};
 
-    button {
+    > button {
 
-      &.panUp,
-      &.panDown,
-      &.resetPan {
-        left: 50%;
+      &.panLeft {
+        left: -($uiBtnSize + $btnPad);
       }
-
       &.panRight {
-        left: 100%;
+        left: $uiBtnSize + $btnPad;
       }
 
-      &.panLeft,
-      &.panRight,
-      &.resetPan {
-        top: 50%;
+      &.panUp {
+        top: -($uiBtnSize + $btnPad);
       }
-
       &.panDown {
-        top: 100%;
+        top: $uiBtnSize + $btnPad;
       }
     }
 
