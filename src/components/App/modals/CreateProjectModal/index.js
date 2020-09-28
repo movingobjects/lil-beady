@@ -3,6 +3,8 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import firebase from 'firebase/app';
 import 'firebase/database';
+import Slider from 'react-rangeslider';
+import '~/styles/react-rangeslider.scss';
 
 import { generateDesign, encodeDesign } from '~/utils';
 import Modal from '~/components/shared/Modal';
@@ -204,20 +206,23 @@ class CreateProjectModal extends React.Component {
 
                 <label
                   htmlFor={`opt-${opt.id}`}>
-                  {opt.label} ({opt.min} - {opt.max})
+                  {opt.label}
                 </label>
 
-                <input
-                  type='text'
-                  name={`opt-${opt.id}`}
+                <Slider
                   value={values[opt.id]}
-                  onChange={(e) => this.onTemplateOptChange(opt.id, e.target.value)} />
+                  min={opt.min}
+                  max={opt.max}
+                  step={1}
+                  name={`opt-${opt.id}`}
+                  onChange={(value) => this.onTemplateOptChange(opt.id, value)}
+                />
 
               </div>
             );
           })}
 
-          <div className={styles.buttons}>
+          <footer>
             <button
               onClick={this.onCancel}>
               Cancel
@@ -228,7 +233,7 @@ class CreateProjectModal extends React.Component {
               className={styles.default}>
               Save
             </button>
-          </div>
+          </footer>
         </div>
 
       </Modal>

@@ -413,9 +413,9 @@ class ProjectView extends React.Component {
 
           <IconBtn
             icon='save'
-            className={styles.close}
+            className={styles.save}
             disabled={!hasChanges}
-            onClick={this.onCloseClick} />
+            onClick={this.onSaveClick} />
 
           <IconBtn
             icon='rotate-ccw'
