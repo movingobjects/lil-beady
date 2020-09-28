@@ -4,16 +4,33 @@
 button.wrap {
 
   @include removeAppearance();
-  background-color: $colorA;
+
+  display: inline-block;
+  padding: 0 30px;
+  height: 45px;
+
   color: white;
-  padding: 15px 45px;
-  font-size: 18px;
+  background-color: $colorA;
+  font-size: 16px;
   font-weight: bold;
   border-radius: 100px;
 
+  &:disabled {
+    pointer-events: none;
+    background-color: $colorUiLight;
+    color: white;
+
+    &.outline {
+      background-color: transparent;
+      border-color: $colorUiLight;
+      color: $colorUiLight;
+    }
+
+  }
+
   &.outline {
     background-color: transparent;
-    border: 3px solid $colorA;
+    border: 2px solid $colorA;
     color: $colorA;
 
     &:active {
@@ -26,7 +43,15 @@ button.wrap {
   &.small {
     font-size: 14px;
     border-width: 2px;
-    padding: 10px 20px;
+    padding: 0 20px;
+    height: 40px;
+  }
+
+  &.large {
+    font-size: 18px;
+    border-width: 3px;
+    padding: 0 45px;
+    height: 55px;
   }
 
   &:active {

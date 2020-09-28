@@ -14,7 +14,7 @@ import * as selectors from '~/selectors';
 import Palette from './Palette';
 import ZoomPanControls from './ZoomPanControls';
 import DragArea from '~/components/shared/DragArea';
-import IconBtn from '~/components/shared/IconBtn';
+import IconButton from '~/components/shared/IconButton';
 
 import config from '~/config.json';
 import styles from './index.module.scss';
@@ -406,18 +406,18 @@ class ProjectView extends React.Component {
       <div className={styles.wrap}>
 
         <div className={styles.menu}>
-          <IconBtn
+          <IconButton
             icon='arrow-left'
             className={styles.close}
             onClick={this.onCloseClick} />
 
-          <IconBtn
+          <IconButton
             icon='save'
             className={styles.save}
             disabled={!hasChanges}
             onClick={this.onSaveClick} />
 
-          <IconBtn
+          <IconButton
             icon='rotate-ccw'
             className={styles.undo}
             disabled={!canUndo}
@@ -426,7 +426,7 @@ class ProjectView extends React.Component {
         </div>
 
         <div className={styles.wrapProjectInfo}>
-          <IconBtn
+          <IconButton
             icon='sliders'
             className={styles.edit}
             onClick={this.onEditClick} />

@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import IconBtn from '~/components/shared/IconBtn';
+import IconButton from '~/components/shared/IconButton';
 
 import * as selectors from '~/selectors';
 import styles from './index.module.scss';
@@ -63,13 +63,13 @@ class ZoomPanControls extends React.Component {
 
         <div className={styles.wrapZoom}>
 
-          <IconBtn
+          <IconButton
             icon='zoom-in'
             className={styles.zoomIn}
             disabled={!canZoomIn}
             onClick={this.onZoomInClick} />
 
-          <IconBtn
+          <IconButton
             icon='zoom-out'
             className={styles.zoomOut}
             disabled={!canZoomOut}
@@ -78,24 +78,24 @@ class ZoomPanControls extends React.Component {
         </div>
 
         <div className={styles.wrapPan}>
-          <IconBtn
+          <IconButton
             icon='arrow-up'
             className={styles.panUp}
             onClick={this.onPanUpClick} />
-          <IconBtn
+          <IconButton
             icon='arrow-right'
             className={styles.panRight}
             onClick={this.onPanRightClick} />
-          <IconBtn
+          <IconButton
             icon='arrow-down'
             className={styles.panDown}
             onClick={this.onPanDownClick} />
-          <IconBtn
+          <IconButton
             icon='arrow-left'
             className={styles.panLeft}
             onClick={this.onPanLeftClick} />
 
-          <IconBtn
+          <IconButton
             icon='disc'
             className={styles.resetPan}
             onClick={this.onPanResetClick} />

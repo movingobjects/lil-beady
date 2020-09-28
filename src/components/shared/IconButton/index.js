@@ -5,7 +5,7 @@ import classNames from 'classnames';
 
 import styles from './index.module.scss';
 
-export default class IconBtn extends React.Component {
+export default class IconButton extends React.Component {
 
   onClick = (e) => {
 

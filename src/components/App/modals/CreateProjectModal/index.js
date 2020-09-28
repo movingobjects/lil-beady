@@ -8,6 +8,7 @@ import '~/styles/react-rangeslider.scss';
 
 import { generateDesign, encodeDesign } from '~/utils';
 import Modal from '~/components/shared/Modal';
+import TextButton from '~/components/shared/TextButton';
 import styles from './index.module.scss';
 
 class CreateProjectModal extends React.Component {
@@ -223,16 +224,17 @@ class CreateProjectModal extends React.Component {
           })}
 
           <footer>
-            <button
-              onClick={this.onCancel}>
-              Cancel
-            </button>
-            <button
-              onClick={this.onSave}
+
+            <TextButton
+              label='Cancel'
+              outline={true}
+              onClick={this.onCancel} />
+
+            <TextButton
+              label='Create'
               disabled={!canSave}
-              className={styles.default}>
-              Save
-            </button>
+              onClick={this.onSave} />
+
           </footer>
         </div>
 

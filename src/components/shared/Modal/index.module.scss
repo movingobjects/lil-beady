@@ -34,7 +34,7 @@ div.wrap {
     h2 {
       color: black;
       font-size: 24px;
-      margin: 5px 0 25px 0;
+      margin: 5px 0 35px 0;
     }
 
     label {
@@ -72,7 +72,13 @@ div.wrap {
     }
 
     footer {
-      margin-top: 35px;
+      margin-top: 45px;
+      text-align: right;
+
+      button{
+        margin-left: 15px;
+      }
+
     }
 
   }

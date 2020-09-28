@@ -24,15 +24,19 @@ export default class TextButton extends React.Component {
     const {
       className,
       label,
+      disabled = false,
       outline = false,
-      small = false
+      small = false,
+      large = false,
     } = this.props;
 
     return (
       <button
+        disabled={disabled}
         className={classNames({
           [styles.wrap]: true,
           [styles.small]: small,
+          [styles.large]: large && !small,
           [styles.outline]: outline,
           [className]: className?.length
         })}
