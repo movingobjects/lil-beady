@@ -48,9 +48,7 @@ div.wrap {
           0px 0px 2px rgba(0, 0, 255, 0.05);
 
         &:active {
-          box-shadow:
-            2px 4px 8px rgba(255, 0, 0, 0.1),
-            0px 0px 2px rgba(0, 0, 255, 0.1);
+          opacity: 0.65;
         }
 
         &.create {
@@ -92,9 +90,7 @@ div.wrap {
         @include hideText();
 
         &:active {
-          box-shadow:
-            2px 4px 8px rgba(255, 0, 0, 0.1),
-            0px 0px 2px rgba(0, 0, 255, 0.1);
+          opacity: 0.65;
         }
 
         &.create {
