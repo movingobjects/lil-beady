@@ -1,6 +1,7 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
+import classNames from 'classnames';
 import firebase from 'firebase/app';
 import 'firebase/database';
 import Slider from 'react-rangeslider';
@@ -8,6 +9,7 @@ import '~/styles/react-rangeslider.scss';
 
 import { generateDesign, encodeDesign } from '~/utils';
 import Modal from '~/components/shared/Modal';
+import TemplateIcon from '~/components/shared/TemplateIcon';
 import TextButton from '~/components/shared/TextButton';
 import styles from './index.module.scss';
 
@@ -30,10 +32,12 @@ class CreateProjectModal extends React.Component {
       name: e.target.value
     });
   }
-  onTemplateSelect = (e) => {
+  onTemplateSelect = (id) => {
+
     this.setState({
-      templateId: e.target.value
+      templateId: id
     });
+
   }
 
   updateTemplateOpts() {
@@ -126,7 +130,7 @@ class CreateProjectModal extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
 
-    if (prevState.values.templateId !== this.state.values.templateId) {
+    if (prevState.templateId !== this.state.templateId) {
       this.updateTemplateOpts();
     }
 
@@ -185,43 +189,52 @@ class CreateProjectModal extends React.Component {
               Template
             </label>
 
-            <select
-              name='select-template'
-              value={templateId}
-              onChange={this.onTemplateSelect}>
-              <option value='triangle'>Triangle</option>
-              <option value='square'>Square</option>
-              <option value='diamond'>Diamond</option>
-            </select>
+            <ul className={styles.wrapTemplateSelect}>
+              {templates.map((t) => (
+                <li
+                  key={t.id}
+                  className={classNames({
+                    [styles.selected]: t.id === templateId
+                  })}
+                  onClick={() => this.onTemplateSelect(t.id)}>
+                  <span className={styles.icon}>
+                    <TemplateIcon templateId={t.id} />
+                  </span>
+                  {t.label}
+                </li>
+              ))}
+            </ul>
 
           </div>
 
-          {templateOpts.map((opt) => {
+          <div className={styles.wrapTwoCols}>
+            {templateOpts.map((opt) => {
 
-            if (!values.hasOwnProperty(opt.id)) return null;
+              if (!values.hasOwnProperty(opt.id)) return null;
 
-            return (
-              <div
-                key={`opt-${opt.id}`}
-                className={styles.field}>
+              return (
+                <div
+                  key={`opt-${opt.id}`}
+                  className={styles.field}>
 
-                <label
-                  htmlFor={`opt-${opt.id}`}>
-                  {opt.label}
-                </label>
+                  <label
+                    htmlFor={`opt-${opt.id}`}>
+                    {opt.label}
+                  </label>
 
-                <Slider
-                  value={values[opt.id]}
-                  min={opt.min}
-                  max={opt.max}
-                  step={1}
-                  name={`opt-${opt.id}`}
-                  onChange={(value) => this.onTemplateOptChange(opt.id, value)}
-                />
+                  <Slider
+                    value={values[opt.id]}
+                    min={opt.min}
+                    max={opt.max}
+                    step={1}
+                    name={`opt-${opt.id}`}
+                    onChange={(value) => this.onTemplateOptChange(opt.id, value)}
+                  />
 
-              </div>
-            );
-          })}
+                </div>
+              );
+            })}
+          </div>
 
           <footer>
 

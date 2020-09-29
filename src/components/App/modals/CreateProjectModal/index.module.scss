@@ -7,7 +7,70 @@ div.wrap {
   @include preventSelect();
 
   div.field {
-    margin-top: 10px;
+    margin-top: 15px;
+  }
+
+  ul.wrapTemplateSelect {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    li {
+      width: calc(33.333% - 10px);
+      border: 1px solid $colorUiLight;
+      border-radius: 7px;
+      padding: 20px 0;
+      color: $colorUi;
+      text-align: center;
+      font-size: 15px;
+      margin-bottom: 15px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+
+      svg {
+        margin-right: 10px;
+        g {
+          stroke: $colorUi;
+        }
+      }
+
+      &.selected {
+        pointer-events: none;
+        color: white;
+        font-weight: bold;
+        background-color: $colorPrimary;
+        border: none;
+        box-shadow:
+          2px 4px 15px rgba(255, 0, 0, 0.2),
+          0px 0px 2px rgba(0, 0, 255, 0.1);
+
+        transition:
+          box-shadow 0.3s ease;
+
+        svg g {
+          stroke: white;
+        }
+      }
+
+    }
+
+  }
+
+  div.wrapTwoCols {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    div.field {
+      flex-basis: calc(50% - 10px);
+    }
+
   }
 
 }

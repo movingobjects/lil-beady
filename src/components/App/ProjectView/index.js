@@ -77,7 +77,7 @@ class ProjectView extends React.Component {
         type: 'confirmAction',
         message: 'You have unsaved changes',
         description: 'By closing this project, you will lose all unsaved changes',
-        labelConfirm: `Close project & lose changes`,
+        labelConfirm: `Close & Lose Changes`,
         onConfirm: this.onCloseConfirm
       });
 

@@ -5,17 +5,23 @@
 div.wrap {
 
   div.wrapColorPreview {
+    display: inline-block;
     border: 1px solid $colorUiLight;
-    border-radius: 8px;
+    border-radius: 100%;
     padding: 5px;
     margin-bottom: 25px;
 
     div.colorPreview {
-      width: 100%;
-      height: 125px;
-      border-radius: 4px;
+      width: 75px;
+      height: 75px;
+      border-radius: 100%;
     }
 
+  }
+
+  div.wrapColorPicker {
+    display: flex;
+    justify-content: center;
   }
 
   div.field {

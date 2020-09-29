@@ -61,7 +61,7 @@ class EditBeadModal extends React.Component {
     this.props.dispatch({
       type: 'confirmAction',
       message: 'Are you sure you want to permanently delete this bead?',
-      labelConfirm: 'Yes, delete it',
+      labelConfirm: 'Yes, Delete It',
       onConfirm: this.onDeleteConfirm
     });
 
@@ -109,19 +109,21 @@ class EditBeadModal extends React.Component {
     const opts = {
       color: this.state.color,
       display: 'inline-block',
-      width: 300,
-      height: 300,
+      width: 250,
+      height: 250,
+      handleRadius: 7,
       sliderMargin: 20,
-      handleRadius: 10,
       layoutDirection: 'horizontal',
       layout: [
         {
           component: iro.ui.Wheel,
-          options: { }
+          options: {
+          }
         },
         {
           component: iro.ui.Slider,
           options: {
+            sliderMargin: 40,
             sliderType: 'hue'
           }
         },
@@ -224,8 +226,16 @@ class EditBeadModal extends React.Component {
                 }}/>
             </div>
 
-            <div id='color-picker'></div>
+          </div>
 
+          <div
+            className={styles.field}>
+
+            <label>Edit Color</label>
+
+            <div className={styles.wrapColorPicker}>
+              <div id='color-picker'></div>
+            </div>
           </div>
 
           <footer>

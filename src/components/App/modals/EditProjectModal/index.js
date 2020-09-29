@@ -56,7 +56,7 @@ class EditProjectModal extends React.Component {
     this.props.dispatch({
       type: 'confirmAction',
       message: `Are you sure you want to permanently delete ${projectName}?`,
-      labelConfirm: 'Yes, delete it',
+      labelConfirm: 'Yes, Delete It',
       onConfirm: this.onDeleteConfirm
     });
 

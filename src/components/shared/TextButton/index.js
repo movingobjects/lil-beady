@@ -30,11 +30,6 @@ export default class TextButton extends React.Component {
       large = false,
     } = this.props;
 
-    console.log({
-      label,
-      className
-    });
-
     return (
       <button
         disabled={disabled}

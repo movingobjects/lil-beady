@@ -1,6 +1,7 @@
 [
   {
     "id": "triangle",
+    "label": "Triangle",
     "opts": [
       {
         "id": "loopRows",
@@ -40,12 +41,13 @@
         "type": "range",
         "min": 0,
         "max": 75,
-        "default": 40
+        "default": 20
       }
     ]
   },
   {
     "id": "square",
+    "label": "Square",
     "opts": [
       {
         "id": "loopRows",
@@ -61,7 +63,7 @@
         "type": "range",
         "min": 3,
         "max": 50,
-        "default": 15
+        "default": 25
       },
       {
         "id": "bodyRows",
@@ -77,12 +79,13 @@
         "type": "range",
         "min": 0,
         "max": 75,
-        "default": 35
+        "default": 20
       }
     ]
   },
   {
     "id": "diamond",
+    "label": "Diamond",
     "opts": [
       {
         "id": "loopRows",
