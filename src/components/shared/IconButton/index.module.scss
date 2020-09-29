@@ -5,6 +5,7 @@
   button.wrap {
 
     @include removeAppearance();
+    @include preventSelect();
 
     width: $uiBtnSize;
     height: $uiBtnSize;

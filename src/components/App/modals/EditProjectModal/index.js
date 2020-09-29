@@ -51,12 +51,11 @@ class EditProjectModal extends React.Component {
   }
   onDeleteClick = () => {
 
-    const projectName = this.project?.name?.length ? `'${this.project.name}'` : 'this project';
+    const projectName = this.project?.name?.length ? `"${this.project.name}"` : 'this project';
 
     this.props.dispatch({
       type: 'confirmAction',
       message: `Are you sure you want to permanently delete ${projectName}?`,
-      description: 'Your project will be lost forever.',
       labelConfirm: 'Yes, delete it',
       onConfirm: this.onDeleteConfirm
     });

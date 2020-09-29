@@ -4,6 +4,7 @@
 button.wrap {
 
   @include removeAppearance();
+  @include preventSelect();
 
   display: inline-block;
   padding: 0 30px;

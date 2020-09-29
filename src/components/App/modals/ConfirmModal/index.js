@@ -3,6 +3,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 
 import Modal from '~/components/shared/Modal';
+import TextButton from '~/components/shared/TextButton';
 
 import style from './index.module.scss';
 
@@ -61,16 +62,18 @@ class ConfirmModal extends React.Component {
             <p className={style.description}>{description}</p>
           )}
 
-          <div className={style.wrapBtns}>
-            <button
-              onClick={this.onCancel}>
-              {labelCancel}
-            </button>
-            <button
-              onClick={this.onConfirm}>
-              {labelConfirm}
-            </button>
-          </div>
+          <footer>
+
+            <TextButton
+              label={labelCancel}
+              outline={true}
+              onClick={this.onCancel} />
+
+            <TextButton
+              label={labelConfirm}
+              onClick={this.onConfirm} />
+
+          </footer>
 
         </div>
 

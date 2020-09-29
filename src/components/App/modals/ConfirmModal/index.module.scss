@@ -5,25 +5,18 @@
 div.wrap {
 
   p {
-    margin: 10px 0;
+    margin: 0;
 
     &.message {
-      font-weight: bold;
+      font-size: 22px;
+      color: $colorPrimary;
     }
+
     &.description {
-      margin-top: 15px;
-      font-size: 14px;
-      line-height: 1.45em;
-    }
-
-  }
-
-  div.wrapBtns {
-    margin-top: 30px;
-    text-align: right;
-
-    button + button {
-      margin-left: 10px;
+      margin-top: 20px;
+      font-size: 15px;
+      line-height: 1.5em;
+      color: $colorUiDark;
     }
 
   }
