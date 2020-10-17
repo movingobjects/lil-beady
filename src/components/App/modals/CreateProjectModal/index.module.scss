@@ -50,6 +50,10 @@ div.wrap {
         }
       }
 
+      &:active {
+        background-color: transparentize($colorUi, 0.9);
+      }
+
       &.selected {
         pointer-events: none;
         color: white;

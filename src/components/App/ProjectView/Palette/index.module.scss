@@ -45,6 +45,10 @@ div.wrap {
 
       border-radius: 50%;
 
+      &:active {
+        opacity: 0.65;
+      }
+
       &.selected {
         div.swatch {
           width: 100%;
