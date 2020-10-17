@@ -219,7 +219,8 @@ class CreateProjectModal extends React.Component {
 
                   <label
                     htmlFor={`opt-${opt.id}`}>
-                    {opt.label}
+                    <span>{opt.label}</span>
+                    <span className={styles.value}>{values[opt.id]}</span>
                   </label>
 
                   <Slider

@@ -8,6 +8,16 @@ div.wrap {
 
   div.field {
     margin-top: 15px;
+
+    label span.value {
+      margin-left: 10px;
+      color: white;
+      background-color: $colorUi;
+      border-radius: 5px;
+      padding: 2px 5px;
+      height: 20px;
+    }
+
   }
 
   ul.wrapTemplateSelect {
