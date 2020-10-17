@@ -32,7 +32,7 @@
     "firebase": "^7.19.1",
     "konva": "^6.0.0",
     "lodash": "^4.17.15",
-    "react": "^16.8.4",
+    "react": "^16.14.0",
     "react-dom": "^16.8.4",
     "react-konva": "^16.13.0-2",
     "react-rangeslider": "^2.2.0",
