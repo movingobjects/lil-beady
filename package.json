@@ -43,6 +43,8 @@
     "varyd-utils": "^1.6.2"
   },
   "resolutions": {
-    "node-forge": "0.10.0"
+    "node-forge": "^0.10.0",
+    "node-fetch": "^2.6.1",
+    "yargs-parser": "^13.1.2"
   }
 }
