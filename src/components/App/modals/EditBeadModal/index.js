@@ -199,10 +199,10 @@ class EditBeadModal extends React.Component {
           <div
             className={styles.field}>
 
-            <label
+            <h4
               htmlFor='input-name'>
               Bead name
-            </label>
+            </h4>
 
             <input
               type='text'
@@ -215,7 +215,7 @@ class EditBeadModal extends React.Component {
           <div
             className={styles.field}>
 
-            <label>Color</label>
+            <h4>Color</h4>
 
             <div
               className={styles.wrapColorPreview}>
@@ -231,7 +231,7 @@ class EditBeadModal extends React.Component {
           <div
             className={styles.field}>
 
-            <label>Edit Color</label>
+            <h4>Edit Color</h4>
 
             <div className={styles.wrapColorPicker}>
               <div id='color-picker'></div>

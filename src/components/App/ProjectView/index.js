@@ -1,6 +1,7 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
+import classNames from 'classnames';
 import { cloneDeep } from 'lodash';
 import { maths, geom } from 'varyd-utils';
 import { Stage, Layer, Rect } from 'react-konva';
@@ -399,11 +400,19 @@ class ProjectView extends React.Component {
       workingDesignPrev
     } = this.state;
 
+    const {
+      name = '',
+      useDarkBg = false
+    } = this.project || { };
+
     const canUndo = !!workingDesignPrev;
 
     return (
 
-      <div className={styles.wrap}>
+      <div className={classNames({
+        [styles.wrap]: true,
+        [styles.darkBg]: useDarkBg
+      })}>
 
         <div className={styles.menu}>
           <IconButton
@@ -430,7 +439,7 @@ class ProjectView extends React.Component {
             icon='sliders'
             className={styles.edit}
             onClick={this.onEditClick} />
-          <h2>{this.project?.name || ''}</h2>
+          <h2>{name}</h2>
 
         </div>
 

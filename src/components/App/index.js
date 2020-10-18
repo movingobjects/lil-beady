@@ -179,7 +179,6 @@ class App extends React.Component {
 }
 
 export default connect((state) => ({
-  project: state.project,
   beadId: state.beadId,
   confirm: state.confirm
 }))(App);

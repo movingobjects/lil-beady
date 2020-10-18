@@ -1,9 +1,9 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
-import iro from '@jaames/iro';
 import firebase from 'firebase/app';
 import 'firebase/database';
+import iro from '@jaames/iro';
 
 import Modal from '~/components/shared/Modal';
 import TextButton from '~/components/shared/TextButton';
@@ -140,10 +140,10 @@ class CreateBeadModal extends React.Component {
           <div
             className={styles.field}>
 
-            <label
+            <h4
               htmlFor='input-name'>
               Bead name
-            </label>
+            </h4>
 
             <input
               type='text'
@@ -157,7 +157,7 @@ class CreateBeadModal extends React.Component {
           <div
             className={styles.field}>
 
-            <label>Color</label>
+            <h4>Color</h4>
 
             <div
               className={styles.wrapColorPreview}>
@@ -173,7 +173,7 @@ class CreateBeadModal extends React.Component {
           <div
             className={styles.field}>
 
-            <label>Edit Color</label>
+            <h4>Edit Color</h4>
 
             <div className={styles.wrapColorPicker}>
               <div id='color-picker'></div>

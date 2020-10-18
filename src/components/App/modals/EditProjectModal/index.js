@@ -19,6 +19,7 @@ class EditProjectModal extends React.Component {
 
     this.state = {
       name: project?.name || 'Untitled',
+      useDarkBg: !!project?.useDarkBg
     }
 
   }
@@ -37,6 +38,11 @@ class EditProjectModal extends React.Component {
   onNameChange = (e) => {
     this.setState({
       name: e.target.value
+    });
+  }
+  onUseDarkBgChange = (e) => {
+    this.setState({
+      useDarkBg: e.target.checked
     });
   }
 
@@ -85,6 +91,7 @@ class EditProjectModal extends React.Component {
         .ref(`users/${userId}/projects/${projectId}`)
         .update({
           name: this.state.name,
+          useDarkBg: !!this.state.useDarkBg,
           dateLastUpdated: (new Date()).toISOString()
         });
 
@@ -102,7 +109,8 @@ class EditProjectModal extends React.Component {
 
     if (!projectPrev && !!this.project) {
       this.setState({
-        name: this.project.name
+        name: this.project.name,
+        useDarkBg: this.project.useDarkBg
       });
     }
 
@@ -111,11 +119,13 @@ class EditProjectModal extends React.Component {
   render() {
 
     const {
-      name
+      name,
+      useDarkBg
     } = this.state;
 
     const hasChanged = (
-      name !== this.project?.name
+      name !== this.project?.name ||
+      useDarkBg !== this.project?.useDarkBg
     );
 
     const canSave = (
@@ -134,16 +144,35 @@ class EditProjectModal extends React.Component {
           <div
             className={styles.field}>
 
-            <label
-              htmlFor='input-name'>
+            <h4>
               Project name
-            </label>
+            </h4>
 
             <input
               type='text'
               name='input-name'
               value={name}
               onChange={this.onNameChange} />
+
+          </div>
+
+          <div
+            className={styles.field}>
+
+            <h4>
+              Background
+            </h4>
+
+            <label className={styles.wrapToggle}>
+              <input
+                checked={useDarkBg}
+                type='checkbox'
+                onChange={this.onUseDarkBgChange} />
+              <div className={styles.toggle}>
+                <i className={`fe fe-check`} />
+              </div>
+              <span>Use Dark Background</span>
+            </label>
 
           </div>
 

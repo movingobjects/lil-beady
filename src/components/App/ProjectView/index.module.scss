@@ -9,6 +9,13 @@ div.wrap {
   overflow: hidden;
   @include preventSelect();
 
+  &.darkBg {
+    background-image: linear-gradient(
+      lighten($colorBgDark, 2%),
+      $colorBgDark
+    );
+  }
+
   div.menu {
     position: absolute;
     top: 35px;

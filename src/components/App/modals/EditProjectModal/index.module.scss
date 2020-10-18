@@ -13,4 +13,44 @@ div.wrap {
     float: left;
   }
 
+  label.wrapToggle {
+    @include preventSelect();
+
+    input {
+      visibility: hidden;
+      position: absolute;
+    }
+    input:checked ~ div.toggle {
+      background-color: $colorPrimary;
+      border-color: $colorPrimary;
+
+      i {
+        display: inline-block;
+
+      }
+    }
+
+    div.toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+      vertical-align: middle;
+      border: 1px solid $colorUiLight;
+      border-radius: 7px;
+      position: relative;
+
+      i {
+        display: none;
+        color: white;
+        font-size: 20px;
+        font-weight: bold;
+      }
+
+    }
+    color: $colorUiDark;
+  }
+
 }

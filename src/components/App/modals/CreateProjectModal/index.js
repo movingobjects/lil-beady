@@ -167,10 +167,10 @@ class CreateProjectModal extends React.Component {
           <div
             className={styles.field}>
 
-            <label
+            <h4
               htmlFor='input-name'>
               Project name
-            </label>
+            </h4>
 
             <input
               type='text'
@@ -184,10 +184,10 @@ class CreateProjectModal extends React.Component {
           <div
             className={styles.field}>
 
-            <label
+            <h4
               htmlFor='select-template'>
               Template
-            </label>
+            </h4>
 
             <ul className={styles.wrapTemplateSelect}>
               {templates.map((t) => (
@@ -217,11 +217,11 @@ class CreateProjectModal extends React.Component {
                   key={`opt-${opt.id}`}
                   className={styles.field}>
 
-                  <label
+                  <h4
                     htmlFor={`opt-${opt.id}`}>
                     <span>{opt.label}</span>
                     <span className={styles.value}>{values[opt.id]}</span>
-                  </label>
+                  </h4>
 
                   <Slider
                     value={values[opt.id]}
