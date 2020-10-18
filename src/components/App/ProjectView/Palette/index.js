@@ -5,6 +5,8 @@ import { map } from 'lodash';
 
 import classNames from 'classnames';
 
+import IconButton from '~/components/shared/IconButton';
+
 import config from '~/config.json';
 import styles from './index.module.scss';
 
@@ -17,6 +19,14 @@ class Palette extends React.Component {
       id
     });
 
+  }
+
+  onClearClick = () => {
+    const { onClear } = this.props;
+
+    if (typeof onClear === 'function') {
+      onClear();
+    }
   }
 
   render() {
@@ -51,6 +61,11 @@ class Palette extends React.Component {
             ))}
           </ul>
         </div>
+
+        <IconButton
+          icon='x'
+          className={styles.clear}
+          onClick={this.onClearClick} />
 
       </div>
     )

@@ -193,7 +193,7 @@ class ProjectView extends React.Component {
 
   }
 
-  fill(x, y) {
+  onClear = () => {
 
     const {
       designRects
@@ -203,18 +203,16 @@ class ProjectView extends React.Component {
       beadColor
     } = this.props;
 
-    const isAHit = designRects.some((rect) => this.hitRect(x, y, rect.hit));
+    const nextWorkingDesign = this.state.workingDesign.map((item, index) => ({
+      ...item,
+      color: beadColor
+    }))
 
-    if (isAHit) {
-      this.setState((state, props) => ({
-        hasChanges: !equal(state.workingDesign, this.project?.design),
-        workingDesignPrev: cloneDeep(state.workingDesign),
-        workingDesign: state.workingDesign.map((item, index) => ({
-          ...item,
-          color: beadColor
-        }))
-      }));
-    }
+    this.setState((state, props) => ({
+      hasChanges: !equal(nextWorkingDesign, this.project?.design),
+      workingDesignPrev: cloneDeep(state.workingDesign),
+      workingDesign: nextWorkingDesign
+    }));
 
   }
 
@@ -473,7 +471,8 @@ class ProjectView extends React.Component {
 
         </DragArea>
 
-        <Palette />
+        <Palette
+          onClear={this.onClear} />
 
         <ZoomPanControls />
 
