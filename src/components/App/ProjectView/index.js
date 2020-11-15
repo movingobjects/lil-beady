@@ -232,7 +232,8 @@ class ProjectView extends React.Component {
         });
 
       this.setState({
-        hasChanges: false
+        hasChanges: false,
+        workingDesignPrev: null
       });
     }
 
@@ -240,11 +241,9 @@ class ProjectView extends React.Component {
 
   resetWorkingDesign() {
 
-    const { design } = this.project || { };
-
-    let workingDesign = design ? cloneDeep(design) : [];
-
-    this.setState({ workingDesign });
+    this.setState({
+      workingDesign: cloneDeep(this.project?.design || [])
+    });
 
   }
   resetView() {
@@ -262,6 +261,7 @@ class ProjectView extends React.Component {
     });
 
   }
+
   getDesignArea(design) {
 
     const {
@@ -353,18 +353,18 @@ class ProjectView extends React.Component {
     const propChanged  = (key) => this.props[key] !== prevProps[key],
           stateChanged = (key) => this.state[key] !== prevState[key];
 
-    const prevProject = prevProps.projects.find((p) => p.id === prevProps.projectId);
+    const prevProject    = prevProps.projects.find((p) => p.id === prevProps.projectId),
+          changedProject = !equal(prevProject, this.project);
 
-    if (!prevProject && this.project) {
+    if (changedProject) {
       this.resetWorkingDesign();
       this.resetView();
     }
 
-    if (propChanged('zoomLevel')) {
-      this.resetView();
-    }
+    const changedZoom = propChanged('zoomLevel'),
+          changedPan  = propChanged('panOffsetX') || propChanged('panOffsetY');
 
-    if (propChanged('panOffsetX') || propChanged('panOffsetY')) {
+    if (changedZoom || changedPan) {
       this.resetView();
     }
 
