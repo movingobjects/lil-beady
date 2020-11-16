@@ -8,7 +8,9 @@
     "rowH": 10,
     "beadW": 10,
     "beadH": 8,
-    "beadRadius": 2
+    "beadRadius": 2,
+    "labelPeriod": 5,
+    "minLabelW": 14
   },
   "controls": {
     "zoomLevels": [

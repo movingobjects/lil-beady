@@ -2,9 +2,9 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
-import { cloneDeep } from 'lodash';
+import { cloneDeep, uniqBy } from 'lodash';
 import { maths, geom } from 'varyd-utils';
-import { Stage, Layer, Rect } from 'react-konva';
+import { Stage, Layer, Rect, Circle, Text } from 'react-konva';
 import firebase from 'firebase/app';
 import 'firebase/database';
 import equal from 'fast-deep-equal';
@@ -34,6 +34,7 @@ class ProjectView extends React.Component {
         h: 1
       },
       designRects: [ ],
+      designRows: [ ],
       workingDesign: [ ],
       workingDesignPrev: null,
       hasChanges: false
@@ -253,11 +254,13 @@ class ProjectView extends React.Component {
     if (!design) return;
 
     const designArea  = this.getDesignArea(design),
-          designRects = this.getDesignRects(design, designArea.w);
+          designRects = this.getDesignRects(design, designArea.w),
+          designRows  = this.getDesignRows(designRects);
 
     this.setState({
       designArea,
-      designRects
+      designRects,
+      designRows
     });
 
   }
@@ -289,7 +292,7 @@ class ProjectView extends React.Component {
     const offsetX = panOffsetX * config.controls.panDist * zoomLevel,
           offsetY = panOffsetY * config.controls.panDist * zoomLevel;
 
-    const w = (maxCol - minCol + 1) * colW,
+    const w = (maxCol - minCol + 5) * colW,
           h = (maxRow - minRow + 1) * rowH,
           x = offsetX + (window.innerWidth - w) / 2,
           y = offsetY + (window.innerHeight - h) / 2;
@@ -333,6 +336,28 @@ class ProjectView extends React.Component {
       };
     });
 
+  }
+  getDesignRows(rects) {
+
+    const allRows = rects.map((r) => ({
+      x: r.bead.x,
+      y: r.bead.y,
+      w: r.bead.w,
+      h: r.bead.h
+    }))
+      .sort((a, b) => {
+        if (a.y === b.y) {
+          return a.x - b.x;
+        } else {
+          return a.y - b.y;
+        }
+      });
+
+    const labelRows = uniqBy(allRows, 'y')
+      .map((row, i) => ({ ...row, index: i }))
+      .filter((row, i) => !(i % config.design.labelPeriod))
+
+    return labelRows;
   }
   getBeadColor(index) {
 
@@ -394,6 +419,7 @@ class ProjectView extends React.Component {
     const {
       designArea,
       designRects,
+      designRows,
       hasChanges,
       workingDesignPrev
     } = this.state;
@@ -404,6 +430,11 @@ class ProjectView extends React.Component {
     } = this.project || { };
 
     const canUndo = !!workingDesignPrev;
+
+    const opts      = config.design,
+          zoom      = this.props.zoomLevel,
+          beadW     = zoom * opts.beadW,
+          showLabel = beadW >= config.design.minLabelW;
 
     return (
 
@@ -465,6 +496,33 @@ class ProjectView extends React.Component {
                   height={r.bead.h}
                   cornerRadius={r.bead.r}
                   fill={this.getBeadColor(i)} />
+              ))}
+            </Layer>
+            <Layer>
+              {designRows.map((row) => (
+                showLabel ? (
+                  <Text
+                    key={`rowLabel-${row.index}`}
+                    text={row.index}
+                    align='right'
+                    verticalAlign='middle'
+                    fill={useDarkBg ? 'white' : 'black'}
+                    opacity={0.5}
+                    width={row.w}
+                    height={row.h}
+                    x={row.x - row.w - 7}
+                    y={row.y}
+                  />
+                ) : (
+                  <Circle
+                    key={`rowBullet-${row.index}`}
+                    fill={useDarkBg ? 'white' : 'black'}
+                    opacity={0.35}
+                    radius={2}
+                    x={row.x - 10}
+                    y={row.y + (row.h / 2)}
+                  />
+                )
               ))}
             </Layer>
           </Stage>
