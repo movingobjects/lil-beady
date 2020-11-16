@@ -354,8 +354,8 @@ class ProjectView extends React.Component {
       });
 
     const labelRows = uniqBy(allRows, 'y')
-      .map((row, i) => ({ ...row, index: i }))
-      .filter((row, i) => !(i % config.design.labelPeriod))
+      .map((row, i) => ({ ...row, num: i + 1 }))
+      .filter((row, i) => !(row.num % config.design.labelPeriod))
 
     return labelRows;
   }
@@ -502,8 +502,8 @@ class ProjectView extends React.Component {
               {designRows.map((row) => (
                 showLabel ? (
                   <Text
-                    key={`rowLabel-${row.index}`}
-                    text={row.index}
+                    key={`rowLabel-${row.num}`}
+                    text={row.num}
                     align='right'
                     verticalAlign='middle'
                     fill={useDarkBg ? 'white' : 'black'}
@@ -515,7 +515,7 @@ class ProjectView extends React.Component {
                   />
                 ) : (
                   <Circle
-                    key={`rowBullet-${row.index}`}
+                    key={`rowBullet-${row.num}`}
                     fill={useDarkBg ? 'white' : 'black'}
                     opacity={0.35}
                     radius={2}
